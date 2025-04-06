@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('prize', 255);
             $table->date('deadline');
             $table->string('registration_link', 255);
+            $table->string('photo', 255)->nullable(); // kolom foto
             $table->foreignId('organizer_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-        });
+        });  
     }
 
     /**

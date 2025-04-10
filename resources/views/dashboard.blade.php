@@ -1,31 +1,76 @@
 @extends('layouts.app')
 
-@section('title', 'User Dashboard')
+@section('title', 'Dashboard')
 
 @section('content')
-  <h2 class="text-3xl font-bold text-indigo-700 mb-6">Welcome, {{ auth()->user()->name }}</h2>
+<h1 class="text-3xl font-bold text-indigo-600 mb-6">
+    Selamat datang, {{ auth()->user()->name }}!
+</h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-    <div class="bg-white shadow p-6 rounded-lg">
-      <h3 class="text-lg font-semibold text-indigo-600">Competitions</h3>
-      <p class="text-4xl font-bold mt-2">8</p>
+<!-- Eksplorasi Lomba Preview Carousel -->
+<div class="mb-12">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Eksplorasi Lomba</h2>
+        <a href="{{ route('explore') }}" class="inline-flex items-center gap-1 text-indigo-600 font-semibold hover:underline">
+            Lihat semua lomba →
+        </a>
     </div>
-    <div class="bg-white shadow p-6 rounded-lg">
-      <h3 class="text-lg font-semibold text-green-600">Events</h3>
-      <p class="text-4xl font-bold mt-2">3</p>
-    </div>
-    <div class="bg-white shadow p-6 rounded-lg">
-      <h3 class="text-lg font-semibold text-yellow-600">Forum Posts</h3>
-      <p class="text-4xl font-bold mt-2">12</p>
-    </div>
-  </div>
 
-  <div class="bg-white p-6 rounded-lg shadow">
-    <h4 class="text-xl font-semibold mb-4 text-indigo-700">Your Registered Competitions</h4>
-    <ul class="space-y-2">
-      <li class="border p-3 rounded hover:bg-gray-100">UI/UX Hackfest 2025</li>
-      <li class="border p-3 rounded hover:bg-gray-100">AI Challenge 2025</li>
-      <li class="border p-3 rounded hover:bg-gray-100">Marketing War 2025</li>
-    </ul>
-  </div>
+    <div id="competition-slider" class="splide px-2 min-h-[460px] pb-10">
+        <div class="splide__track">
+            <ul class="splide__list">
+                @foreach($competitions as $competition)
+                <li class="splide__slide">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden w-[320px] mx-auto">
+                        <img src="{{ asset('storage/' . $competition->photo) }}" 
+                             class="w-full h-52 object-cover" 
+                             alt="{{ $competition->title }}">
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold text-indigo-700">{{ $competition->title }}</h3>
+                            <p class="text-sm text-gray-600">{{ \Illuminate\Support\Str::limit($competition->description, 60) }}</p>
+                        </div>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+</div>
 @endsection
+
+@push('styles')
+<style>
+    .splide__slide {
+        transition: transform 0.3s ease-in-out;
+        height: auto !important;
+    }
+
+    .splide__slide.is-visible.is-active {
+        transform: scale(1.06);
+        z-index: 10;
+    }
+
+    .splide__track {
+        padding-bottom: 2rem;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Splide('#competition-slider', {
+            type: 'loop',
+            perPage: 3,
+            focus: 'center',
+            gap: '1rem', // lebih rapat antar card
+            pagination: true,
+            arrows: true,
+            breakpoints: {
+                1024: { perPage: 2 },
+                768: { perPage: 1 },
+            },
+        }).mount();
+    });
+</script>
+@endpush

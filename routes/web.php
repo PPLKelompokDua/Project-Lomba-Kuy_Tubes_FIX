@@ -15,6 +15,25 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
 
+ // TEAM CRUD
+ Route::resource('teams', TeamController::class);
+
+ // TEAM MEMBER (optional)
+ Route::put('/team-members/{member}/role', [TeamMemberController::class, 'updateRole']);
+ Route::delete('/team-members/{member}', [TeamMemberController::class, 'destroy']);
+
+ // INVITATION
+ Route::post('/teams/{teamId}/invitations', [InvitationController::class, 'send']);
+ Route::get('/teams/{teamId}/invitations', [InvitationController::class, 'track']);
+ Route::put('/invitations/{invitation}', [InvitationController::class, 'respond']);
+
+ // CHAT
+ Route::get('/messages', [MessageController::class, 'index']);
+ Route::post('/messages', [MessageController::class, 'send']);
+
+ // RECOMMENDATION
+ Route::get('/recommendations', [RecommendationController::class, 'index']);
+
 // Logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

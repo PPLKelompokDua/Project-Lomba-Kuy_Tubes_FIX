@@ -26,6 +26,8 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.p
  Route::post('/teams/{teamId}/invitations', [InvitationController::class, 'send']);
  Route::get('/teams/{teamId}/invitations', [InvitationController::class, 'track']);
  Route::put('/invitations/{invitation}', [InvitationController::class, 'respond']);
+ Route::get('/invitations', [InvitationsController::class, 'index'])->name('invitations.index');
+ Route::post('/invitations/send', [InvitationsController::class, 'send'])->name('invitations.send');
 
  // CHAT
  Route::get('/messages', [MessageController::class, 'index']);

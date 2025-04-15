@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title') - LombaKuy</title>
@@ -21,6 +22,15 @@
       </nav>
     </div>
   </header>
+
+  <!-- layouts/app.blade.php -->
+<ul class="navbar-nav ms-auto">
+    <!-- Link ke Invitations -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('invitations.index') }}">Invitations</a>
+    </li>
+</ul>
+
 
   <!-- Content -->
   <main class="container mx-auto px-4 py-10">

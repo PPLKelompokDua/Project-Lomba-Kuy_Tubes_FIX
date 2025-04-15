@@ -275,7 +275,9 @@
       <div>
         <h3 class="text-lg font-bold">Ready to get started?</h3>
         <button class="mt-6 bg-indigo-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-indigo-700 transition shadow-lg">
-          Get Started
+          <a href="/login">
+            Get Started
+          </a>
         </button>
       </div>
       <div>

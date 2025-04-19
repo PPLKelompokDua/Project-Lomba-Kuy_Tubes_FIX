@@ -123,14 +123,16 @@ class CompetitionController extends Controller
     public function destroy(Competition $competition)
     {
         $this->authorizeAccess($competition);
-
+    
         if ($competition->photo && Storage::disk('public')->exists($competition->photo)) {
             Storage::disk('public')->delete($competition->photo);
         }
-
+    
         $competition->delete();
-
-        return redirect()->route('organizer.competitions.index')->with('success', 'Lomba berhasil dihapus.');
+    
+        return redirect()
+            ->route(auth()->user()->role === 'admin' ? 'admin.dashboard' : 'organizer.competitions.index')
+            ->with('success', 'Lomba berhasil dihapus.');
     }
 
     /**
@@ -138,6 +140,10 @@ class CompetitionController extends Controller
      */
     private function authorizeAccess(Competition $competition)
     {
+        if (auth()->user()->role === 'admin') {
+            return; // Admin boleh akses semua
+        }
+    
         if ($competition->organizer_id !== auth()->id()) {
             abort(403, 'Akses ditolak');
         }

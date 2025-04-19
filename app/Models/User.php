@@ -30,4 +30,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function savedCompetitions()
+    {
+        return $this->belongsToMany(Competition::class, 'saved_competitions')
+                    ->withTimestamps();
+    }
 }

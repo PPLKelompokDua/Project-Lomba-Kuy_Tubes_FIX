@@ -19,4 +19,16 @@ class Competition extends Model
         'photo',
         'organizer_id',
     ];
+
+
+    public function organizer()
+    {
+        return $this->belongsTo(User::class, 'organizer_id');
+    }
+    
+    public function savedBy()
+    {
+        return $this->belongsToMany(User::class, 'saved_competitions')
+                    ->withTimestamps();
+    }
 }

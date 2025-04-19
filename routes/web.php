@@ -39,6 +39,14 @@ Route::middleware(['auth'])->group(function () {
     // Admin
     Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
 
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    });
+    Route::middleware(['auth'])->prefix('organizer')->name('organizer.')->group(function () {
+        Route::resource('competitions', \App\Http\Controllers\Organizer\CompetitionController::class);
+    });
+    
+
     // Organizer
     Route::get('/organizer/dashboard', [OrganizerCompetitionController::class, 'index'])->name('organizer.dashboard');
     
@@ -48,4 +56,15 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth'])->prefix('organizer')->name('organizer.')->group(function () {
         Route::resource('competitions', OrganizerCompetitionController::class);
     });
+
+    //Bookmarks
+    Route::middleware(['auth'])->group(function () {
+        // Bookmark actions
+        Route::post('/competitions/{competition}/save', [CompetitionController::class, 'save'])->name('competitions.save');
+        Route::delete('/competitions/{competition}/unsave', [CompetitionController::class, 'unsave'])->name('competitions.unsave');
+    
+        // 🔥 Tambahkan ini untuk halaman list bookmark
+        Route::get('/saved-competitions', [CompetitionController::class, 'saved'])->name('competitions.saved');
+    });
+    
 });

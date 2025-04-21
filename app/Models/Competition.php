@@ -35,14 +35,6 @@ class Competition extends Model
     }
 
     /**
-     * Get the registrations for the competition.
-     */
-    public function registrations()
-    {
-        return $this->hasMany(Registration::class);
-    }
-
-    /**
      * Get the participants (users) registered for this competition.
      */
     public function participants()

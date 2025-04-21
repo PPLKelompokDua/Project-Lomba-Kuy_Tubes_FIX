@@ -156,7 +156,7 @@
         <div class="space-y-6">
             <!-- Registration card -->
             @if(Auth::user()->isStudent())
-                @if($competition->registrations->where('user_id', Auth::id())->count() > 0)
+                @if($competition->participants->contains(Auth::id()))
                     <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg shadow-sm">
                         <div class="flex items-start">
                             <div class="flex-shrink-0 mr-3">
@@ -164,9 +164,7 @@
                             </div>
                             <div>
                                 <h5 class="font-bold text-blue-800 mb-2">You've Already Registered</h5>
-                                <a href="{{ route('registrations.index') }}" class="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-150 ease-in-out">
-                                    View Your Registration
-                                </a>
+                                <p class="text-blue-600">You've successfully registered for this competition.</p>
                             </div>
                         </div>
                     </div>
@@ -279,119 +277,7 @@
                 </div>
                 @endif
             @endif
-            <!-- For organizers and admins: Registration management -->
-            @if(Auth::user()->isAdmin() || (Auth::user()->isOrganizer() && $competition->organizer_id === Auth::id()))
-            <div class="bg-white rounded-xl overflow-hidden shadow-md">
-                <div class="bg-gradient-to-r from-indigo-600 to-indigo-500 p-4 text-white">
-                    <div class="flex items-center space-x-3">
-                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                            <i class="bi bi-people-fill text-indigo-600 text-xl"></i>
-                        </div>
-                        <h5 class="text-lg font-bold">Manage Registrations</h5>
-                    </div>
-                </div>
-                <div class="p-4">
-                    @if(count($competition->registrations) > 0)
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead>
-                                <tr class="bg-gray-50">
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        <div class="flex items-center">
-                                            <i class="bi bi-person text-indigo-500 mr-2"></i>
-                                            Participant
-                                        </div>
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        <div class="flex items-center">
-                                            <i class="bi bi-calendar2 text-indigo-500 mr-2"></i>
-                                            Registration Date
-                                        </div>
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        <div class="flex items-center">
-                                            <i class="bi bi-tag text-indigo-500 mr-2"></i>
-                                            Status
-                                        </div>
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        <div class="flex items-center">
-                                            <i class="bi bi-gear text-indigo-500 mr-2"></i>
-                                            Actions
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($competition->registrations as $registration)
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
-                                                <span class="font-medium text-indigo-600">{{ substr($registration->user->name, 0, 1) }}</span>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">{{ $registration->user->name }}</div>
-                                                <div class="text-sm text-gray-500">{{ $registration->user->email }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        {{ $registration->created_at->format('M d, Y H:i') }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            {{ $registration->status === 'approved' ? 'bg-green-100 text-green-800' : 
-                                               ($registration->status === 'rejected' ? 'bg-red-100 text-red-800' : 
-                                               'bg-yellow-100 text-yellow-800') }}">
-                                            <i class="bi {{ $registration->status === 'approved' ? 'bi-check-circle-fill' : 
-                                                          ($registration->status === 'rejected' ? 'bi-x-circle-fill' : 
-                                                          'bi-hourglass-split') }} mr-1"></i>
-                                            {{ ucfirst($registration->status) }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                        <div class="flex space-x-2">
-                                            <a href="{{ route('registrations.show', $registration->id) }}" 
-                                               class="inline-flex items-center px-2.5 py-1.5 border border-indigo-500 text-xs font-medium rounded-full text-indigo-600 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-150 ease-in-out">
-                                                <i class="bi bi-eye mr-1"></i> View
-                                            </a>
-                                            
-                                            @if($registration->status === 'pending')
-                                            <form action="{{ route('registrations.approve', $registration->id) }}" method="POST" class="inline-block">
-                                                @csrf
-                                                <button type="submit" 
-                                                        class="inline-flex items-center px-2.5 py-1.5 border border-green-500 text-xs font-medium rounded-full text-green-600 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-150 ease-in-out">
-                                                    <i class="bi bi-check-circle mr-1"></i> Approve
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('registrations.reject', $registration->id) }}" method="POST" class="inline-block">
-                                                @csrf
-                                                <button type="submit" 
-                                                        class="inline-flex items-center px-2.5 py-1.5 border border-red-500 text-xs font-medium rounded-full text-red-600 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-150 ease-in-out">
-                                                    <i class="bi bi-x-circle mr-1"></i> Reject
-                                                </button>
-                                            </form>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    @else
-                    <div class="text-center py-10">
-                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mb-4">
-                            <i class="bi bi-inbox text-3xl text-indigo-500"></i>
-                        </div>
-                        <h4 class="text-lg font-medium text-gray-800 mb-1">No Registrations Yet</h4>
-                        <p class="text-gray-500">No students have registered for this competition yet. Check back later!</p>
-                    </div>
-                    @endif
-                </div>
-            </div>
-            @endif
+
         </div>
     </div>
 </div>

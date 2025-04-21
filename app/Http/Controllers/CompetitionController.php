@@ -92,7 +92,7 @@ class CompetitionController extends Controller
      */
     public function show(string $id)
     {
-        $competition = Competition::with(['organizer', 'registrations.user'])->findOrFail($id);
+        $competition = Competition::with(['organizer', 'participants'])->findOrFail($id);
         
         // Check if the user is authorized to view this competition
         if (!Auth::user()->isAdmin() && 

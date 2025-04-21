@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Competition;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -187,5 +188,27 @@ class CompetitionController extends Controller
         
         return redirect()->route('competitions.index')
             ->with('success', 'Competition deleted successfully.');
+    }
+    
+    /**
+     * Find random potential team members for a competition
+     * Returns a list of random users with the 'user' role who could be teammates
+     */
+    public function findRandomMembers(string $id)
+    {
+        $competition = Competition::findOrFail($id);
+        
+        // Get random users with role 'user' (students) excluding the current user
+        // Limit to 5 random users for display purposes
+        $randomUsers = User::where('role', 'user')
+            ->where('id', '!=', Auth::id())
+            ->inRandomOrder()
+            ->limit(5)
+            ->get(['id', 'name', 'email']);
+            
+        return view('competitions.random_members', [
+            'competition' => $competition,
+            'randomUsers' => $randomUsers
+        ]);
     }
 }

@@ -7,9 +7,11 @@ use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\Organizer\CompetitionController as OrganizerCompetitionController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Competition;
+use App\Http\Controllers\ContactController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // 🔐 Auth
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

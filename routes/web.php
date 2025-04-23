@@ -31,4 +31,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
     Route::get('/organizer/dashboard', fn() => view('organizer.dashboard'))->name('organizer.dashboard');
+    Route::get('/task-management', function () {
+        return view('task-management');
+    })->middleware(['auth']);
+    Route::resource('tasks', TaskController::class);
 });
+
+// web.php
+Route::get('/task-management', function () {
+    return view('task-management');
+})->middleware(['auth'])->name('task.management'); // Tambahkan ->name()
+
+

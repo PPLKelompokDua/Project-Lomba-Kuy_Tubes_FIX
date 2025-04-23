@@ -16,6 +16,7 @@
       <nav class="hidden md:flex space-x-6 text-white font-medium">
         <a href="#features" class="hover:underline">Features</a>
         <a href="#faq" class="hover:underline">FAQ</a>
+        <a href="/task-management" class="hover:underline">Task & Timeline</a> 
         <a href="#aboutus" class="hover:underline">About Us</a>
       </nav>
       <div class="hidden md:flex space-x-4">
@@ -131,6 +132,7 @@
           <h3 class="text-xl font-semibold text-gray-800 text-center mb-3">
             Task & Timeline Management
           </h3>
+
           <p class="text-gray-600 text-center">
             Pantau tugas, milestone, dan deadline kompetisi kamu dalam satu platform terintegrasi.
           </p>

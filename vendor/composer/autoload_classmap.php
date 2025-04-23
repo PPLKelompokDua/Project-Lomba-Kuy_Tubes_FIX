@@ -6,7 +6,20 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
+    'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
+    'App\\Http\\Controllers\\InvitationResponseController' => $baseDir . '/app/Http/Controllers/InvitationResponseController.php',
+    'App\\Http\\Controllers\\InvitationsController' => $baseDir . '/app/Http/Controllers/InvitationsController.php',
+    'App\\Http\\Controllers\\RecommendationsController' => $baseDir . '/app/Http/Controllers/RecommendationsController.php',
+    'App\\Http\\Controllers\\TeamsController' => $baseDir . '/app/Http/Controllers/TeamsController.php',
+    'App\\Http\\Controllers\\TeamsMemberController' => $baseDir . '/app/Http/Controllers/TeamsMemberController.php',
+    'App\\Models\\Invitations' => $baseDir . '/app/Models/Invitations.php',
+    'App\\Models\\Messages' => $baseDir . '/app/Models/Messages.php',
+    'App\\Models\\Recommendations' => $baseDir . '/app/Models/Recommendations.php',
+    'App\\Models\\Teams' => $baseDir . '/app/Models/Teams.php',
+    'App\\Models\\TeamsMember' => $baseDir . '/app/Models/TeamsMember.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

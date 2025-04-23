@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Invitations;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 
 class InvitationsController extends Controller
 {
     // Show invitation form & sent invitations
-public function index()
+
+    public function index()
 {
     $currentUserId = Auth::id();
 
-    $users = User::where('id', '!=', $currentUserId)->get();
+
+    $users = \App\Models\User::where('id', '!=', $currentUserId)
+        ->where('team_id', Auth::user()->team_id?? null)
+        ->get();
 
     $invitations = Invitations::where('sender_id', $currentUserId)
         ->with('receiver')
@@ -41,4 +43,11 @@ public function send(Request $request)
 
     return redirect()->route('invitations.index')->with('success', 'Invitation sent!');
 }
+
+public function show($id)
+{
+    $invitation = Invitations::with(['receiver', 'messages.sender'])->findOrFail($id);
+    return view('invitations.show', compact('invitation'));
+}
+
 }

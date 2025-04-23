@@ -336,8 +336,8 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -377,8 +377,8 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri-interfaces',
-            1 => __DIR__ . '/..' . '/league/uri',
+            0 => __DIR__ . '/..' . '/league/uri',
+            1 => __DIR__ . '/..' . '/league/uri-interfaces',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -516,7 +516,20 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
+        'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
+        'App\\Http\\Controllers\\InvitationResponseController' => __DIR__ . '/../..' . '/app/Http/Controllers/InvitationResponseController.php',
+        'App\\Http\\Controllers\\InvitationsController' => __DIR__ . '/../..' . '/app/Http/Controllers/InvitationsController.php',
+        'App\\Http\\Controllers\\RecommendationsController' => __DIR__ . '/../..' . '/app/Http/Controllers/RecommendationsController.php',
+        'App\\Http\\Controllers\\TeamsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TeamsController.php',
+        'App\\Http\\Controllers\\TeamsMemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/TeamsMemberController.php',
+        'App\\Models\\Invitations' => __DIR__ . '/../..' . '/app/Models/Invitations.php',
+        'App\\Models\\Messages' => __DIR__ . '/../..' . '/app/Models/Messages.php',
+        'App\\Models\\Recommendations' => __DIR__ . '/../..' . '/app/Models/Recommendations.php',
+        'App\\Models\\Teams' => __DIR__ . '/../..' . '/app/Models/Teams.php',
+        'App\\Models\\TeamsMember' => __DIR__ . '/../..' . '/app/Models/TeamsMember.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

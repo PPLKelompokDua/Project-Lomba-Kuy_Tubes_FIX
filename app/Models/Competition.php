@@ -20,12 +20,24 @@ class Competition extends Model
         'organizer_id',
     ];
 
+    protected $casts = [
+        'deadline' => 'datetime',
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+        'registration_deadline' => 'datetime',
+    ];
+
 
     public function organizer()
     {
         return $this->belongsTo(User::class, 'organizer_id');
     }
     
+    public function participants()
+    {
+        return $this->belongsToMany(User::class, 'competition_user');
+    }
+
     public function savedBy()
     {
         return $this->belongsToMany(User::class, 'saved_competitions')

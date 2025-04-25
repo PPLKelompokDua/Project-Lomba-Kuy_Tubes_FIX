@@ -33,6 +33,9 @@
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
         <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition font-medium">Eksplorasi Lomba</a>
+        @if(auth()->check() && auth()->user()->role === 'user')
+          <a href="{{ route('settings') }}" class="text-white hover:text-indigo-200 transition font-medium">Pengaturan</a>
+        @endif
         <form action="{{ route('logout') }}" method="POST" class="inline">
           @csrf
           <button class="bg-white text-indigo-600 hover:bg-indigo-100 transition px-4 py-2 rounded-lg font-medium">Logout</button>
@@ -54,6 +57,9 @@
       <nav class="flex flex-col space-y-3">
         <a href="{{ route('dashboard') }}" class="text-white hover:text-indigo-200 transition py-2">Dashboard</a>
         <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition py-2">Eksplorasi Lomba</a>
+        @if(auth()->check() && auth()->user()->role === 'user')
+          <a href="{{ route('settings') }}" class="text-white hover:text-indigo-200 transition py-2">Pengaturan</a>
+        @endif
         <form action="{{ route('logout') }}" method="POST" class="inline py-2">
           @csrf
           <button class="text-white hover:text-indigo-200 transition">Logout</button>
@@ -96,7 +102,7 @@
         </div>
       </div>
       <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm">
-        <p>&copy; {{ date('Y') }} LombaKuy. All Rights Reserved.</p>
+        <p>© {{ date('Y') }} LombaKuy. All Rights Reserved.</p>
       </div>
     </div>
   </footer>

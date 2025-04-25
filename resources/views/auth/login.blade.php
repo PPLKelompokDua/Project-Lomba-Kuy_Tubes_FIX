@@ -80,7 +80,7 @@
               <img src="{{ asset('storage/images/testi1.jpg') }}" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
               <img src="{{ asset('storage/images/testi2.jpg') }}" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
             </div>
-            <p class="ml-4 text-sm">Dipercaya oleh 1000+ mahasiswa Telkom University</p>
+            <p class="ml-4 text-sm">Dipercaya oleh 1000+ mahasiswa/i di Indonesia</p>
           </div>
         </div>
       </div>

@@ -14,8 +14,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'profile_image',
         'password',
         'role', 
+        'notification_preferences',
     ];
 
     protected $hidden = [
@@ -28,12 +30,33 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'notification_preferences' => 'array',
         ];
     }
 
     public function savedCompetitions()
     {
-        return $this->belongsToMany(Competition::class, 'saved_competitions')
+        return $this->belongsToMany(Competition::class, 'saved_competitions', 'user_id', 'competition_id')
                     ->withTimestamps();
+    }
+
+    public function competitions()
+    {
+        return $this->belongsToMany(Competition::class, 'competition_user');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isOrganizer()
+    {
+        return $this->role === 'organizer';
+    }
+
+    public function isStudent()
+    {
+        return $this->role === 'user';
     }
 }

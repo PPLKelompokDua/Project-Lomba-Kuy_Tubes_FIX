@@ -40,20 +40,21 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-white font-medium">Status Lomba</span>
+                            <span class="text-black font-medium">Status Lomba</span>
                         </div>
-                        <div class="flex justify-between text-indigo-100">
+                        <div class="flex justify-between">
                             <div>
-                                <h4 class="text-2xl font-bold">{{ $activeCompetitions ?? 0 }}</h4>
-                                <p class="text-xs">Lomba Aktif</p>
+                                <h4 class="text-2xl font-bold text-gray-800">{{ $activeCompetitions ?? 0 }}</h4>
+                                <p class="text-xs text-gray-800">Lomba Aktif</p>
                             </div>
                             <div>
-                                <h4 class="text-2xl font-bold">{{ $completedCompetitions ?? 0 }}</h4>
-                                <p class="text-xs">Selesai</p>
+                                <h4 class="text-2xl font-bold text-gray-800">{{ $completedCompetitions ?? 0 }}</h4>
+                                <p class="text-xs text-gray-800">Selesai</p>
                             </div>
                         </div>
                     </div>
                     
+                    <!-- Lomba Tersimpan Card (within Welcome Banner with Quick Stats) -->
                     <div class="bg-white bg-opacity-15 backdrop-blur-md p-5 rounded-xl">
                         <div class="flex items-center space-x-3 mb-2">
                             <div class="p-2 bg-white bg-opacity-20 rounded-lg">
@@ -61,11 +62,11 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
                             </div>
-                            <span class="text-white font-medium">Lomba Tersimpan</span>
+                            <span class="text-black font-medium">Lomba Tersimpan</span>
                         </div>
                         <div class="flex items-end justify-between">
-                            <h4 class="text-3xl font-bold text-white">{{ $savedCompetitions ?? 0 }}</h4>
-                            <a href="#" class="text-sm text-indigo-200 hover:text-white hover:underline">Lihat Semua</a>
+                            <h4 class="text-3xl font-bold text-gray-800">{{ $savedCompetitions ?? 0 }}</h4>
+                            <a href="{{ route('competitions.saved') }}" class="text-sm text-indigo-300 hover:text-white hover:underline">Lihat Semua</a>
                         </div>
                     </div>
                 </div>
@@ -89,67 +90,76 @@
                     </a>
                 </div>
                 
+                
                 <div class="grid sm:grid-cols-2 gap-6">
                     @forelse($competitions ?? [] as $competition)
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                        <div class="relative">
-                            <img src="{{ asset('storage/' . ($competition->photo ?? 'images/default-competition.jpg')) }}" 
-                                class="w-full h-48 object-cover" 
-                                alt="{{ $competition->title ?? 'Competition Image' }}">
-                            <div class="absolute top-0 right-0 p-2">
-                                <span class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">{{ $competition->category ?? 'Umum' }}</span>
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition hover:-translate-y-2 hover:shadow-xl" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                            <!-- Image Section -->
+                            <div class="relative h-56">
+                                <img 
+                                    src="{{ asset('storage/' . ($competition->photo ?? 'images/default-competition.jpg')) }}" 
+                                    class="w-full h-full object-cover"
+                                    alt="{{ $competition->title ?? 'Competition Image' }}"
+                                    style="height: 100%; width: 100%; object-fit: cover;"
+                                    onclick="openPreviewModal('{{ asset('storage/' . ($competition->photo ?? 'images/default-competition.jpg')) }}')"
+                                >
+                                <!-- Bookmark Button -->
+                                @auth
+                                @if(auth()->user()->role === 'user')
+                                    <form action="{{ auth()->user()->savedCompetitions->contains($competition->id) 
+                                                    ? route('competitions.unsave', $competition->id) 
+                                                    : route('competitions.save', $competition->id) }}" 
+                                          method="POST" 
+                                          class="absolute top-4 right-4">
+                                        @csrf
+                                        @if(auth()->user()->savedCompetitions->contains($competition->id))
+                                            @method('DELETE')
+                                            <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition" title="Hapus Bookmark">
+                                                <i class="fas fa-bookmark text-red-500"></i>
+                                            </button>
+                                        @else
+                                            <button class="bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition" title="Simpan Bookmark">
+                                                <i class="fas fa-bookmark text-indigo-600"></i>
+                                            </button>
+                                        @endif
+                                    </form>
+                                @endif
+                                @endauth
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-6">
+                                <h5 class="text-xl font-bold text-gray-800 mb-2">{{ $competition->title ?? 'Judul Kompetisi' }}</h5>
+                                <p class="text-sm text-indigo-600 font-semibold mb-2">{{ $competition->category ?? 'Umum' }}</p>
+                                <p class="text-gray-600 text-sm mb-4">{{ \Illuminate\Support\Str::limit($competition->description ?? 'Deskripsi kompetisi akan ditampilkan di sini.', 100) }}</p>
+                            </div>
+
+                            <!-- Card Footer -->
+                            <div class="p-6 bg-gray-50 border-t border-gray-100">
+                                <div class="flex items-center text-sm mb-2">
+                                    <i class="fas fa-gift text-indigo-600 mr-2"></i>
+                                    <span class="text-gray-800 font-semibold">Hadiah: {{ $competition->prize ?? 'Belum ditentukan' }}</span>
+                                </div>
+                                <div class="flex items-center text-sm mb-4">
+                                    <i class="fas fa-clock text-red-500 mr-2"></i>
+                                    <span class="text-gray-800">Deadline: {{ $competition->registration_deadline ? \Carbon\Carbon::parse($competition->registration_deadline)->format('d M Y') : '22 Mei 2025' }}</span>
+                                </div>
+                                <a href="{{ route('competitions.show', $competition->id) }}" class="block w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition text-center">
+                                    Lihat Detail
+                                </a>
                             </div>
                         </div>
-                        <div class="p-5">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-lg font-bold text-gray-800">{{ $competition->title ?? 'Judul Kompetisi' }}</h3>
-                                <button class="text-gray-400 hover:text-indigo-600">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            
-                            <p class="text-gray-500 text-sm mb-4">{{ \Str::limit($competition->description ?? 'Deskripsi kompetisi akan ditampilkan di sini.', 80) }}</p>
-                            
-                            <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
-                                <div class="flex items-center">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                    </svg>
-                                    <span>Deadline: {{ $competition->registration_deadline ?? '22 Mei 2025' }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
-                                    </svg>
-                                    <span>Level: {{ $competition->level ?? 'Nasional' }}</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex space-x-3">
-                                <a href="{{ route('explore') }}" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 px-4 rounded-lg text-sm font-medium">
-                                    Detail Lomba
-                                </a>
-                                <a href="#" class="flex items-center justify-center bg-indigo-100 hover:bg-indigo-200 text-indigo-600 rounded-lg px-3">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                     @empty
-                    <div class="col-span-2 bg-indigo-50 rounded-xl p-8 text-center">
-                        <svg class="w-16 h-16 text-indigo-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Belum ada kompetisi</h3>
-                        <p class="text-gray-600">Kompetisi akan segera ditampilkan di sini.</p>
-                        <a href="{{ route('explore') }}" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg px-5 py-2.5">
-                            Temukan Kompetisi
-                        </a>
-                    </div>
+                        <div class="col-span-2 bg-indigo-50 rounded-xl p-8 text-center" data-aos="fade-up">
+                            <svg class="w-16 h-16 text-indigo-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Belum ada kompetisi</h3>
+                            <p class="text-gray-600">Kompetisi akan segera ditampilkan di sini.</p>
+                            <a href="{{ route('explore') }}" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg px-5 py-2.5">
+                                Temukan Kompetisi
+                            </a>
+                        </div>
                     @endforelse
                 </div>
             </div>
@@ -237,7 +247,7 @@
             <!-- Personal Profile Summary -->
             <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6">
                 <div class="flex items-center space-x-4">
-                    <img src="/api/placeholder/64/64" class="w-16 h-16 rounded-full border-2 border-indigo-100" alt="Profile Photo">
+                    <img src="{{ auth()->user()->profile_image ? asset('storage/images/' . auth()->user()->profile_image) : 'https://via.placeholder.com/150' }}" class="w-16 h-16 rounded-full border-2 border-indigo-100" alt="Profile Photo">
                     <div>
                         <h3 class="font-bold text-gray-800">{{ auth()->user()->name }}</h3>
                         <p class="text-sm text-gray-500">{{ auth()->user()->email }}</p>
@@ -254,7 +264,7 @@
                     </div>
                 </div>
                 <div class="mt-6">
-                    <a href="#" class="block text-center bg-white border border-indigo-600 hover:bg-indigo-50 text-indigo-600 font-medium rounded-lg py-2 transition">
+                    <a href="{{ route('profile.show') }}" class="block text-center bg-white border border-indigo-600 hover:bg-indigo-50 text-indigo-600 font-medium rounded-lg py-2 transition">
                         Lihat Profil
                     </a>
                 </div>
@@ -343,10 +353,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Preview -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50" id="previewModal">
+        <div class="bg-white rounded-lg max-w-4xl w-full mx-4">
+            <div class="p-4 text-center">
+                <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
+            </div>
+            <div class="p-4 border-t border-gray-200">
+                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
 @push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 <style>
     /* Custom Animations for Elements */
     @keyframes float {
@@ -521,7 +545,46 @@
 @endpush
 
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+    });
+
+    // Modal Preview Functions
+    function openPreviewModal(imageUrl) {
+        console.log('Opening modal with image:', imageUrl); // Debug log
+        const modal = document.getElementById('previewModal');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closePreviewModal() {
+        console.log('Closing modal'); // Debug log
+        const modal = document.getElementById('previewModal');
+        modal.classList.add('hidden');
+        document.getElementById('modalImage').src = ''; // Clear image
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close modal on click outside
+    document.getElementById('previewModal').addEventListener('click', function(event) {
+        if (event.target === this) {
+            closePreviewModal();
+        }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !document.getElementById('previewModal').classList.contains('hidden')) {
+            closePreviewModal();
+        }
+    });
+
     // Dashboard Charts & Data Visualization
     document.addEventListener('DOMContentLoaded', function() {
         // Progress Bar Animation

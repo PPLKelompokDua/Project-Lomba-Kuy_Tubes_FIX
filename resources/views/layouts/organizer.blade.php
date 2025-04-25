@@ -31,6 +31,7 @@
       </a>
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
+        <a href="{{ route('settings') }}" class="text-white hover:text-indigo-200 transition font-medium">Pengaturan</a>
         <form action="{{ route('logout') }}" method="POST" class="inline">
           @csrf
           <button class="bg-white text-indigo-600 hover:bg-indigo-100 transition px-4 py-2 rounded-lg font-medium">Logout</button>
@@ -51,6 +52,7 @@
     <div class="mobile-menu hidden md:hidden p-4 bg-indigo-700">
       <nav class="flex flex-col space-y-3">
         <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition py-2">Dashboard</a>
+        <a href="{{ route('settings') }}" class="text-white hover:text-indigo-200 transition py-2">Pengaturan</a>
         <form action="{{ route('logout') }}" method="POST" class="inline py-2">
           @csrf
           <button class="text-white hover:text-indigo-200 transition">Logout</button>
@@ -93,7 +95,7 @@
         </div>
       </div>
       <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm">
-        <p>&copy; {{ date('Y') }} LombaKuy. All Rights Reserved.</p>
+        <p>© {{ date('Y') }} LombaKuy. All Rights Reserved.</p>
       </div>
     </div>
   </footer>

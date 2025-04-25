@@ -62,52 +62,20 @@ class CompetitionController extends Controller
         return view('competitions.explore', compact('competitions')); 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // 🆕 Lihat detail kompetisi
+    public function show(Competition $competition)
     {
-        //
+        return view('competitions.show', compact('competition'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // 🆕 Cari anggota tim random
+    public function randomMembers(Competition $competition)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $randomUsers = User::where('role', 'user') // ambil user mahasiswa saja
+                            ->inRandomOrder()
+                            ->limit(9)
+                            ->get();
+        return view('competitions.random_members', compact('competition', 'randomUsers'));
     }
 
     public function save(Competition $competition)

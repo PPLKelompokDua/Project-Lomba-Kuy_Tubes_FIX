@@ -21,6 +21,12 @@ return new class extends Migration
             $table->string('registration_link', 255);
             $table->string('photo', 255)->nullable(); // kolom foto
             $table->foreignId('organizer_id')->constrained('users')->onDelete('cascade');
+            $table->string('external_registration_link')->nullable();
+            $table->string('status')->default('open');
+            $table->integer('max_participants')->nullable();
+            $table->string('location');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });  
     }

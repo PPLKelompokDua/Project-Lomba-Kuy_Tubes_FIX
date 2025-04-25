@@ -8,6 +8,7 @@ use App\Http\Controllers\Organizer\CompetitionController as OrganizerCompetition
 use Illuminate\Support\Facades\Auth;
 use App\Models\Competition;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -33,9 +34,18 @@ Route::middleware(['auth'])->group(function () {
 
         if ($role === 'admin') return redirect()->route('admin.dashboard');
         if ($role === 'organizer') return redirect()->route('organizer.dashboard');
-
+    
         $competitions = Competition::latest()->take(6)->get();
-        return view('dashboard', compact('competitions'));
+        $user = auth()->user(); // ambil user sekarang
+    
+        // Tambahan menghitung saved
+        $savedCompetitions = $user->savedCompetitions()->count(); 
+    
+        // Tambahan menghitung active dan completed competitions (dummy dulu 0)
+        $activeCompetitions = 0; // kalau belum ada fitur lomba aktif
+        $completedCompetitions = 0; // kalau belum ada fitur lomba selesai
+    
+        return view('dashboard', compact('competitions', 'savedCompetitions', 'activeCompetitions', 'completedCompetitions', 'user'));
     })->name('dashboard');
 
     // Admin
@@ -47,8 +57,19 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth'])->prefix('organizer')->name('organizer.')->group(function () {
         Route::resource('competitions', \App\Http\Controllers\Organizer\CompetitionController::class);
     });
-    
 
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/settings', [ProfileController::class, 'settings'])->name('settings');
+        Route::put('/settings', [ProfileController::class, 'settingsUpdate'])->name('settings.update');
+        Route::delete('/settings', [ProfileController::class, 'delete'])->name('settings.delete');
+        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/password/edit', [ProfileController::class, 'editPassword'])->name('profile.password.edit');
+        Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+    });
+    
     // Organizer
     Route::get('/organizer/dashboard', [OrganizerCompetitionController::class, 'index'])->name('organizer.dashboard');
     
@@ -69,4 +90,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/saved-competitions', [CompetitionController::class, 'saved'])->name('competitions.saved');
     });
     
+    // Untuk lihat detail kompetisi
+    Route::get('/competitions/{competition}', [CompetitionController::class, 'show'])->name('competitions.show');
+
+    // Untuk cari anggota tim random
+    Route::get('/competitions/{competition}/random-members', [CompetitionController::class, 'randomMembers'])->name('competitions.random-members');
 });

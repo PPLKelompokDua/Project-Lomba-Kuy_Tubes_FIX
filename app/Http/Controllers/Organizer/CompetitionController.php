@@ -42,17 +42,32 @@ class CompetitionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'            => 'required|string|max:255',
-            'description'      => 'required|string',
-            'category'         => 'required|string',
-            'prize'            => 'required|string',
-            'deadline'         => 'required|date',
-            'registration_link'=> 'nullable|url',
-            'photo'            => 'nullable|image|max:2048',
+            'title'                     => 'required|string|max:255',
+            'description'               => 'required|string',
+            'category'                  => 'required|string|max:100',
+            'prize'                     => 'required|string|max:255',
+            'deadline'                  => 'required|date',
+            'registration_link'         => 'required|url|max:255',
+            'photo'                     => 'nullable|image|max:2048',
+            'location'                  => 'required|string|max:255',
+            'start_date'                => 'required|date',
+            'end_date'                  => 'required|date|after_or_equal:start_date',
+            'max_participants'          => 'nullable|integer|min:1',
         ]);
 
-        $data = $request->only(['title', 'description', 'category', 'prize', 'deadline', 'registration_link']);
-        $data['organizer_id'] = auth()->id();
+        $data = [
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'category' => $request->input('category'),
+            'prize' => $request->input('prize'),
+            'deadline' => $request->input('deadline'),
+            'registration_link' => $request->input('registration_link'),
+            'location' => $request->input('location'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'max_participants' => $request->input('max_participants'),
+            'organizer_id' => auth()->id(),
+        ];
 
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('images', 'public');
@@ -92,23 +107,37 @@ class CompetitionController extends Controller
         $this->authorizeAccess($competition);
 
         $request->validate([
-            'title'            => 'required|string|max:255',
-            'description'      => 'required|string',
-            'category'         => 'required|string',
-            'prize'            => 'required|string',
-            'deadline'         => 'required|date',
-            'registration_link'=> 'nullable|url',
-            'photo'            => 'nullable|image|max:2048',
+            'title'                     => 'required|string|max:255',
+            'description'               => 'required|string',
+            'category'                  => 'required|string|max:100',
+            'prize'                     => 'required|string|max:255',
+            'deadline'                  => 'required|date',
+            'registration_link'         => 'required|url|max:255',
+            'photo'                     => 'nullable|image|max:2048',
+            'location'                  => 'required|string|max:255',
+            'start_date'                => 'required|date',
+            'end_date'                  => 'required|date|after_or_equal:start_date',
+            'max_participants'          => 'nullable|integer|min:1',
         ]);
 
-        $data = $request->only(['title', 'description', 'category', 'prize', 'deadline', 'registration_link']);
+        $data = [
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'category' => $request->input('category'),
+            'prize' => $request->input('prize'),
+            'deadline' => $request->input('deadline'),
+            'registration_link' => $request->input('registration_link'),
+            'location' => $request->input('location'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'max_participants' => $request->input('max_participants'),
+        ];
 
         if ($request->hasFile('photo')) {
-            // Hapus foto lama jika ada
-            if ($competition->photo && Storage::disk('public')->exists($competition->photo)) {
-                Storage::disk('public')->delete($competition->photo);
+            // Hapus file lama dulu kalau ada
+            if ($competition->photo && \Storage::disk('public')->exists($competition->photo)) {
+                \Storage::disk('public')->delete($competition->photo);
             }
-
             $data['photo'] = $request->file('photo')->store('images', 'public');
         }
 

@@ -33,9 +33,9 @@
                     <p class="text-indigo-100 max-w-prose">{{ Str::limit($competition->description, 150) }}</p>
                 </div>
 
-                @if($competition->external_registration_link && $competition->status === 'open')
+                @if($competition->registration_link && $competition->status === 'open')
                 <div class="shrink-0">
-                    <a href="{{ $competition->external_registration_link }}" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-medium rounded-full shadow-md hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:-translate-y-1 transition-all duration-150 ease-in-out" target="_blank">
+                    <a href="{{ $competition->registration_link }}" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-medium rounded-full shadow-md hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:-translate-y-1 transition-all duration-150 ease-in-out" target="_blank">
                         <i class="bi bi-pencil-square mr-2"></i>
                         Register Now
                     </a>
@@ -55,7 +55,29 @@
                 <div class="h-80 overflow-hidden relative">
                     @if($competition->photo)
                     <img src="{{ asset('storage/' . $competition->photo) }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="{{ $competition->title }}" 
-                    onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')">
+                         onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')">
+                    <!-- Bookmark Button -->
+                    @auth
+                    @if(auth()->user()->role === 'user')
+                        <form action="{{ auth()->user()->savedCompetitions->contains($competition->id) 
+                                        ? route('competitions.unsave', $competition->id) 
+                                        : route('competitions.save', $competition->id) }}" 
+                              method="POST" 
+                              class="absolute top-4 right-4">
+                            @csrf
+                            @if(auth()->user()->savedCompetitions->contains($competition->id))
+                                @method('DELETE')
+                                <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition" title="Hapus Bookmark">
+                                    <i class="fas fa-bookmark text-red-500"></i>
+                                </button>
+                            @else
+                                <button class="bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition" title="Simpan Bookmark">
+                                    <i class="fas fa-bookmark text-indigo-600"></i>
+                                </button>
+                            @endif
+                        </form>
+                    @endif
+                    @endauth
                     @else
                     <div class="w-full h-full flex items-center justify-center bg-gradient-to-r from-indigo-800 to-indigo-600">
                         <div class="text-center text-white p-6">
@@ -70,55 +92,55 @@
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b border-gray-200">Event Details</h2>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                            <i class="bi bi-geo-alt-fill text-indigo-600 text-xl"></i>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
+                                <i class="bi bi-geo-alt-fill text-indigo-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Location</p>
+                                <h5 class="font-bold text-gray-800">{{ $competition->location ?? '-' }}</h5>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">Location</p>
-                            <h5 class="font-bold text-gray-800">{{ $competition->location ?? '-' }}</h5>
-                        </div>
-                    </div>
 
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
-                            <i class="bi bi-calendar-event-fill text-green-600 text-xl"></i>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                <i class="bi bi-calendar-event-fill text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Event Period</p>
+                                <h5 class="font-bold text-gray-800">
+                                    {{ $competition->start_date ? \Carbon\Carbon::parse($competition->start_date)->format('M d, Y') : '-' }} - 
+                                    {{ $competition->end_date ? \Carbon\Carbon::parse($competition->end_date)->format('M d, Y') : '-' }}
+                                </h5>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">Event Period</p>
-                            <h5 class="font-bold text-gray-800">
-                                {{ $competition->start_date ? \Carbon\Carbon::parse($competition->start_date)->format('M d, Y') : '-' }} - 
-                                {{ $competition->end_date ? \Carbon\Carbon::parse($competition->end_date)->format('M d, Y') : '-' }}
-                            </h5>
-                        </div>
-                    </div>
 
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
-                            <i class="bi bi-hourglass-split text-yellow-600 text-xl"></i>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
+                                <i class="bi bi-hourglass-split text-yellow-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Registration Deadline</p>
+                                <h5 class="font-bold {{ now()->gt(\Carbon\Carbon::parse($competition->registration_deadline)) ? 'text-red-600' : 'text-gray-800' }}">
+                                    {{ $competition->deadline ? \Carbon\Carbon::parse($competition->deadline)->format('M d, Y') : '-' }}
+                                    <span class="ml-2 text-sm font-normal text-gray-500">
+                                        {{ $competition->deadline ? now()->diffForHumans($competition->deadline) : '' }}
+                                    </span>
+                                </h5>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">Registration Deadline</p>
-                            <h5 class="font-bold {{ now()->gt(\Carbon\Carbon::parse($competition->registration_deadline)) ? 'text-red-600' : 'text-gray-800' }}">
-                                {{ $competition->deadline ? \Carbon\Carbon::parse($competition->registration_deadline)->format('M d, Y') : '-' }}
-                                <span class="ml-2 text-sm font-normal text-gray-500">
-                                    {{ $competition->deadline ? now()->diffForHumans($competition->registration_deadline) : '' }}
-                                </span>
-                            </h5>
-                        </div>
-                    </div>
 
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                            <i class="bi bi-people-fill text-blue-600 text-xl"></i>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="bi bi-people-fill text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Maximum Participants</p>
+                                <h5 class="font-bold text-gray-800">
+                                    {{ $competition->max_participants ? number_format($competition->max_participants) . ' participants' : 'Unlimited participants' }}
+                                </h5>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">Maximum Participants</p>
-                            <h5 class="font-bold text-gray-800">
-                                {{ $competition->max_participants ? number_format($competition->max_participants) . ' participants' : 'Unlimited participants' }}
-                            </h5>
-                        </div>
-                    </div>
                     </div>
 
                     <div class="bg-gray-50 border-l-4 border-indigo-500 p-6 rounded-lg my-6">
@@ -149,7 +171,7 @@
                         </div>
                     </div>
                 @else
-                    @if($competition->external_registration_link && $competition->status === 'open')
+                    @if($competition->registration_link && $competition->status === 'open')
                         <div class="bg-white p-6 rounded-xl shadow-md text-center">
                             <div class="mb-6">
                                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
@@ -159,19 +181,10 @@
                                 <p class="text-gray-500 text-sm">Registration deadline: {{ $competition->deadline ? $competition->deadline->format('M d, Y') : '-' }}</p>
                             </div>
                             
-                            <a href="{{ $competition->external_registration_link }}" class="block w-full px-5 py-3 bg-green-600 text-white text-center font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform hover:-translate-y-1 transition-all duration-150 ease-in-out mb-2" target="_blank">
+                            <a href="{{ $competition->registration_link }}" class="block w-full px-5 py-3 bg-green-600 text-white text-center font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform hover:-translate-y-1 transition-all duration-150 ease-in-out mb-2" target="_blank">
                                 <i class="bi bi-pencil-square mr-2"></i> Register Now
                             </a>
                             <span class="text-xs text-gray-500">You'll be redirected to the official competition site</span>
-                            
-                            @if(!Auth::user()->isStudent())
-                            <div class="mt-6 pt-6 border-t border-gray-200">
-                                <p class="font-medium text-gray-700 mb-3">Competition Management</p>
-                                <a href="{{ route('competitions.edit', $competition->id) }}" class="block w-full px-5 py-3 border border-indigo-600 text-indigo-600 text-center font-medium rounded-lg hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-150 ease-in-out mb-2">
-                                    <i class="bi bi-gear-fill mr-2"></i> Manage Competition
-                                </a>
-                            </div>
-                            @endif
                         </div>
                     @else
                         <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg shadow-sm">
@@ -241,7 +254,6 @@
                 </div>
                 
                 <!-- Find Team Members For Students -->
-                @if(Auth::user()->isStudent())
                 <div class="bg-gradient-to-r from-indigo-500 to-purple-600 p-6 rounded-xl shadow-md text-white">
                     <div class="flex items-center justify-between">
                         <div>
@@ -255,9 +267,24 @@
                         </div>
                     </div>
                 </div>
-                @endif
-            @endif
 
+                <!-- Manage Your Team For All Students -->
+                <div class="bg-gradient-to-r from-green-500 to-teal-600 p-6 rounded-xl shadow-md text-white">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Manage Your Team</h3>
+                            <p class="text-green-100">Already have your own team? Invite specific members to join your team for this competition</p>
+                        </div>
+                        <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4">
+                            @csrf
+                            <input type="email" name="email" placeholder="Enter team member's email" class="px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                            <button type="submit" class="inline-flex items-center px-5 py-3 bg-white text-green-600 font-medium rounded-lg hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-150 ease-in-out">
+                                <i class="bi bi-person-plus-fill mr-2 text-lg"></i> Invite Member
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     <!-- Modal Preview -->
@@ -273,6 +300,10 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+@endpush
 
 @push('scripts')
 <script>

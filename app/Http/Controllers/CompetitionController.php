@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Competition;
 use App\Models\SavedCompetition;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 
 class CompetitionController extends Controller
 {

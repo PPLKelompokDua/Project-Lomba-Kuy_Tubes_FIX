@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('role')->default('user');
             $table->string('profile_image')->nullable(); 
+            $table->text('description')->nullable(); 
+            $table->text('achievements')->nullable(); 
+            $table->string('focus_area')->nullable(); 
+            $table->text('assessment_result')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -16,6 +16,11 @@ class Competition extends Model
         'prize',
         'deadline',
         'registration_link',
+        'external_registration_link',
+        'location',
+        'start_date',
+        'end_date',
+        'max_participants',
         'photo',
         'organizer_id',
     ];
@@ -42,5 +47,10 @@ class Competition extends Model
     {
         return $this->belongsToMany(User::class, 'saved_competitions')
                     ->withTimestamps();
+    }
+
+    public function getStatusAttribute()
+    {
+        return \Carbon\Carbon::parse($this->deadline)->isFuture() ? 'open' : 'closed';
     }
 }

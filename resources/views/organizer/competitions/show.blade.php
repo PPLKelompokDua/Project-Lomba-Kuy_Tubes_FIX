@@ -22,10 +22,14 @@
                 <div>
                     <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Kategori:</strong> {{ $competition->category ?? 'Tidak ada' }}</p>
                     <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Hadiah:</strong> {{ $competition->prize ?? 'Tidak ada' }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Lokasi:</strong> {{ $competition->location ?? 'Tidak ada' }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Maksimum Peserta:</strong> {{ $competition->max_participants ?? 'Tidak ditentukan' }}</p>
                 </div>
                 <div>
                     <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Deadline:</strong> {{ \Carbon\Carbon::parse($competition->deadline)->format('d M Y') }}</p>
-                    <p class="text-sm text-gray-600"><strong class="text-gray-800">Link Pendaftaran:</strong> 
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Tanggal Mulai:</strong> {{ \Carbon\Carbon::parse($competition->start_date)->format('d M Y') }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Tanggal Selesai:</strong> {{ \Carbon\Carbon::parse($competition->end_date)->format('d M Y') }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Link Pendaftaran:</strong> 
                         <a href="{{ $competition->registration_link }}" class="text-indigo-600 hover:underline" target="_blank">
                             {{ Str::limit($competition->registration_link, 30) }}
                         </a>

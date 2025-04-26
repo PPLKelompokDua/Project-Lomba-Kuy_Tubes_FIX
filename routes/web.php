@@ -21,6 +21,8 @@ Route::get('/register', [RegisterController::class, 'create'])->name('register')
 Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('/search-suggestions', [CompetitionController::class, 'searchSuggestions']);
+
 // 🔍 Public Explore (tanpa login)
 Route::get('/explore', [CompetitionController::class, 'explore'])->name('explore');
 Route::get('/competitions/explore', [CompetitionController::class, 'explore'])->name('competitions.explore');
@@ -95,4 +97,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Untuk cari anggota tim random
     Route::get('/competitions/{competition}/random-members', [CompetitionController::class, 'randomMembers'])->name('competitions.random-members');
+
+    
+
 });

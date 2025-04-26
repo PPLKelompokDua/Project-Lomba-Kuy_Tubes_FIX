@@ -3,7 +3,6 @@
 @section('title', $competition->title)
 
 @section('content')
-
 <!-- Hero section with gradient background -->
 <div class="bg-gradient-to-r from-indigo-800 to-indigo-600 text-white rounded-xl overflow-hidden shadow-xl mb-8">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -56,6 +55,13 @@
                     @if($competition->photo)
                     <img src="{{ asset('storage/' . $competition->photo) }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="{{ $competition->title }}" 
                          onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')">
+                    <div class="absolute top-4 right-16">
+                        <button onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')" 
+                                class="bg-white p-2 rounded-full shadow hover:bg-blue-100 transition transform hover:scale-110" 
+                                title="Lihat Poster">
+                            <i class="fas fa-search-plus text-blue-600"></i>
+                        </button>
+                    </div>
                     <!-- Bookmark Button -->
                     @auth
                     @if(auth()->user()->role === 'user')
@@ -121,7 +127,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 mb-1">Registration Deadline</p>
-                                <h5 class="font-bold {{ now()->gt(\Carbon\Carbon::parse($competition->registration_deadline)) ? 'text-red-600' : 'text-gray-800' }}">
+                                <h5 class="font-bold {{ now()->gt(\Carbon\Carbon::parse($competition->deadline)) ? 'text-red-600' : 'text-gray-800' }}">
                                     {{ $competition->deadline ? \Carbon\Carbon::parse($competition->deadline)->format('M d, Y') : '-' }}
                                     <span class="ml-2 text-sm font-normal text-gray-500">
                                         {{ $competition->deadline ? now()->diffForHumans($competition->deadline) : '' }}
@@ -139,6 +145,26 @@
                                 <h5 class="font-bold text-gray-800">
                                     {{ $competition->max_participants ? number_format($competition->max_participants) . ' participants' : 'Unlimited participants' }}
                                 </h5>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                                <i class="bi bi-tag-fill text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Category</p>
+                                <h5 class="font-bold text-gray-800">{{ $competition->category ?? '-' }}</h5>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                <i class="bi bi-gift-fill text-red-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Prize</p>
+                                <h5 class="font-bold text-gray-800">{{ $competition->prize ?? '-' }}</h5>
                             </div>
                         </div>
                     </div>

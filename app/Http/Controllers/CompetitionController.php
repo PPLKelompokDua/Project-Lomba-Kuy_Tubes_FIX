@@ -14,20 +14,19 @@ class CompetitionController extends Controller
     public function explore(Request $request)
     {
         $query = Competition::query();
-    
-        // Filter kategori (jika ada)
+
+        $query->where('deadline', '>=', now());
+
+        // Filter berdasarkan kategori
         if ($request->filled('category')) {
             $query->where('category', $request->category);
         }
-    
-        // Ambil semua kategori unik untuk dropdown
-        $categories = Competition::select('category')->distinct()->pluck('category');
-    
-        // Filter hadiah (range) dengan parsing ke angka
+
+        // Filter berdasarkan hadiah
         if ($request->filled('prize_range')) {
             $query->where(function ($q) use ($request) {
                 $q->whereRaw('REGEXP_REPLACE(prize, "[^0-9]", "") IS NOT NULL');
-    
+
                 if ($request->prize_range === 'lt1') {
                     $q->whereRaw('CAST(REGEXP_REPLACE(prize, "[^0-9]", "") AS UNSIGNED) < 1000000');
                 } elseif ($request->prize_range === '1to2') {
@@ -38,16 +37,39 @@ class CompetitionController extends Controller
             });
         }
 
-        // filter bookmark
-        if (request('bookmark') && auth()->check()) {
+        // Filter berdasarkan search keyword
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%')
+                  ->orWhere('category', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Filter berdasarkan bookmark
+        if ($request->filled('bookmark') && auth()->check()) {
             $savedIds = auth()->user()->savedCompetitions()->pluck('competition_id');
             $query->whereIn('id', $savedIds);
         }
 
-        $competitions = $query->paginate(12)->withQueryString();
-    
-        $competitions = $query->latest()->paginate(12)->appends($request->query());
-    
+        // 🔥 Sort logic
+        if ($request->filled('sort')) {
+            if ($request->sort == 'deadline') {
+                $query->orderBy('deadline', 'asc');
+            } elseif ($request->sort == 'prize') {
+                $query->orderByRaw('CAST(REGEXP_REPLACE(prize, "[^0-9]", "") AS UNSIGNED) DESC');
+            } else {
+                $query->orderBy('created_at', 'desc');
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        // Ambil semua kategori unik untuk dropdown
+        $categories = Competition::select('category')->distinct()->pluck('category');
+
+        $competitions = $query->latest()->paginate(12)->withQueryString();
+
         return view('competitions.explore', [
             'competitions' => $competitions,
             'categories' => $categories,
@@ -105,5 +127,18 @@ class CompetitionController extends Controller
             ->delete();
     
         return back()->with('success', 'Lomba berhasil dihapus dari bookmark.');
+    }
+
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->query('query', '');
+
+        $results = Competition::where('title', 'like', "%{$query}%")
+                        ->orWhere('category', 'like', "%{$query}%")
+                        ->orWhere('description', 'like', "%{$query}%")
+                        ->limit(10)
+                        ->pluck('title');
+
+        return response()->json($results);
     }
 }

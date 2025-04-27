@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Competition;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -97,6 +99,30 @@ Route::middleware(['auth'])->group(function () {
 
     // Untuk cari anggota tim random
     Route::get('/competitions/{competition}/random-members', [CompetitionController::class, 'randomMembers'])->name('competitions.random-members');
+
+    Route::middleware(['auth'])->group(function () {
+        // Posts
+        Route::get('/stories', [PostController::class, 'index'])->name('posts.index');
+        Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+        Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+        
+        // Comments
+        Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+        Route::get('/posts/{post}/comments', [CommentController::class, 'fetch'])->name('comments.fetch');
+
+    
+        // API untuk ambil comment list (optional kalau mau ajax beneran)
+        Route::get('/stories/{post}/comments', function ($postId) {
+            $post = \App\Models\Post::with('comments.user')->findOrFail($postId);
+            return response()->json(
+                $post->comments->map(fn($comment) => [
+                    'user_name' => $comment->user->name,
+                    'comment' => $comment->content,
+                    'created_at' => $comment->created_at->diffForHumans(),
+                ])
+            );
+        });
+    });
 
     
 

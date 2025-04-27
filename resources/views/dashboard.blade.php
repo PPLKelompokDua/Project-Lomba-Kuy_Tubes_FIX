@@ -4,69 +4,177 @@
 
 @section('content')
 <div class="space-y-8">
-    <!-- Welcome Banner with Quick Stats -->
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl overflow-hidden">
+    <!-- Enhanced Welcome Banner with Quick Stats -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl overflow-hidden relative z-0">
+        <!-- Decorative patterns and shapes - TOP -->
+        <div class="absolute top-0 right-0 w-full h-full overflow-hidden">
+            <svg class="absolute right-0 top-0 opacity-20" width="400" height="400" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFFFFF" d="M38.9,-66.7C50.5,-58.5,60.2,-48.1,67.8,-35.8C75.3,-23.5,80.7,-9.4,79.9,4.6C79.1,18.6,72.1,32.5,63.3,44.2C54.5,55.9,43.9,65.3,31.7,69.2C19.4,73.1,5.4,71.5,-9.2,70.8C-23.9,70.1,-39.3,70.3,-51.5,64.4C-63.7,58.5,-72.8,46.5,-79.2,33C-85.7,19.4,-89.5,4.3,-87.9,-10.3C-86.3,-24.9,-79.2,-39,-68.8,-49.6C-58.3,-60.3,-44.4,-67.6,-30.7,-74.2C-17,-80.7,-3.5,-86.6,8.2,-80.8C19.9,-75.1,39.8,-57.7,38.9,-66.7Z" transform="translate(100 100)" />
+            </svg>
+            <svg class="absolute left-1/4 top-0 opacity-20" width="250" height="250" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFFFFF" d="M43.7,-76.3C57.9,-69.9,71.5,-59.8,80.3,-46.1C89.1,-32.4,93,-15.2,90.3,0.8C87.6,16.8,78.3,31.6,67.4,43.9C56.5,56.2,44,66,30.3,73.8C16.6,81.5,1.8,87.1,-13.1,87.4C-28,87.7,-43,82.7,-55.1,73.5C-67.2,64.4,-76.5,51.1,-81.5,36.5C-86.5,21.9,-87.2,5.9,-85.3,-10C-83.4,-25.9,-78.9,-41.8,-69.1,-54C-59.3,-66.2,-44.3,-74.8,-29.3,-80.2C-14.3,-85.7,0.6,-88,14.6,-85.4C28.5,-82.8,41.3,-75.4,43.7,-76.3Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        
         <div class="relative p-8 md:p-10">
-            <!-- Decorative elements -->
+            <!-- Top decorative elements -->
             <div class="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-white bg-opacity-10 rounded-full blur-xl"></div>
             <div class="absolute bottom-0 left-0 -mb-12 -ml-12 w-40 h-40 bg-indigo-400 bg-opacity-20 rounded-full blur-xl"></div>
             
+            <!-- Floating Particles/Icons -->
+            <div class="absolute h-full w-full top-0 left-0 overflow-hidden">
+                <div class="absolute top-1/4 left-1/3 animate-pulse">
+                    <svg class="w-6 h-6 text-white opacity-40" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                </div>
+                <div class="absolute top-1/5 right-1/4 animate-float">
+                    <svg class="w-8 h-8 text-white opacity-30" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="absolute bottom-1/4 right-1/5">
+                    <svg class="w-5 h-5 text-white opacity-50 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="absolute bottom-1/3 left-1/4">
+                    <svg class="w-6 h-6 text-white opacity-40 animate-bounce-slow" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Wave pattern at the bottom -->
+            <div class="absolute bottom-0 left-0 w-full overflow-hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="opacity-20">
+                    <path fill="#FFFFFF" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,122.7C960,139,1056,149,1152,138.7C1248,128,1344,96,1392,80L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                </svg>
+            </div>
+            
+            <!-- Main Content with Enhanced Visual Design -->
             <div class="relative grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2">Selamat datang, {{ auth()->user()->name }}!</h1>
-                    <p class="text-indigo-100 text-lg mb-6">Mari tingkatkan potensimu dengan mengikuti kompetisi yang sesuai.</p>
+                    <!-- Abstract shape behind the heading -->
+                    <div class="absolute -left-10 -top-10 w-32 h-32 bg-purple-500 rounded-full filter blur-3xl opacity-20"></div>
                     
-                    <div class="flex flex-wrap gap-4">
-                        <a href="{{ route('explore') }}" class="bg-white text-indigo-600 hover:bg-indigo-50 font-semibold rounded-lg px-5 py-3 transition shadow-lg flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            Cari Lomba
-                        </a>
-                        <a href="#" class="bg-indigo-500 bg-opacity-30 hover:bg-opacity-40 text-white font-semibold rounded-lg px-5 py-3 transition flex items-center border border-indigo-300 border-opacity-40">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                            </svg>
-                            Cari Teman Lomba
-                        </a>
+                    <div class="relative">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2 drop-shadow-md">Selamat datang, {{ auth()->user()->name }}!</h1>
+                        <p class="text-indigo-100 text-lg mb-6">Mari tingkatkan potensimu dengan mengikuti kompetisi yang sesuai.</p>
+                                                                      
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{{ route('explore') }}" class="bg-white text-indigo-600 hover:bg-indigo-50 font-semibold rounded-lg px-5 py-3 transition shadow-lg flex items-center group">
+                                <svg class="w-5 h-5 mr-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                Cari Lomba
+                            </a>
+                            <a href="#" class="bg-indigo-500 bg-opacity-30 hover:bg-opacity-40 text-white font-semibold rounded-lg px-5 py-3 transition flex items-center border border-indigo-300 border-opacity-40 group">
+                                <svg class="w-5 h-5 mr-2 transform group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                Cari Teman Lomba
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="hidden md:grid grid-cols-2 gap-4">
-                    <div class="bg-white bg-opacity-15 backdrop-blur-md p-5 rounded-xl">
-                        <div class="flex items-center space-x-3 mb-2">
-                            <div class="p-2 bg-white bg-opacity-20 rounded-lg">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <span class="text-black font-medium">Status Lomba</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <div>
-                                <h4 class="text-2xl font-bold text-gray-800">{{ $activeCompetitions ?? 0 }}</h4>
-                                <p class="text-xs text-gray-800">Lomba Aktif</p>
-                            </div>
-                            <div>
-                                <h4 class="text-2xl font-bold text-gray-800">{{ $completedCompetitions ?? 0 }}</h4>
-                                <p class="text-xs text-gray-800">Selesai</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hidden md:block relative">
+                    <!-- Spotlight effect -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-transparent opacity-20 rounded-full blur-3xl"></div>
                     
-                    <!-- Lomba Tersimpan Card (within Welcome Banner with Quick Stats) -->
-                    <div class="bg-white bg-opacity-15 backdrop-blur-md p-5 rounded-xl">
-                        <div class="flex items-center space-x-3 mb-2">
-                            <div class="p-2 bg-white bg-opacity-20 rounded-lg">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                </svg>
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Lomba Aktif Card -->
+                        <div class="bg-white bg-opacity-15 backdrop-filter backdrop-blur-md p-5 rounded-xl border border-white border-opacity-20 transform transition-all hover:scale-105 shadow-lg relative group overflow-hidden">
+                            <!-- Decorative pattern inside card -->
+                            <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-white bg-opacity-20 rounded-full"></div>
+                            
+                            <div class="flex items-center space-x-3 mb-2 relative">
+                                <div class="p-2 bg-white bg-opacity-20 rounded-lg shadow-inner">
+                                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-gray-800 font-medium">Status Lomba</span>
+                                
+                                <!-- Glow effect on hover -->
+                                <div class="absolute inset-0 -z-10 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></div>
                             </div>
-                            <span class="text-black font-medium">Lomba Tersimpan</span>
+                            <div class="flex justify-between relative">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-gray-800">{{ $activeCompetitions ?? 0 }}</h4>
+                                    <p class="text-xs text-gray-600">Lomba Aktif</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-2xl font-bold text-gray-800">{{ $completedCompetitions ?? 0 }}</h4>
+                                    <p class="text-xs text-gray-600">Selesai</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-end justify-between">
-                            <h4 class="text-3xl font-bold text-gray-800">{{ $savedCompetitions ?? 0 }}</h4>
-                            <a href="{{ route('competitions.saved') }}" class="text-sm text-indigo-300 hover:text-white hover:underline">Lihat Semua</a>
+                        
+                        <!-- Lomba Tersimpan Card -->
+                        <div class="bg-white bg-opacity-15 backdrop-filter backdrop-blur-md p-5 rounded-xl border border-white border-opacity-20 transform transition-all hover:scale-105 shadow-lg relative group overflow-hidden">
+                            <!-- Decorative pattern inside card -->
+                            <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-white bg-opacity-20 rounded-full"></div>
+                            
+                            <div class="flex items-center space-x-3 mb-2 relative">
+                                <div class="p-2 bg-white bg-opacity-20 rounded-lg shadow-inner">
+                                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-gray-800 font-medium">Lomba Tersimpan</span>
+                                
+                                <!-- Glow effect on hover -->
+                                <div class="absolute inset-0 -z-10 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></div>
+                            </div>
+                            <div class="flex items-end justify-between">
+                                <h4 class="text-3xl font-bold text-gray-800">{{ $savedCompetitions ?? 0 }}</h4>
+                                <a href="{{ route('competitions.saved') }}" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline group-hover:text-indigo-800 transition-colors">Lihat Semua</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Upcoming Events Timeline -->
+                        <div class="col-span-2 mt-4 bg-white bg-opacity-15 backdrop-filter backdrop-blur-md rounded-xl border border-white border-opacity-20 p-5 transform transition-all hover:scale-102 shadow-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-gray-800 font-medium flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Jadwal Mendatang
+                                </h3>
+                                <span class="text-xs px-2 py-1 bg-indigo-700 bg-opacity-50 rounded-full text-white">3 Acara</span>
+                            </div>
+                            
+                            <!-- Timeline -->
+                            <div class="space-y-3">
+                                <!-- Timeline Item 1 -->
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                                    <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
+                                        <span>3 Mei</span>
+                                        <span class="font-medium">Submit Proposal</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Timeline Item 2 -->
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                                    <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
+                                        <span>10 Mei</span>
+                                        <span class="font-medium">Presentasi Final</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Timeline Item 3 -->
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                                    <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
+                                        <span>15 Mei</span>
+                                        <span class="font-medium">Deadline UI/UX Challenge</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,7 +188,7 @@
         <div class="lg:col-span-2 space-y-8">
             <!-- Recommended Competitions -->
             <div>
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between items-center mb-6 relative z-10">
                     <h2 class="text-2xl font-bold text-gray-800">Lomba Rekomendasi</h2>
                     <a href="{{ route('explore') }}" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold">
                         Lihat Semua
@@ -425,6 +533,47 @@
         animation: float 6s ease-in-out infinite;
     }
     
+    /* Additional new styles */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes spin-slow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    .animate-spin-slow {
+        animation: spin-slow 8s linear infinite;
+    }
+    
+    @keyframes bounce-slow {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    .animate-bounce-slow {
+        animation: bounce-slow 4s infinite;
+    }
+    
+    .hover\:scale-102:hover {
+        transform: scale(1.02);
+    }
+
     /* Custom Scrollbar for Lists */
     .custom-scrollbar::-webkit-scrollbar {
         width: 6px;

@@ -23,22 +23,51 @@
   <!-- Header -->
   <header class="bg-indigo-600 sticky top-0 z-50 shadow-md">
     <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <!-- Logo -->
       <a href="/" class="text-2xl font-extrabold text-white flex items-center">
         <span class="mr-2">
           <i class="fas fa-trophy"></i>
         </span>
         LombaKuy
       </a>
+
+      <!-- Desktop Navigation -->
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
-        <a href="{{ route('settings') }}" class="text-white hover:text-indigo-200 transition font-medium">Pengaturan</a>
-        <form action="{{ route('logout') }}" method="POST" class="inline">
-          @csrf
-          <button class="bg-white text-indigo-600 hover:bg-indigo-100 transition px-4 py-2 rounded-lg font-medium">Logout</button>
-        </form>
+        @auth
+          <div x-data="{ open: false }" class="relative">
+            <!-- Profile Picture -->
+            <button @click="open = !open" class="flex items-center focus:outline-none" aria-label="User menu">
+              <img 
+                src="{{ auth()->user()->profile_image ? asset('storage/images/' . auth()->user()->profile_image) : 'https://via.placeholder.com/150' }}" 
+                alt="Profile Picture" 
+                class="w-10 h-10 rounded-full object-cover border-2 border-white"
+              >
+            </button>
+            <!-- Dropdown -->
+            <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+              <div class="px-4 py-2 border-b border-gray-200">
+                <p class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</p>
+                <p class="text-xs text-gray-600">{{ auth()->user()->email }}</p>
+              </div>
+              <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-800 hover:bg-indigo-100 transition">
+                <i class="fas fa-user mr-2"></i> Lihat Profil
+              </a>
+              <a href="{{ route('settings') }}" class="block px-4 py-2 text-sm text-gray-800 hover:bg-indigo-100 transition">
+                <i class="fas fa-cog mr-2"></i> Pengaturan
+              </a>
+              <form action="{{ route('logout') }}" method="POST" class="block">
+                @csrf
+                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-indigo-100 transition">
+                  <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </button>
+              </form>
+            </div>
+          </div>
+        @endauth
       </nav>
       
-      <!-- Mobile menu button -->
+      <!-- Mobile Menu Button -->
       <div class="md:hidden flex items-center">
         <button class="mobile-menu-button text-white" aria-label="Open menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,15 +77,41 @@
       </div>
     </div>
     
-    <!-- Mobile menu -->
+    <!-- Mobile Menu -->
     <div class="mobile-menu hidden md:hidden p-4 bg-indigo-700">
       <nav class="flex flex-col space-y-3">
         <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition py-2">Dashboard</a>
-        <a href="{{ route('settings') }}" class="text-white hover:text-indigo-200 transition py-2">Pengaturan</a>
-        <form action="{{ route('logout') }}" method="POST" class="inline py-2">
-          @csrf
-          <button class="text-white hover:text-indigo-200 transition">Logout</button>
-        </form>
+        @auth
+          <div x-data="{ open: false }" class="relative">
+            <!-- Profile Picture -->
+            <button @click="open = !open" class="flex items-center text-white hover:text-indigo-200 transition py-2" aria-label="User menu">
+              <img 
+                src="{{ auth()->user()->profile_image ? asset('storage/images/' . auth()->user()->profile_image) : 'https://via.placeholder.com/150' }}" 
+                alt="Profile Picture" 
+                class="w-8 h-8 rounded-full object-cover mr-2"
+              >
+              <span>{{ auth()->user()->name }}</span>
+            </button>
+            <!-- Dropdown -->
+            <div x-show="open" class="pl-4 mt-1">
+              <div class="text-sm text-indigo-200">
+                <p>{{ auth()->user()->email }}</p>
+              </div>
+              <a href="{{ route('profile.show') }}" class="block py-2 text-white hover:text-indigo-200 transition">
+                <i class="fas fa-user mr-2"></i> Lihat Profil
+              </a>
+              <a href="{{ route('settings') }}" class="block py-2 text-white hover:text-indigo-200 transition">
+                <i class="fas fa-cog mr-2"></i> Pengaturan
+              </a>
+              <form action="{{ route('logout') }}" method="POST" class="block py-2">
+                @csrf
+                <button type="submit" class="text-white hover:text-indigo-200 transition">
+                  <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </button>
+              </form>
+            </div>
+          </div>
+        @endauth
       </nav>
     </div>
   </header>

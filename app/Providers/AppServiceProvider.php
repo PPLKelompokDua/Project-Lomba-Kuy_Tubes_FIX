@@ -7,6 +7,10 @@ use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        Post::class => PostPolicy::class,
+    ];
+
     /**
      * Register any application services.
      */

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(auth()->user()->role === 'organizer' ? 'layouts.organizer' : 'layouts.app')
 
 @section('title', 'Profil Saya')
 
@@ -52,6 +52,7 @@
             </a>
         </div>
 
+        @if(auth()->user()->role === 'user')
         <!-- Saved Competitions -->
         <div data-aos="fade-up" data-aos-delay="200">
             <div class="flex justify-between items-center mb-6">
@@ -121,6 +122,7 @@
                 @endforelse
             </div>
         </div>
+        @endif
     </div>
 </div>
 

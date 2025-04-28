@@ -69,4 +69,22 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post berhasil diperbarui!');
     }
+
+    public function like(Post $post)
+    {
+        $post->likes()->firstOrCreate(['user_id' => auth()->id()]);
+        return back();
+    }
+
+    public function unlike(Post $post)
+    {
+        $post->likes()->where('user_id', auth()->id())->delete();
+        return back();
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus!');
+    }
 }

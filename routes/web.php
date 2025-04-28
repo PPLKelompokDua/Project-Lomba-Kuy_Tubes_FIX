@@ -110,6 +110,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
         Route::get('/posts/{post}/comments', [CommentController::class, 'fetch'])->name('comments.fetch');
 
+        //Likes
+        Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
+        Route::delete('/posts/{post}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
+
+        //delete post
+        Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     
         // API untuk ambil comment list (optional kalau mau ajax beneran)
         Route::get('/stories/{post}/comments', function ($postId) {

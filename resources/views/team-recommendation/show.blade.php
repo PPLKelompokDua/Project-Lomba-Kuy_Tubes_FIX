@@ -105,9 +105,6 @@
                                                         <p class="text-sm mt-2 text-gray-700">{{ \Illuminate\Support\Str::limit($user->description, 100) }}</p>
                                                     @endif
                                                     <div class="mt-3">
-                                                        <a href="mailto:{{ $user->email }}" class="btn btn-outline-primary btn-sm w-100">Kontak</a>
-                                                    </div>
-                                                    <div class="mt-3">
                                                         <a href="mailto:{{ $user->email }}" class="btn btn-outline-primary btn-sm w-100">Undang</a>
                                                     </div>
                                                 </div>

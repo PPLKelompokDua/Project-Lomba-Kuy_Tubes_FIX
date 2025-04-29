@@ -53,4 +53,9 @@ class Competition extends Model
     {
         return \Carbon\Carbon::parse($this->deadline)->isFuture() ? 'open' : 'closed';
     }
+    
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
 }

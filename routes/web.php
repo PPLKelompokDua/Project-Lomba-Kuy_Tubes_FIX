@@ -14,6 +14,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\TeamRecommendationController;
 use App\Http\Controllers\TeamMemberController;
+use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\RecommendationsController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TeamsMemberController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -141,10 +146,45 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/team-recommendation', [TeamRecommendationController::class, 'generateRecommendation'])
         ->name('team.recommendation');
     
-    // Team Member Route    
-    Route::post('/team-members', [TeamMemberController::class, 'store'])->name('team-members.store');
-    Route::put('/team-members/{index}', [TeamMemberController::class, 'update'])->name('team-members.update');
-    Route::delete('/team-members/{index}', [TeamMemberController::class, 'destroy'])->name('team-members.destroy');
+
+    // Invitations
+    Route::prefix('invitation')->group(function () {
+    Route::resource('invitation', InvitationController::class);
+    Route::post('invitation/{invitation}/accept', [InvitationController::class, 'accept'])->name('invitations.accept');
+    Route::post('invitation/{invitation}/decline', [InvitationController::class, 'decline'])->name('invitations.decline');
+    Route::delete('invitation/{invitation}', [InvitationController::class, 'cancel'])->name('invitations.cancel');
+    Route::get('invitation/team/{team}', [InvitationController::class, 'trackTeamInvitations'])->name('invitations.team');
+    Route::post('/invitations/{invitation}/accept', [InvitationController::class, 'accept'])->name('invitations.accept');
+    Route::post('/invitations/{invitation}/decline', [InvitationController::class, 'decline'])->name('invitations.decline');
+    Route::get('/invitations/{invitation}', [InvitationController::class, 'show'])->name('invitations.show');
+    Route::get('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
+
+    });
+
+    Route::resource('invitations', \App\Http\Controllers\invitationController::class);
+    Route::post('/messages', [\App\Http\Controllers\MessageController::class, 'store'])->name('messages.store');
+
+    // Messages
+    Route::prefix('messages')->group(function () {
+        Route::get('/', [MessageController::class, 'index'])->name('messages.index');
+        Route::get('/user/{user}', [MessageController::class, 'conversation'])->name('messages.conversation');
+        Route::post('/send', [MessageController::class, 'send'])->name('messages.send');
+        Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+        Route::get('/invitation/{invitation}', [MessageController::class, 'invitationMessages'])->name('messages.invitation');
+    });
+
+    Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
+    Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+
+    Route::get('/teams/create-from-competition/{competition}', [TeamController::class, 'createFromCompetition'])->name('teams.create-from-competition');
+    Route::get('/teams/create-from-recommendation/{userId}', [TeamController::class, 'createFromRecommendation'])->name('teams.createFromRecommendation');
+
+
+    Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
+    Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+    Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+    Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+
 
 
 });

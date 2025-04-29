@@ -113,11 +113,7 @@
                             @endif
                         </div>
                         <div class="space-y-3">
-                            <a href="mailto:{{ $user->email }}?subject=Team Up for {{ urlencode($competition->title) }}&body=Hello {{ urlencode($user->name) }},%0D%0A%0D%0AI am looking for team members for the '{{ urlencode($competition->title) }}' competition. Would you be interested in joining my team?%0D%0A%0D%0ACompetition details: {{ urlencode(route('competitions.show', $competition->id)) }}%0D%0A%0D%0AThanks!"
-                               class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:-translate-y-1">
-                                <i class="bi bi-envelope-fill mr-2"></i> Contact {{ $firstName }}
-                            </a>
-                            <a href="mailto:{{ $user->email }}?subject=Invitation to Join Team for {{ urlencode($competition->title) }}&body=Dear {{ urlencode($user->name) }},%0D%0A%0D%0AI am excited to invite you to join my team for the '{{ urlencode($competition->title) }}' competition. Based on your profile, I believe you would be a great fit!%0D%0A%0D%0ACompetition details: {{ urlencode(route('competitions.show', $competition->id)) }}%0D%0A%0D%0APlease let me know if you're interested, and we can discuss further.%0D%0A%0D%0ABest regards,%0D%0A{{ urlencode(auth()->user()->name) }}"
+                            <a href="{{ route('teams.create', ['competition_id' => $competition->id, 'user_id' => $user->id]) }}"
                                class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:-translate-y-1">
                                 <i class="bi bi-person-plus-fill mr-2"></i> Invite {{ $firstName }}
                             </a>

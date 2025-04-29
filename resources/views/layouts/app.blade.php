@@ -36,8 +36,9 @@
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
         <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition font-medium">Eksplorasi Lomba</a>
-        <a href="#" class="text-white hover:text-indigo-200 transition font-medium">Team Saya</a>
-        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feed Story</a>
+        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Team Saya</a>
+        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Invitation</a>
+        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story Space</a>
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->

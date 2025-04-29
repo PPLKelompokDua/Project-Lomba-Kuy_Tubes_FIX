@@ -143,11 +143,6 @@
                 </div>
               </div>
               
-              <div class="flex items-center">
-                <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                <label for="remember" class="ml-2 block text-sm text-gray-700">Ingat Saya</label>
-              </div>
-              
               <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition transform hover:scale-105 flex items-center justify-center">
                 <span>Log In</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

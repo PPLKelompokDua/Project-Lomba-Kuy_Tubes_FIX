@@ -31,7 +31,7 @@
 </div>
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-10">
-    <!-- About Team Formation Section -->
+    <!-- Team Formation Section -->
     <div class="bg-white rounded-xl shadow-md mb-8 overflow-hidden">
         <div class="p-6">
             <div class="flex flex-col sm:flex-row sm:items-start mb-6 gap-4">

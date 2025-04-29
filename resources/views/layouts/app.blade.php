@@ -23,15 +23,7 @@
     </div>
   </header>
 
-  <!-- layouts/app.blade.php -->
-<ul class="navbar-nav ms-auto">
-    <!-- Link ke Invitations -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('invitations.index') }}">Invitations</a>
-    </li>
-</ul>
-
-
+ 
   <!-- Content -->
   <main class="container mx-auto px-4 py-10">
     @yield('content')

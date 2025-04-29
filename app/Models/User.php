@@ -30,4 +30,61 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+/**
+     * Get the teams led by the user.
+     */
+    public function ledTeams()
+    {
+        return $this->hasMany(Team::class, 'leader_id');
+    }
+
+    /**
+     * Get all teams the user is a member of.
+     */
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_members')
+            ->withPivot('status')
+            ->withTimestamps();
+    }
+
+    /**
+     * Get invitations sent by the user.
+     */
+    public function sentInvitations()
+    {
+        return $this->hasMany(Invitation::class, 'sender_id');
+    }
+
+    /**
+     * Get invitations received by the user.
+     */
+    public function receivedInvitations()
+    {
+        return $this->hasMany(Invitation::class, 'receiver_id');
+    }
+
+    /**
+     * Get messages sent by the user.
+     */
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    /**
+     * Get messages received by the user.
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    /**
+     * Get forum posts created by the user.
+     */
+    public function forumPosts()
+    {
+        return $this->hasMany(ForumPost::class);
+    }
 }

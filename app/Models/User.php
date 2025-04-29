@@ -18,6 +18,8 @@ class User extends Authenticatable
         'password',
         'role', 
         'notification_preferences',
+        'personality_type',
+        'preferred_role',
     ];
 
     protected $hidden = [
@@ -58,5 +60,10 @@ class User extends Authenticatable
     public function isStudent()
     {
         return $this->role === 'user';
+    }
+    
+    public function assessmentHistories()
+    {
+        return $this->hasMany(\App\Models\AssessmentHistory::class);
     }
 }

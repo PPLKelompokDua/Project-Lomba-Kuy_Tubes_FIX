@@ -11,6 +11,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\TeamRecommendationController;
+use App\Http\Controllers\TeamMemberController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -130,6 +133,18 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
+    // Assessment Routes
+    Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
+    Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
+
+    // Team Recommendation Route
+    Route::get('/team-recommendation', [TeamRecommendationController::class, 'generateRecommendation'])
+        ->name('team.recommendation');
     
+    // Team Member Route    
+    Route::post('/team-members', [TeamMemberController::class, 'store'])->name('team-members.store');
+    Route::put('/team-members/{index}', [TeamMemberController::class, 'update'])->name('team-members.update');
+    Route::delete('/team-members/{index}', [TeamMemberController::class, 'destroy'])->name('team-members.destroy');
+
 
 });

@@ -49,6 +49,11 @@ class UserSeeder extends Seeder
         }
 
         // Seed tambahan 100 random users
+        // Tambahan untuk pilihan personality dan role
+        $personalities = ['Conscientiousness', 'Openness to Experience', 'Extraversion', 'Neuroticism', 'Agreeableness'];
+        $preferredRoles = ['Leader', 'Planner', 'Supporter', 'Creative'];
+        $focusAreas = ['Programming', 'Design', 'Business', 'Engineering', 'Science', 'Art'];
+
         for ($i = 1; $i <= 100; $i++) {
             User::create([
                 'name' => 'User' . $i,
@@ -59,6 +64,8 @@ class UserSeeder extends Seeder
                 'description' => 'Saya tertarik mengikuti lomba ' . $focusAreas[array_rand($focusAreas)] . ' dan ingin memperluas jaringan.',
                 'achievements' => 'Pernah memenangkan beberapa lomba lokal.',
                 'focus_area' => $focusAreas[array_rand($focusAreas)],
+                'personality_type' => $personalities[array_rand($personalities)], // baru ditambah
+                'preferred_role' => $preferredRoles[array_rand($preferredRoles)], // baru ditambah
             ]);
         }
     }

@@ -11,21 +11,11 @@ class Task extends Model
         'description',
         'due_date',
         'status',
-        'competition_id',
         'user_id'
-    ];
-
-    protected $casts = [
-        'due_date' => 'date'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function competition()
-    {
-        return $this->belongsTo(Competition::class);
     }
 }

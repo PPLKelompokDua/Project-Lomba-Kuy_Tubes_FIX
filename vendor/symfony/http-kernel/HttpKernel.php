@@ -51,6 +51,11 @@ class_exists(KernelEvents::class);
  */
 class HttpKernel implements HttpKernelInterface, TerminableInterface
 {
+    // Di dalam class Kernel extends HttpKernel
+protected $routeMiddleware = [
+    // ... middleware lainnya
+    'check.role' => \App\Http\Middleware\CheckRole::class,
+];
     protected RequestStack $requestStack;
     private ArgumentResolverInterface $argumentResolver;
     private bool $terminating = false;

@@ -22,10 +22,27 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto mt-8 px-4">
+    <main class="flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow h-screen px-6 py-8">
+        <h2 class="text-xl font-bold mb-6">Organizer Menu</h2>
+        <ul class="space-y-4">
+            <li>
+                <a href="{{ route('organizer.dashboard') }}" class="text-indigo-700 hover:underline">Dashboard</a>
+            </li>
+            <li>
+                <a href="{{ route('organizer.task.index') }}" class="text-indigo-700 hover:underline">Task Management</a>
+            </li>
+            <!-- Tambahkan menu lain jika perlu -->
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 p-6">
         @yield('content')
-    </main>
+    </div>
+</main>
+
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center p-4 mt-12">

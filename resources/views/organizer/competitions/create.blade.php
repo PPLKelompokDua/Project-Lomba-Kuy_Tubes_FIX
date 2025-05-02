@@ -15,7 +15,19 @@
             </a>
         </div>
 
-        <!-- Error Messages -->
+        <!-- Client-Side Error Messages -->
+        <div id="client-errors" class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg relative hidden" role="alert" data-aos="fade-up">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span class="font-semibold">Terjadi Kesalahan:</span>
+            </div>
+            <ul id="client-error-list" class="list-disc pl-5 mt-2 text-sm"></ul>
+            <button class="absolute top-2 right-2 text-red-500 hover:text-red-700" onclick="this.parentElement.classList.add('hidden')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Server-Side Error Messages -->
         @if ($errors->any())
             <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg relative" role="alert" data-aos="fade-up">
                 <div class="flex items-center">
@@ -34,7 +46,8 @@
         @endif
 
         <!-- Form -->
-        <form action="{{ route('organizer.competitions.store') }}" method="POST" enctype="multipart/form-data" id="competitionForm">
+        <form action="{{ route('organizer.competitions.store') }}" method="POST" enctype="multipart/form-data" id="competitionForm" onsubmit="return syncCategory()">
+
             @csrf
 
             <div class="space-y-6">
@@ -67,38 +80,54 @@
                     <label for="category_select" class="block text-sm font-medium text-gray-700 mb-1">Kategori <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <select name="category_select" id="category_select" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required onchange="toggleCustomCategory()">
-                            <option value="" disabled selected>Pilih kategori</option>
-                            <option value="Desain" {{ old('category_select') == 'Desain' ? 'selected' : '' }}>Desain</option>
-                            <option value="Teknologi" {{ old('category_select') == 'Teknologi' ? 'selected' : '' }}>Teknologi</option>
-                            <option value="Musik" {{ old('category_select') == 'Musik' ? 'selected' : '' }}>Musik</option>
-                            <option value="Olahraga" {{ old('category_select') == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
-                            <option value="Pendidikan" {{ old('category_select') == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
-                            <option value="Other" {{ old('category_select') == 'Other' ? 'selected' : '' }}>Other</option>
+                        <select name="category_select" id="category_select"
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                            required onchange="toggleCustomCategory()">
+                            <option value="" disabled {{ old('category') ? '' : 'selected' }}>Pilih kategori</option>
+                            @php
+                                $preset = ['Desain', 'Teknologi', 'Musik', 'Olahraga', 'Pendidikan'];
+                                $category = old('category');
+                            @endphp
+                            @foreach($preset as $presetCategory)
+                                <option value="{{ $presetCategory }}" {{ $category === $presetCategory ? 'selected' : '' }}>
+                                    {{ $presetCategory }}
+                                </option>
+                            @endforeach
+                            <option value="Other" {{ $category && !in_array($category, $preset) ? 'selected' : '' }}>Other</option>
                         </select>
-                        @error('category')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
                     </div>
-                    <div id="customCategoryContainer" class="mt-2 hidden">
+
+                    {{-- Input Custom Category --}}
+                    <div id="customCategoryContainer" class="mt-2 {{ $category && !in_array($category, $preset) ? '' : 'hidden' }}">
                         <div class="relative">
                             <i class="fas fa-pen absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" id="custom_category" value="{{ old('category') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan kategori lain">
+                            <input type="text" id="custom_category"
+                                value="{{ $category && !in_array($category, $preset) ? $category : '' }}"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                                placeholder="Masukkan kategori lain">
+                            <span id="custom_category-error" class="text-red-500 text-sm hidden">Kategori lain harus diisi.</span>
                         </div>
                     </div>
-                    <input type="hidden" name="category" id="category" value="{{ old('category') }}">
-                </div>
 
-                <!-- Deadline -->
+                    <input type="hidden" name="category" id="category" value="{{ $category }}">
+                    @error('category')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+                
+                <!-- Deadline (Fixed) -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="250">
                     <label for="deadline" class="block text-sm font-medium text-gray-700 mb-1">Deadline <span class="text-red-500">*</span></label>
                     <div class="relative">
-                        <i class="fas fa-calendar-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="date" name="deadline" id="deadline" value="{{ old('deadline') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
-                        @error('deadline')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <input type="date" name="deadline" id="deadline" value="{{ old('deadline') }}" min="{{ \Carbon\Carbon::today()->format('Y-m-d') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
                     </div>
+                    @error('deadline')
+                        <span class="text-red-500 text-sm block mt-1">{{ $message }}</span>
+                    @enderror
+                    <span id="deadline-error" class="text-red-500 text-sm hidden block mt-1">Deadline harus hari ini atau di masa depan.</span>
                 </div>
 
                 <!-- Hadiah -->
@@ -149,28 +178,35 @@
                     </div>
                 </div>
 
-                <!-- Tanggal Mulai -->
+                <!-- Tanggal Mulai (Fixed) -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="550">
                     <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
                     <div class="relative">
-                        <i class="fas fa-calendar-plus absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
                         <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
-                        @error('start_date')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
                     </div>
+                    @error('start_date')
+                        <span class="text-red-500 text-sm block mt-1">{{ $message }}</span>
+                    @enderror
+                    <span class="text-sm text-gray-500 block mt-1">Tanggal Mulai dimulai dari awal masa registrasi</span>
                 </div>
 
-                <!-- Tanggal Selesai -->
+                <!-- Tanggal Selesai (Fixed) -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="600">
                     <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai <span class="text-red-500">*</span></label>
                     <div class="relative">
-                        <i class="fas fa-calendar-minus absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
-                        @error('end_date')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                            <i class="fas fa-calendar-minus"></i>
+                        </div>
+                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}" min="{{ \Carbon\Carbon::tomorrow()->format('Y-m-d') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
                     </div>
+                    @error('end_date')
+                        <span class="text-red-500 text-sm block mt-1">{{ $message }}</span>
+                    @enderror
+                    <span id="end_date-error" class="text-red-500 text-sm hidden block mt-1">Tanggal Selesai harus di masa depan.</span>
+                    <span class="text-sm text-gray-500 block mt-1">Tanggal Selesai hingga semua timeline lomba selesai contohnya pengumuman lomba</span>
                 </div>
 
                 <!-- Poster Lomba -->
@@ -257,6 +293,15 @@
         opacity: 0.5;
     }
     
+    /* Date input icon alignment */
+    .date-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        line-height: 1;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 640px) {
         .max-w-2xl {
@@ -276,26 +321,65 @@
         once: true,
     });
 
-    // Category Selection Logic
     function toggleCustomCategory() {
+    const select = document.getElementById('category_select');
+    const customContainer = document.getElementById('customCategoryContainer');
+    const customInput = document.getElementById('custom_category');
+    const categoryInput = document.getElementById('category');
+
+    if (select.value === 'Other') {
+        customContainer.classList.remove('hidden');
+        customInput.setAttribute('required', 'required');
+        categoryInput.value = customInput.value.trim();
+    } else {
+        customContainer.classList.add('hidden');
+        customInput.removeAttribute('required');
+        customInput.value = '';
+        categoryInput.value = select.value;
+    }
+}
+
+    // Saat form disubmit
+    document.getElementById('competitionForm').addEventListener('submit', function(event) {
         const select = document.getElementById('category_select');
-        const customContainer = document.getElementById('customCategoryContainer');
+        const customInput = document.getElementById('custom_category');
+        const categoryInput = document.getElementById('category');
+
+        // Sinkronkan sebelum validasi
+        if (select.value === 'Other') {
+            categoryInput.value = customInput.value.trim();
+        } else {
+            categoryInput.value = select.value;
+        }
+
+        if (!validateForm()) {
+            event.preventDefault();
+        }
+    });
+
+    function syncCategory() {
+        const select = document.getElementById('category_select');
         const customInput = document.getElementById('custom_category');
         const categoryInput = document.getElementById('category');
 
         if (select.value === 'Other') {
-            customContainer.classList.remove('hidden');
-            customInput.focus();
-            categoryInput.value = customInput.value || '';
+            const val = customInput.value.trim();
+            categoryInput.value = val;
+            if (!val) {
+                alert("Kategori lain harus diisi.");
+                customInput.focus();
+                return false;
+            }
         } else {
-            customContainer.classList.add('hidden');
             categoryInput.value = select.value;
         }
+
+        return true;
     }
 
     // Update hidden category input on custom input change
     document.getElementById('custom_category').addEventListener('input', function() {
-        document.getElementById('category').value = this.value;
+        document.getElementById('category').value = this.value.trim();
     });
 
     // Initialize category input on page load
@@ -366,6 +450,103 @@
     // Add click event to preview image to open modal
     document.getElementById('previewImage').addEventListener('click', function() {
         openPreviewModal(this.src);
+    });
+
+    // Date Validation
+    const today = new Date().toISOString().split('T')[0];
+    const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
+
+    function validateDates() {
+        const deadlineInput = document.getElementById('deadline');
+        const endDateInput = document.getElementById('end_date');
+        const deadlineError = document.getElementById('deadline-error');
+        const endDateError = document.getElementById('end_date-error');
+        let errors = [];
+        let isValid = true;
+
+        // Validate Deadline (today or future)
+        if (!deadlineInput.value || deadlineInput.value < today) {
+            deadlineError.classList.remove('hidden');
+            deadlineInput.classList.add('border-red-500');
+            errors.push('Deadline harus hari ini atau di masa depan.');
+            isValid = false;
+        } else {
+            deadlineError.classList.add('hidden');
+            deadlineInput.classList.remove('border-red-500');
+        }
+
+        // Validate End Date (future)
+        if (!endDateInput.value || endDateInput.value <= today) {
+            endDateError.classList.remove('hidden');
+            endDateInput.classList.add('border-red-500');
+            errors.push('Tanggal Selesai harus di masa depan.');
+            isValid = false;
+        } else {
+            endDateError.classList.add('hidden');
+            endDateInput.classList.remove('border-red-500');
+        }
+
+        return { isValid, errors };
+    }
+
+    // Form Validation
+    function validateForm() {
+        const dateValidation = validateDates();
+        const categoryValidation = validateCategory();
+        const clientErrors = document.getElementById('client-errors');
+        const clientErrorList = document.getElementById('client-error-list');
+
+        const allErrors = [...dateValidation.errors, ...categoryValidation.errors];
+        const isValid = dateValidation.isValid && categoryValidation.isValid;
+
+        if (allErrors.length > 0) {
+            clientErrorList.innerHTML = allErrors.map(error => `<li>${error}</li>`).join('');
+            clientErrors.classList.remove('hidden');
+        } else {
+            clientErrors.classList.add('hidden');
+        }
+
+        return isValid;
+    }
+
+    // Validate on input change and manual typing
+    document.getElementById('deadline').addEventListener('input', function() {
+        if (this.value && this.value < today) {
+            this.value = today; // Reset to today if past date is typed
+            validateDates();
+        }
+    });
+
+    document.getElementById('end_date').addEventListener('input', function() {
+        if (this.value && this.value <= today) {
+            this.value = tomorrow; // Reset to tomorrow if past or today is typed
+            validateDates();
+        }
+    });
+
+    document.getElementById('deadline').addEventListener('change', validateForm);
+    document.getElementById('end_date').addEventListener('change', validateForm);
+    document.getElementById('category_select').addEventListener('change', validateForm);
+    document.getElementById('custom_category').addEventListener('input', validateForm);
+
+    // Validate on form submission
+    document.getElementById('competitionForm').addEventListener('submit', function(event) {
+        // Force update category before validation
+        const select = document.getElementById('category_select');
+        const customInput = document.getElementById('custom_category');
+        const categoryInput = document.getElementById('category');
+        
+        if (select.value === 'Other') {
+            categoryInput.value = customInput.value.trim();
+        } else {
+            categoryInput.value = select.value;
+        }
+
+        console.log('Submitting form, category:', categoryInput.value);
+
+        if (!validateForm()) {
+            event.preventDefault();
+        }
     });
 </script>
 @endpush

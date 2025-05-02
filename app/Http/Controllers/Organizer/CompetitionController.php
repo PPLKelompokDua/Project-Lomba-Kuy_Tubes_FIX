@@ -46,12 +46,12 @@ class CompetitionController extends Controller
             'description'               => 'required|string',
             'category'                  => 'required|string|max:100',
             'prize'                     => 'required|string|max:255',
-            'deadline'                  => 'required|date',
+            'deadline' => 'required|date|after_or_equal:today',
             'registration_link'         => 'required|url|max:255',
-            'photo'                     => 'nullable|image|max:2048',
+            'photo'                     => 'nullable|image|max:5120',
             'location'                  => 'required|string|max:255',
-            'start_date'                => 'required|date',
-            'end_date'                  => 'required|date|after_or_equal:start_date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:today',
             'max_participants'          => 'nullable|integer|min:1',
         ]);
 
@@ -109,14 +109,14 @@ class CompetitionController extends Controller
         $request->validate([
             'title'                     => 'required|string|max:255',
             'description'               => 'required|string',
-            'category'                  => 'required|string|max:100',
+            'category'                  => 'required|string|max:255',
             'prize'                     => 'required|string|max:255',
-            'deadline'                  => 'required|date',
+            'deadline' => 'required|date|after_or_equal:today',
             'registration_link'         => 'required|url|max:255',
             'photo'                     => 'nullable|image|max:2048',
             'location'                  => 'required|string|max:255',
-            'start_date'                => 'required|date',
-            'end_date'                  => 'required|date|after_or_equal:start_date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:today',
             'max_participants'          => 'nullable|integer|min:1',
         ]);
 

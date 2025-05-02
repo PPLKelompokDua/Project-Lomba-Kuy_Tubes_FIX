@@ -6,8 +6,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RecommendationsController;
-use App\Http\Controllers\TeamsController;
-use App\Http\Controllers\TeamsMemberController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TeamMemberController;
 use Illuminate\Support\Facades\Auth;
 
 // Halaman Landing
@@ -21,14 +21,11 @@ Route::get('/register', [RegisterController::class, 'create'])->name('register')
 Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
 
  // TEAM CRUD
- Route::resource('teams', TeamController::class);
+ 
 
- // TEAM MEMBER (optional)
- Route::put('/team-members/{member}/role', [TeamsMemberController::class, 'updateRole']);
- Route::delete('/team-members/{member}', [TeamsMemberController::class, 'destroy']);
 
   // Invitations
-  Route::prefix('invitation')->group(function () {
+Route::prefix('invitation')->group(function () {
 Route::resource('invitation', InvitationController::class);
 Route::post('invitation/{invitation}/accept', [InvitationController::class, 'accept'])->name('invitations.accept');
 Route::post('invitation/{invitation}/decline', [InvitationController::class, 'decline'])->name('invitations.decline');

@@ -13,6 +13,7 @@ class Team extends Model
         'name',
         'competition_id',
         'leader_id',
+        'created_by',
     ];
 
     /**
@@ -36,9 +37,7 @@ class Team extends Model
      */
     public function members()
     {
-        return $this->belongsToMany(User::class, 'team_members')
-            ->withPivot('status')
-            ->withTimestamps();
+        return $this->belongsToMany(User::class)->withPivot('role')->withTimestamps();
     }
 
     /**
@@ -67,4 +66,17 @@ class Team extends Model
     {
         return $this->members()->wherePivot('status', 'accepted');
     }
+
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    
 }

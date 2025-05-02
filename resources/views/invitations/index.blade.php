@@ -22,10 +22,14 @@
                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
                     Send Invitation
                 </button>
+                <button>
+                <a class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"> Make Team</a>
+                </button>
             </div>
         </form>
     </div>
 
+    
     {{-- Sent Invitations --}}
     <div class="mb-5">
         <h2 class="text-lg font-semibold mb-3">Sent Invitations</h2>
@@ -57,7 +61,8 @@
             <p class="text-gray-500">No invitations sent yet.</p>
         @endif
     </div>
-
+    
+    
     {{-- Received Invitations --}}
     <div>
         <h2 class="text-lg font-semibold mb-3">Received Invitations</h2>

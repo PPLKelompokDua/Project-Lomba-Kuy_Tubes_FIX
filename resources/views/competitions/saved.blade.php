@@ -59,17 +59,10 @@
                             <i class="fas fa-clock text-red-500 mr-2"></i>
                             <span class="text-gray-800">Deadline: {{ \Carbon\Carbon::parse($competition->deadline)->format('d M Y') }}</span>
                         </div>
-                        <div class="flex gap-4">
-                            <a href="#" class="flex-1 bg-white border-2 border-indigo-600 text-indigo-600 font-bold py-2 px-4 rounded-lg hover:bg-indigo-50 transition text-center">
+                        <div>
+                            <a href="{{ route('competitions.show', $competition->id) }}" class="block w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition text-center">
                                 Lihat Detail
                             </a>
-                            <form action="{{ route('competitions.unsave', $competition->id) }}" method="POST" class="flex-1">
-                                @csrf
-                                @method('DELETE')
-                                <button class="w-full bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition" onclick="return confirm('Hapus dari bookmark?')">
-                                    Hapus
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>

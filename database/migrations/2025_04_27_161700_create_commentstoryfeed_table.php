@@ -23,8 +23,12 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('commentstoryfeed');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropForeign(['post_id']);
+        });
+
+        Schema::dropIfExists('comments');
     }
 };

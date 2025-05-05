@@ -33,6 +33,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'notification_preferences' => 'array',
+            'experience' => 'array',
         ];
     }
     /**
@@ -44,11 +45,11 @@ class User extends Authenticatable
     }
     
     /**
-     * Get the registrations made by the user.
+     * Get direct access to registrations table for category filter feature.
      */
-    public function registrations()
+    public function registrationRecords()
     {
-        return $this->hasMany(Registration::class);
+        return \DB::table('registrations')->where('user_id', $this->id);
     }
     
     /**

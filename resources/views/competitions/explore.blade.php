@@ -12,9 +12,11 @@
         </div>
         <div class="container mx-auto px-6 py-16 md:py-24 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-800 bg-opacity-40 backdrop-blur-sm mb-6" data-aos="fade-down">
-                    <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
-                    <span class="text-indigo-200 uppercase tracking-wider text-sm font-semibold">KATALOG LOMBA</span>
+                <div class="md:flex md:items-center md:justify-between">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-800 bg-opacity-40 backdrop-blur-sm mb-6" data-aos="fade-down">
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
+                        <span class="text-indigo-200 uppercase tracking-wider text-sm font-semibold">KATALOG LOMBA</span>
+                    </div>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight" data-aos="fade-up">
                     Eksplorasi Katalog Lomba
@@ -172,7 +174,7 @@
                     <i class="fas fa-sort mr-2"></i>
                     <select name="sort" onchange="document.getElementById('sortForm').submit()" class="border-0 bg-transparent focus:ring-0 text-sm">
                         <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                        <option value="deadline" {{ request('sort') == 'deadline' ? 'selected' : '' }}>Deadline Terdekat</option>
+                        <option value="registration_deadline" {{ request('sort') == 'registration_deadline' ? 'selected' : '' }}>Deadline Terdekat</option>
                         <option value="prize" {{ request('sort') == 'prize' ? 'selected' : '' }}>Hadiah Terbesar</option>
                     </select>
                 </form>
@@ -236,7 +238,7 @@
                         <div class="absolute bottom-4 left-4">
                             <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-600 bg-opacity-90 text-white backdrop-blur-sm">
                                 <i class="fas fa-clock mr-1"></i>
-                                {{ \Carbon\Carbon::parse($competition->deadline)->diffForHumans() }}
+                                {{ $competition->registration_deadline->diffForHumans() }}
                             </div>
                         </div>
                     </div>
@@ -270,7 +272,7 @@
                                 <div>
                                     <p class="text-xs text-gray-500">Deadline</p>
                                     <p class="font-bold text-gray-800">
-                                        {{ $competition->deadline ? \Carbon\Carbon::parse($competition->deadline)->format('M d, Y') : '-' }}
+                                        {{ $competition->registration_deadline ? $competition->registration_deadline->format('M d, Y') : '-' }}
                                     </p>
                                 </div>
                             </div>
@@ -329,7 +331,7 @@
     </div>
 
     <!-- Modal Preview -->
-    <div class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50" id="previewModal">
+    <div class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" id="previewModal">
         <div class="bg-white rounded-lg max-w-4xl w-full mx-4">
             <div class="p-4 text-center">
                 <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">

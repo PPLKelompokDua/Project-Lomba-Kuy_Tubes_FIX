@@ -104,6 +104,64 @@
                 @enderror
             </div>
 
+            <!-- Competition Experience -->
+            <div class="mb-8" data-aos="fade-up" data-aos-delay="200" id="competition-experience">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Competition Experience</h3>
+                <p class="text-sm text-gray-600 mb-4">Tambahkan kategori kompetisi yang pernah Anda ikuti. Informasi ini akan membantu pengguna lain menemukan Anda saat mereka mencari anggota tim.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Desain" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Desain', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Desain</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Teknologi" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Teknologi', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Teknologi</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Musik" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Musik', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Musik</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Olahraga" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Olahraga', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Olahraga</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Pendidikan" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Pendidikan', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Pendidikan</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Other" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Other', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Other</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-yellow-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-700">
+                                Menambahkan pengalaman kompetisi Anda akan meningkatkan visibilitas Anda saat pengguna lain mencari anggota tim dengan keahlian tertentu.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Password -->
             <div class="mb-6" data-aos="fade-up" data-aos-delay="250">
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-1">

@@ -57,7 +57,7 @@
                         </div>
                         <div class="flex items-center text-sm mb-4">
                             <i class="fas fa-clock text-red-500 mr-2"></i>
-                            <span class="text-gray-800">Deadline: {{ \Carbon\Carbon::parse($competition->deadline)->format('d M Y') }}</span>
+                            <span class="text-gray-800">Deadline: {{ $competition->registration_deadline->format('d M Y') }}</span>
                         </div>
                         <div class="flex gap-4">
                             <a href="#" class="flex-1 bg-white border-2 border-indigo-600 text-indigo-600 font-bold py-2 px-4 rounded-lg hover:bg-indigo-50 transition text-center">
@@ -85,7 +85,7 @@
     </div>
 
     <!-- Modal Preview -->
-    <div class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50" id="previewModal">
+    <div class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" id="previewModal">
         <div class="bg-white rounded-lg max-w-4xl w-full mx-4">
             <div class="p-4 text-center">
                 <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">

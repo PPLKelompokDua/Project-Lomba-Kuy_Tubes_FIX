@@ -95,7 +95,7 @@
                     <label for="deadline" class="block text-sm font-medium text-gray-700 mb-1">Deadline <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-calendar-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="date" name="deadline" id="deadline" value="{{ old('deadline', $competition->deadline->format('Y-m-d')) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                        <input type="date" name="deadline" id="deadline" value="{{ old('deadline', $competition->registration_deadline ? $competition->registration_deadline->format('Y-m-d') : '') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
                         @error('deadline')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
@@ -119,7 +119,7 @@
                     <label for="registration_link" class="block text-sm font-medium text-gray-700 mb-1">Link Pendaftaran <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-link absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="url" name="registration_link" id="registration_link" value="{{ old('registration_link', $competition->registration_link) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan URL pendaftaran" required>
+                        <input type="url" name="registration_link" id="registration_link" value="{{ old('registration_link', $competition->external_registration_link) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan URL pendaftaran" required>
                         @error('registration_link')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
@@ -155,7 +155,7 @@
                     <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-calendar-plus absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="date" name="start_date" id="start_date" value="{{ old('start_date', $competition->start_date->format('Y-m-d')) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                        <input type="date" name="start_date" id="start_date" value="{{ old('start_date', $competition->start_date ? $competition->start_date->format('Y-m-d') : '') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
                         @error('start_date')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
@@ -167,7 +167,7 @@
                     <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-calendar-minus absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date', $competition->end_date->format('Y-m-d')) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date', $competition->end_date ? $competition->end_date->format('Y-m-d') : '') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
                         @error('end_date')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror

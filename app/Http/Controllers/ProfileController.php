@@ -51,10 +51,19 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|min:8|confirmed',
+            'experience' => 'nullable|array',
+            'experience.*' => 'string',
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
+        
+        // Simpan data competition experience
+        if ($request->has('experience')) {
+            $user->experience = $request->experience;
+        } else {
+            $user->experience = [];
+        }
 
         if ($request->hasFile('profile_image')) {
             // Hapus foto lama kalau ada

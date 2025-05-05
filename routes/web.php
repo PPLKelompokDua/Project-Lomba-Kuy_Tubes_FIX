@@ -86,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('competitions')->name('competitions.')->middleware('auth')->group(function () {
         // Routes for all authenticated users
         Route::get('/', [CompetitionController::class, 'index'])->name('index');
+        Route::get('/{id}', [CompetitionController::class, 'show'])->name('show');
         Route::get('/{id}/random-members', [CompetitionController::class, 'findRandomMembers'])->name('random-members');
         
         // Routes for organizers and admins only

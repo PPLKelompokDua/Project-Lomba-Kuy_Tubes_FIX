@@ -52,7 +52,7 @@
                 <h2 class="section-title mb-0"><i class="fas fa-plus-circle me-2"></i>Create New Task</h2>
             </div>
             <div class="card-body p-4">
-                <form action="{{ route('organizer.tasks.store') }}" method="POST">
+                <form action="{{ route('tasks.store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-4">
                         <label><i class="fas fa-heading me-2"></i>Title</label>

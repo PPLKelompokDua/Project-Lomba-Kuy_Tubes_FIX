@@ -4,24 +4,73 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class UpdateTasksTableForProductivity extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
-{
-    Schema::create('tasks', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('user_id');
-        $table->string('title');
-        $table->text('description')->nullable();
-        $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
-        $table->timestamp('due_date')->nullable();
-        $table->timestamps();
+    public function up()
+    {
+        Schema::table('tasks', function (Blueprint $table) {
+            // Add columns for tracking task statuses and timelines
+            if (!Schema::hasColumn('tasks', 'status')) {
+                $table->enum('status', ['pending', 'in_progress', 'completed', 'blocked'])->default('pending');
+            }
+            
+            if (!Schema::hasColumn('tasks', 'completed_at')) {
+                $table->timestamp('completed_at')->nullable();
+            }
+            
+            if (!Schema::hasColumn('tasks', 'blocked_at')) {
+                $table->timestamp('blocked_at')->nullable();
+            }
+            
+            if (!Schema::hasColumn('tasks', 'last_activity_at')) {
+                $table->timestamp('last_activity_at')->nullable();
+            }
+            
+            if (!Schema::hasColumn('tasks', 'due_date')) {
+                $table->date('due_date')->nullable();
+            }
+            
+            if (!Schema::hasColumn('tasks', 'blocker_reason')) {
+                $table->string('blocker_reason')->nullable();
+            }
+            
+            // Create indexes for better query performance
+            $table->index('status');
+            $table->index('completed_at');
+            $table->index('blocked_at');
+            $table->index('due_date');
+        });
+    }
 
-        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-    });
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('tasks', function (Blueprint $table) {
+            // Remove the columns added for productivity tracking
+            $table->dropIndex(['status']);
+            $table->dropIndex(['completed_at']);
+            $table->dropIndex(['blocked_at']);
+            $table->dropIndex(['due_date']);
+            
+            $table->dropColumn('blocker_reason');
+            $table->dropColumn('due_date');
+            $table->dropColumn('last_activity_at');
+            $table->dropColumn('blocked_at');
+            $table->dropColumn('completed_at');
+            
+            // Only drop status if we're sure it wasn't there before
+            if (Schema::hasColumn('tasks', 'status')) {
+                $table->dropColumn('status');
+            }
+        });
+    }
 }
-
-};

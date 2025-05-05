@@ -9,11 +9,10 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where('user_id', auth()->id())->get();
-        return view('task-management', compact('tasks')); // Changed from 'tasks.index'
+        $tasks = Task::where('user_id', auth()->id())->orderBy('due_date', 'asc')->get();
+        return view('task-management', compact('tasks'));
     }
 
-    
     public function store(Request $request)
     {
         $request->validate([
@@ -31,11 +30,19 @@ class TaskController extends Controller
             'status' => $request->status
         ]);
 
-        return redirect()->route('tasks.index')->with('success', 'Task created successfully');
+        return redirect()->route('task.management')->with('success', 'Task created successfully');
     }
 
-    
-    // Pada method update
+    public function show(Task $task)
+    {
+        // Check if the task belongs to the authenticated user
+        if ($task->user_id != auth()->id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        
+        return response()->json($task);
+    }
+
     public function update(Request $request, Task $task)
     {
         // Authorization check
@@ -50,28 +57,25 @@ class TaskController extends Controller
             'status' => 'required|in:pending,in_progress,completed'
         ]);
     
-        $task->update($request->all());
+        $task->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+            'status' => $request->status
+        ]);
     
-        return response()->json(['success' => true]);
+        return redirect()->route('task.management')->with('success', 'Task updated successfully');
     }
        
+    public function destroy(Task $task)
+    {
+        // Check if the task belongs to the authenticated user
+        if ($task->user_id != auth()->id()) {
+            return abort(403);
+        }
 
-    // Pada method destroy
-public function destroy(Task $task)
-{
-    try {
         $task->delete();
-        return response()->json(['success' => true]);
-    } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
+        
+        return redirect()->route('task.management')->with('success', 'Task deleted successfully');
     }
-}
-
-    public function show(Task $task)
-{
-    return response()->json($task);
-}
-
-
-    
 }

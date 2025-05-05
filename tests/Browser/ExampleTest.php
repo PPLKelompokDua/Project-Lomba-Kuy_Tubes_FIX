@@ -9,7 +9,7 @@ use Tests\DuskTestCase;
 class ExampleTest extends DuskTestCase
 {
     /**
-     * A basic browser test example.
+     * @group example
      */
     public function testBasicExample(): void
     {

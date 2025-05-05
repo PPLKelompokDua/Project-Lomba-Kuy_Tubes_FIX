@@ -25,7 +25,7 @@
   <header class="bg-indigo-600 sticky top-0 z-50 shadow-md">
     <div class="container mx-auto px-6 py-3 flex justify-between items-center">
       <!-- Logo -->
-      <a href="/" class="text-2xl font-extrabold text-white flex items-center">
+      <a href="{{ route('dashboard') }}" class="text-2xl font-extrabold text-white flex items-center">
         <span class="mr-2">
           <i class="fas fa-trophy"></i>
         </span>

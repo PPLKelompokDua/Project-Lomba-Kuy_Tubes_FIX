@@ -506,7 +506,7 @@
       <!-- CTA Button -->
       <div class="mt-16 text-center">
         <a href="/register" data-aos="zoom-in">
-          <button class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition shadow-lg transform hover:scale-105">
+          <button dusk="footer-get-started-button" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition shadow-lg transform hover:scale-105">
             Mulai Perjalanan Kompetisimu
             <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -1022,7 +1022,7 @@
           <h3 class="text-2xl font-bold text-gray-800 mb-6">Kirim Pesan</h3>
 
           @if(session('success'))
-              <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+              <div dusk="contact-success" class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
                   {{ session('success') }}
               </div>
           @endif
@@ -1032,26 +1032,26 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                       <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
-                      <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Masukkan nama lengkap" required>
+                      <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-nama" placeholder="Masukkan nama lengkap" required>
                   </div>
                   <div>
                       <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                      <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="contoh@email.com" required>
+                      <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-email" placeholder="contoh@email.com" required>
                   </div>
               </div>
 
               <div>
                   <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subjek</label>
-                  <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Subjek pesan" required>
+                  <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-subjek" placeholder="Subjek pesan" required>
               </div>
 
               <div>
                   <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Pesan</label>
-                  <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Tulis pesan anda disini..." required></textarea>
+                  <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-pesan" placeholder="Tulis pesan anda disini..." required></textarea>
               </div>
 
               <div>
-                  <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <button type="submit" dusk="contact-submit" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Kirim Pesan
                   </button>
               </div>

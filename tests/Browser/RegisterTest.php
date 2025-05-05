@@ -21,7 +21,7 @@ class RegisterTest extends DuskTestCase
                     ->type('email', 'testregister@example.com')
                     ->select('role', 'organizer')
                     ->type('password', 'password123')
-                    ->type('password_confirmation', '')
+                    ->type('password_confirmation', 'password123')
                     ->check('terms')
                     ->press('Daftar Sekarang')
                     ->assertPathBeginsWith('/organizer');

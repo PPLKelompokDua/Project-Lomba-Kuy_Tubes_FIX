@@ -227,7 +227,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <div class="flex justify-end" data-aos="fade-up" data-aos-delay="700">
+                <div dusk="btn-simpan-lomba" class="flex justify-end" data-aos="fade-up" data-aos-delay="700">
                     <button type="submit" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition shadow-lg flex items-center">
                         <i class="fas fa-save mr-2"></i> Simpan Lomba
                     </button>

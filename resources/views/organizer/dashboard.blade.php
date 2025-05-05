@@ -73,12 +73,12 @@
                                 <td class="p-4">{{ \Carbon\Carbon::parse($competition->deadline)->format('d M Y') }}</td>
                                 <td class="p-4">{{ $competition->prize }}</td>
                                 <td class="p-4 flex gap-3 justify-center">
-                                    <a href="{{ route('organizer.competitions.show', $competition->id) }}"
+                                    <a href="{{ route('organizer.competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}"
                                        class="text-indigo-600 hover:bg-indigo-100 p-2 rounded-full transition"
                                        title="Detail">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('organizer.competitions.edit', $competition->id) }}"
+                                    <a href="{{ route('organizer.competitions.edit', $competition->id) }}" dusk="edit-lomba-{{ $competition->id }}"
                                        class="text-yellow-600 hover:bg-yellow-100 p-2 rounded-full transition"
                                        title="Edit">
                                         <i class="fas fa-edit"></i>
@@ -87,7 +87,7 @@
                                           method="POST"
                                           onsubmit="return confirm('Yakin ingin menghapus lomba ini?')">
                                         @csrf @method('DELETE')
-                                        <button class="text-red-600 hover:bg-red-100 p-2 rounded-full transition"
+                                        <button dusk="hapus-lomba-{{ $competition->id }}" class="text-red-600 hover:bg-red-100 p-2 rounded-full transition"
                                                 type="submit"
                                                 title="Hapus">
                                             <i class="fas fa-trash"></i>

@@ -32,7 +32,7 @@
                                 class="w-full pl-12 pr-16 py-4 rounded-full border-0 focus:ring-2 focus:ring-indigo-500 shadow-lg text-gray-700"
                                 placeholder="Cari lomba impianmu disini...">
                             <div class="absolute inset-y-0 right-0 pr-4 flex">
-                                <button type="submit" class="py-2 px-4 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 my-1 transition transform hover:scale-105">
+                                <button dusk="submit-cari" type="submit" class="py-2 px-4 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 my-1 transition transform hover:scale-105">
                                     Cari
                                 </button>
                             </div>
@@ -58,7 +58,7 @@
                         <i class="fas fa-sliders-h text-indigo-600 mr-3"></i>
                         Filter Lomba
                     </h3>
-                    <form method="GET" action="{{ route('explore') }}" class="grid grid-cols-1 md:grid-cols-6 gap-6">
+                    <form method="GET" action="{{ route('explore') }}" class="grid grid-cols-1 md:grid-cols-6 gap-6" dusk="filter-form">
                         <!-- Kategori -->
                         <div class="md:col-span-2">
                             <label for="category" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
@@ -100,7 +100,7 @@
                         <!-- Action Buttons -->
                         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3">
                             <!-- Filter Button -->
-                            <button type="submit" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition transform hover:scale-105 flex items-center justify-center">
+                            <button dusk="filter-form" type="submit" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition transform hover:scale-105 flex items-center justify-center">
                                 <i class="fas fa-filter mr-2"></i> Filter
                             </button>
 
@@ -278,7 +278,7 @@
                         
                         <!-- Action Buttons -->
                         <div class="flex space-x-2">
-                            <a href="{{ route('competitions.show', $competition->id) }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
+                            <a href="{{ route('competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
                                 <i class="fas fa-eye mr-2"></i> Lihat Detail
                             </a>
                         </div>

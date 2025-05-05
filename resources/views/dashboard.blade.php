@@ -190,7 +190,7 @@
             <div>
                 <div class="flex justify-between items-center mb-6 relative z-10">
                     <h2 class="text-2xl font-bold text-gray-800">Lomba Rekomendasi</h2>
-                    <a href="{{ route('explore') }}" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold">
+                    <a href="{{ route('explore') }}" dusk="lihat-semua-lomba" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold">
                         Lihat Semua
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -293,7 +293,7 @@
                                 
                                 <!-- Action Buttons -->
                                 <div class="flex space-x-2 mt-auto">
-                                    <a href="{{ route('competitions.show', $competition->id) }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
+                                    <a href="{{ route('competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
                                         <i class="fas fa-eye mr-2"></i> Lihat Detail
                                     </a>
                                 </div>

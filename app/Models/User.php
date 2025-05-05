@@ -14,8 +14,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'profile_image',
         'password',
         'role', 
+        'notification_preferences',
+        'personality_type',
+        'preferred_role',
     ];
 
     protected $hidden = [
@@ -28,9 +32,9 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'notification_preferences' => 'array',
         ];
     }
-    
     /**
      * Get the competitions organized by the user.
      */
@@ -56,6 +60,23 @@ class User extends Authenticatable
     }
     
     /**
+     * Get the competitions saved/bookmarked by the user.
+     */
+    public function savedCompetitions()
+    {
+        return $this->belongsToMany(Competition::class, 'saved_competitions', 'user_id', 'competition_id')
+                    ->withTimestamps();
+    }
+
+    /**
+     * Alternative relationship for competitions a user is part of (from main branch).
+     */
+    public function competitions()
+    {
+        return $this->belongsToMany(Competition::class, 'competition_user');
+    }
+    
+    /**
      * Check if user is an admin.
      */
     public function isAdmin()
@@ -77,5 +98,71 @@ class User extends Authenticatable
     public function isStudent()
     {
         return $this->role === 'user';
+    }
+    
+    /**
+     * Get assessment histories for this user.
+     */
+    public function assessmentHistories()
+    {
+        return $this->hasMany(\App\Models\AssessmentHistory::class);
+    }
+
+    /**
+     * Get teams led by this user.
+     */
+    public function ledTeams()
+    {
+        return $this->hasMany(Team::class, 'leader_id');
+    }
+
+    /**
+     * Get all teams the user is a member of.
+     */
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_members')
+            ->withPivot('status')
+            ->withTimestamps();
+    }
+    
+    /**
+     * Get invitations sent by the user.
+     */
+    public function sentInvitations()
+    {
+        return $this->hasMany(Invitation::class, 'sender_id');
+    }
+
+    /**
+     * Get invitations received by the user.
+     */
+    public function receivedInvitations()
+    {
+        return $this->hasMany(Invitation::class, 'receiver_id');
+    }
+
+    /**
+     * Get messages sent by the user.
+     */
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    /**
+     * Get messages received by the user.
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    /**
+     * Get forum posts created by the user.
+     */
+    public function forumPosts()
+    {
+        return $this->hasMany(ForumPost::class);
     }
 }

@@ -30,17 +30,25 @@
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $user->name }}</h3>
                 <p class="text-sm text-gray-600 mb-2"><strong>Email:</strong> {{ $user->email }}</p>
                 <p class="text-sm text-gray-600 mb-2"><strong>Role:</strong> {{ ucfirst($user->role) }}</p>
-                <!-- Statistics -->
-                <div class="grid grid-cols-2 gap-3 mt-4">
-                    <div class="bg-indigo-50 rounded-lg p-3">
-                        <h4 class="text-xl font-bold text-indigo-600">{{ $completedCompetitions ?? 0 }}</h4>
-                        <p class="text-xs text-gray-600">Lomba Selesai</p>
-                    </div>
-                    <div class="bg-indigo-50 rounded-lg p-3">
-                        <h4 class="text-xl font-bold text-indigo-600">{{ $achievements ?? 0 }}</h4>
-                        <p class="text-xs text-gray-600">Pencapaian</p>
-                    </div>
-                </div>
+                @if ($user->description)
+                    <p class="text-sm text-gray-600 mb-2"><strong>Deskripsi:</strong> {{ $user->description }}</p>
+                @endif
+
+                @if ($user->achievements)
+                    <p class="text-sm text-gray-600 mb-2"><strong>Prestasi:</strong> {{ $user->achievements }}</p>
+                @endif
+
+                @if ($user->personality_type)
+                    <p class="text-sm text-gray-600 mb-2"><strong>Kepribadian:</strong> {{ $user->personality_type }}</p>
+                @endif
+
+                @if ($user->preferred_role)
+                    <p class="text-sm text-gray-600 mb-2"><strong>Peran yang Diinginkan:</strong> {{ $user->preferred_role }}</p>
+                @endif
+
+                @if (!empty($user->experience))
+                    <p class="text-sm text-gray-600 mb-2"><strong>Pengalaman Kompetisi:</strong> {{ implode(', ', $user->experience) }}</p>
+                @endif
             </div>
         </div>
 
@@ -50,7 +58,14 @@
                class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg flex items-center transition min-w-[120px] shadow-md action-button">
                 <i class="fas fa-edit mr-2"></i> Edit Profil
             </a>
+            <a href="{{ route('assessment.index') }}"
+                class="ml-4 bg-white border border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-lg flex items-center transition min-w-[120px] shadow-md action-button">
+                    <i class="fas fa-brain mr-2"></i> Assessment
+            </a>
+
         </div>
+
+        
 
         @if(auth()->user()->role === 'user')
         <!-- Saved Competitions -->

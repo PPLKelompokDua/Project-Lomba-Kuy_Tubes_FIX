@@ -75,6 +75,32 @@
                 @enderror
             </div>
 
+            <!-- Description -->
+            <div class="mb-6">
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
+                    <i class="fas fa-align-left mr-2"></i> Deskripsi Diri
+                </label>
+                <textarea name="description" id="description" rows="4"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                >{{ old('description', $user->description) }}</textarea>
+                @error('description')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Achievements -->
+            <div class="mb-6">
+                <label for="achievements" class="block text-sm font-medium text-gray-700 mb-1">
+                    <i class="fas fa-trophy mr-2"></i> Prestasi (Opsional)
+                </label>
+                <textarea name="achievements" id="achievements" rows="3"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                >{{ old('achievements', $user->achievements) }}</textarea>
+                @error('achievements')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Profile Image -->
             <div class="mb-6" data-aos="fade-up" data-aos-delay="200">
                 <label for="profile_image" class="block text-sm font-medium text-gray-700 mb-1">
@@ -102,6 +128,64 @@
                 @error('profile_image')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
+            </div>
+
+            <!-- Competition Experience -->
+            <div class="mb-8" data-aos="fade-up" data-aos-delay="200" id="competition-experience">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Competition Experience</h3>
+                <p class="text-sm text-gray-600 mb-4">Tambahkan kategori kompetisi yang pernah Anda ikuti. Informasi ini akan membantu pengguna lain menemukan Anda saat mereka mencari anggota tim.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Desain" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Desain', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Desain</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Teknologi" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Teknologi', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Teknologi</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Musik" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Musik', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Musik</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Olahraga" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Olahraga', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Olahraga</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Pendidikan" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Pendidikan', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Pendidikan</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mb-2">
+                            <input type="checkbox" name="experience[]" value="Other" class="form-checkbox h-5 w-5 text-indigo-600 rounded" {{ in_array('Other', $user->experience ?? []) ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">Other</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-yellow-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-700">
+                                Menambahkan pengalaman kompetisi Anda akan meningkatkan visibilitas Anda saat pengguna lain mencari anggota tim dengan keahlian tertentu.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Password -->

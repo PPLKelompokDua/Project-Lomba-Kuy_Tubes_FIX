@@ -20,6 +20,7 @@ class User extends Authenticatable
         'notification_preferences',
         'personality_type',
         'preferred_role',
+        'experience',
     ];
 
     protected $hidden = [
@@ -33,7 +34,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'notification_preferences' => 'array',
+            'experience' => 'array',
         ];
+    }
+
+    public function registrationRecords()
+    {
+        return \DB::table('registrations')->where('user_id', $this->id);
     }
 
     public function savedCompetitions()

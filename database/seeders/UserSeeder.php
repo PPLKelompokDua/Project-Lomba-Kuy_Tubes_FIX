@@ -53,6 +53,7 @@ class UserSeeder extends Seeder
         $personalities = ['Conscientiousness', 'Openness to Experience', 'Extraversion', 'Neuroticism', 'Agreeableness'];
         $preferredRoles = ['Leader', 'Planner', 'Supporter', 'Creative'];
         $focusAreas = ['Programming', 'Design', 'Business', 'Engineering', 'Science', 'Art'];
+        $experiences = ['["Desain"]', '["Musik"]', '["Pendidikan"]', '["Teknologi"]', '["Olahraga"]', '["Other"]'];
 
         for ($i = 1; $i <= 100; $i++) {
             User::create([
@@ -66,6 +67,7 @@ class UserSeeder extends Seeder
                 'focus_area' => $focusAreas[array_rand($focusAreas)],
                 'personality_type' => $personalities[array_rand($personalities)], // baru ditambah
                 'preferred_role' => $preferredRoles[array_rand($preferredRoles)], // baru ditambah
+                'experience' => json_decode($experiences[array_rand($experiences)]),
             ]);
         }
     }

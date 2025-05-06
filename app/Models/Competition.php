@@ -43,6 +43,12 @@ class Competition extends Model
         return $this->belongsToMany(User::class, 'competition_user');
     }
 
+    public function registeredParticipants()
+    {
+        return $this->belongsToMany(User::class, 'registrations');
+    }
+
+
     public function savedBy()
     {
         return $this->belongsToMany(User::class, 'saved_competitions')

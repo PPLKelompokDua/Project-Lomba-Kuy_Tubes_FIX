@@ -7,6 +7,7 @@ use App\Models\Competition;
 use App\Models\SavedCompetition;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class CompetitionController extends Controller
 {
@@ -140,5 +141,65 @@ class CompetitionController extends Controller
                         ->pluck('title');
 
         return response()->json($results);
+    }
+
+    public function findRandomMembers(string $id, Request $request)
+    {
+        $competition = Competition::findOrFail($id);
+        $category = $request->input('category');
+        
+        // Get unique categories from competitions table for the filter dropdown
+        $categories = Competition::whereNotNull('category')
+            ->where('category', '!=', '')
+            ->distinct()
+            ->pluck('category')
+            ->toArray();
+        
+        // Get random users with role 'user' (students) excluding the current user
+        $query = User::where('role', 'user')
+            ->where('id', '!=', Auth::id());
+        
+        // If category filter is applied, filter users who have participated in competitions of that category
+        if ($category) {
+            // Find users who have participated in competitions of this category using DB query
+            $userIds = \DB::table('users')
+                ->join('registrations', 'users.id', '=', 'registrations.user_id')
+                ->join('competitions', 'registrations.competition_id', '=', 'competitions.id')
+                ->where('competitions.category', $category)
+                ->distinct()
+                ->pluck('users.id')
+                ->toArray();
+            
+            // Filter the query to only include those users
+            if (!empty($userIds)) {
+                $query->whereIn('id', $userIds);
+            } else {
+                // If no users found with the selected category, still return some users
+                // but mark that no exact matches were found
+                session()->flash('info', "Tidak ada anggota yang pernah berpartisipasi dalam lomba kategori '$category'. Menampilkan anggota acak.");
+            }
+        }
+        
+        $randomUsers = $query->inRandomOrder()
+            ->limit(9) // Menggunakan limit 9 sesuai dengan implementasi terbaru
+            ->get();
+        
+        // Add debug info for development
+        $debugInfo = [
+            'total_competitions' => Competition::count(),
+            'competitions_with_categories' => Competition::whereNotNull('category')->where('category', '!=', '')->count(),
+            'available_categories' => $categories,
+            'total_users' => User::where('role', 'user')->count(),
+            'selected_category' => $category,
+            'found_users_count' => $randomUsers->count(),
+        ];
+        
+        return view('competitions.random_members', [
+            'competition' => $competition,
+            'randomUsers' => $randomUsers,
+            'categories' => $categories,
+            'selectedCategory' => $category,
+            'debug' => $debugInfo
+        ]);
     }
 }

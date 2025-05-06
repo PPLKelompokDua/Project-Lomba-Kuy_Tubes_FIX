@@ -7,6 +7,8 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\TeamMember;
 use App\Models\Message;
+use App\Models\Notification;
+use App\Notifications\InvitationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,23 +92,46 @@ class InvitationController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
+            'team_id' => 'required|exists:teams,id',
         ]);
         
         $exists = Invitation::where('sender_id', Auth::id())
             ->where('receiver_id', $request->user_id)
+            ->where('team_id', $request->team_id)
             ->exists();
 
         if ($exists) {
             return back()->with('error', 'You have already invited this user.');
         }
 
-
-        Invitation::create([
-            'sender_id' => Auth::id(),
+        $team = Team::find($request->team_id);
+        $invitation = Invitation::create([
+            'sender_id'   => Auth::id(),
             'receiver_id' => $request->user_id,
+<<<<<<< Updated upstream
             'status' => 'pending',
+=======
+            'team_id'     => $request->team_id,
+            'status'      => 'pending',
+>>>>>>> Stashed changes
         ]);
-    
+
+        // bikin notifikasi manual:
+        Notification::create([
+            'user_id'       => $request->user_id,
+            'invitation_id' => $invitation->id,
+            'type' => 'invitation',
+            'message'       => Auth::user()->name
+                            . ' mengundang Anda bergabung ke tim '
+                            . $team->name,
+            'link' => route('invitations.index', [
+                'team_id' => $request->team_id,
+                'user_id' => $request->receiver_id,
+            ]),             
+            'is_read'       => false,
+        ]);
+        
+                    
         return redirect()->route('invitations.index')->with('success', 'Invitation sent!');
     }
 

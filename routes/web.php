@@ -7,8 +7,13 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RecommendationsController;
 use App\Http\Controllers\TeamController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\TeamMemberController;
 use Illuminate\Support\Facades\Auth;
+=======
+use App\Http\Controllers\TeamsMemberController;
+use App\Http\Controllers\NotificationController;
+>>>>>>> Stashed changes
 
 // Halaman Landing
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -24,6 +29,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.p
  
 
 
+<<<<<<< Updated upstream
   // Invitations
 Route::prefix('invitation')->group(function () {
 Route::resource('invitation', InvitationController::class);
@@ -34,6 +40,134 @@ Route::get('invitation/team/{team}', [InvitationController::class, 'trackTeamInv
 Route::post('/invitations/{invitation}/accept', [InvitationController::class, 'accept'])->name('invitations.accept');
 Route::post('/invitations/{invitation}/decline', [InvitationController::class, 'decline'])->name('invitations.decline');
 Route::get('/invitations/{invitation}', [InvitationController::class, 'show'])->name('invitations.show');
+=======
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/settings', [ProfileController::class, 'settings'])->name('settings');
+        Route::put('/settings', [ProfileController::class, 'settingsUpdate'])->name('settings.update');
+        Route::delete('/settings', [ProfileController::class, 'delete'])->name('settings.delete');
+        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/password/edit', [ProfileController::class, 'editPassword'])->name('profile.password.edit');
+        Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+    });
+    
+    // Organizer
+    Route::get('/organizer/dashboard', [OrganizerCompetitionController::class, 'index'])->name('organizer.dashboard');
+    
+    Route::prefix('organizer')->name('organizer.')->group(function () {
+        Route::resource('competitions', OrganizerCompetitionController::class)->except(['index']);
+    });
+    Route::middleware(['auth'])->prefix('organizer')->name('organizer.')->group(function () {
+        Route::resource('competitions', OrganizerCompetitionController::class);
+    });
+
+    //Bookmarks
+    Route::middleware(['auth'])->group(function () {
+        // Bookmark actions
+        Route::post('/competitions/{competition}/save', [CompetitionController::class, 'save'])->name('competitions.save');
+        Route::delete('/competitions/{competition}/unsave', [CompetitionController::class, 'unsave'])->name('competitions.unsave');
+    
+        // 🔥 Tambahkan ini untuk halaman list bookmark
+        Route::get('/saved-competitions', [CompetitionController::class, 'saved'])->name('competitions.saved');
+    });
+    
+    // Untuk lihat detail kompetisi
+    Route::get('/competitions/{competition}', [CompetitionController::class, 'show'])->name('competitions.show');
+
+    // Untuk cari anggota tim random
+    Route::get('/competitions/{competition}/random-members', [CompetitionController::class, 'randomMembers'])->name('competitions.random-members');
+
+    Route::middleware(['auth'])->group(function () {
+        // Posts
+        Route::get('/stories', [PostController::class, 'index'])->name('posts.index');
+        Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+        Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+        
+        // Comments
+        Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+        Route::get('/posts/{post}/comments', [CommentController::class, 'fetch'])->name('comments.fetch');
+
+        //Likes
+        Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
+        Route::delete('/posts/{post}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
+
+        //delete post
+        Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    
+        // API untuk ambil comment list (optional kalau mau ajax beneran)
+        Route::get('/stories/{post}/comments', function ($postId) {
+            $post = \App\Models\Post::with('comments.user')->findOrFail($postId);
+            return response()->json(
+                $post->comments->map(fn($comment) => [
+                    'user_name' => $comment->user->name,
+                    'comment' => $comment->content,
+                    'created_at' => $comment->created_at->diffForHumans(),
+                ])
+            );
+        });
+    });
+
+    // Assessment Routes
+    Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
+    Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
+
+    // Team Recommendation Route
+    Route::get('/team-recommendation', [TeamRecommendationController::class, 'generateRecommendation'])
+        ->name('team.recommendation');
+    
+    // Notifications
+    Route::get('/notifications', [NotificationController::class, 'index'])
+     ->name('notifications.index');
+
+    Route::get('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.read');
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.markAsRead');
+    Route::get('/notifications/{notification}/read', [NotificationController::class, 'readAndRedirect'])
+        ->name('notifications.read');
+    
+   
+
+    // Invitations
+    Route::prefix('invitation')->group(function () {
+    Route::resource('invitation', InvitationController::class);
+    Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
+    Route::post('invitation/{invitation}/accept', [InvitationController::class, 'accept'])->name('invitations.accept');
+    Route::post('invitation/{invitation}/decline', [InvitationController::class, 'decline'])->name('invitations.decline');
+    Route::delete('invitation/{invitation}', [InvitationController::class, 'cancel'])->name('invitations.cancel');
+    Route::get('invitation/team/{team}', [InvitationController::class, 'trackTeamInvitations'])->name('invitations.team');
+    Route::post('/invitations/{invitation}/accept', [InvitationController::class, 'accept'])->name('invitations.accept');
+    Route::post('/invitations/{invitation}/decline', [InvitationController::class, 'decline'])->name('invitations.decline');
+    Route::get('/invitations/{invitation}', [InvitationController::class, 'show'])->name('invitations.show');
+    Route::get('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
+
+    });
+
+    Route::resource('invitations', \App\Http\Controllers\invitationController::class);
+    Route::post('/messages', [\App\Http\Controllers\MessageController::class, 'store'])->name('messages.store');
+
+    // Messages
+    Route::prefix('messages')->group(function () {
+        Route::get('/', [MessageController::class, 'index'])->name('messages.index');
+        Route::get('/user/{user}', [MessageController::class, 'conversation'])->name('messages.conversation');
+        Route::post('/send', [MessageController::class, 'send'])->name('messages.send');
+        Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+        Route::get('/invitation/{invitation}', [MessageController::class, 'invitationMessages'])->name('messages.invitation');
+    });
+
+    Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
+    Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+
+    Route::get('/teams/create-from-competition/{competition}', [TeamController::class, 'createFromCompetition'])->name('teams.create-from-competition');
+    Route::get('/teams/create-from-recommendation/{userId}', [TeamController::class, 'createFromRecommendation'])->name('teams.createFromRecommendation');
+
+
+    Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
+    Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+    Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+    Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+>>>>>>> Stashed changes
 
 
 

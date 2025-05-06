@@ -7,6 +7,7 @@ use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Notification;
 
 class MessageController extends Controller
 {
@@ -131,16 +132,25 @@ class MessageController extends Controller
 
         $invitation = \App\Models\Invitation::findOrFail($request->invitation_id);
 
-    // Tentukan receiver (lawan bicara)
         $receiverId = Auth::id() === $invitation->sender_id
             ? $invitation->receiver_id
             : $invitation->sender_id;
 
-        \App\Models\Message::create([
+        $message = \App\Models\Message::create([
             'invitation_id' => $invitation->id,
             'sender_id' => Auth::id(),
             'receiver_id' => $receiverId,
             'content' => $request->content,
+        ]);
+
+        // 🔔 Buat notifikasi baru
+        Notification::create([
+            'user_id' => $receiverId, // penerima pesan
+            'invitation_id' => $invitation->id ?? null,
+            'type' => 'message', // <--- PASTIKAN TYPE INI BENAR
+            'message' => auth()->user()->name . ' mengirim pesan kepada Anda.',
+            'link' => route('invitations.show', $invitation->id ?? 1), // sesuaikan jika ingin redirect ke messages
+            'is_read' => false,
         ]);
 
         return redirect()->back()->with('success', 'Message sent!');

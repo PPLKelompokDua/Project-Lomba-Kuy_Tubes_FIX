@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('competition_id'); // tanpa FK
+            $table->unsignedBigInteger('competition_id')->nullable(); // tanpa FK
             $table->foreignId('leader_id')->constrained('users')->onDelete('cascade');
             $table->string('competition_name')->nullable();
             $table->string('category')->nullable();

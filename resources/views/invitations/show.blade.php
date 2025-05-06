@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-<a href="{{ route('invitations.index') }}"
+<a href="{{ route('invitations.index' , ['team_id' => $invitation->team_id]) }}"
    class="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-800 mb-4">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
          stroke-width="1.5" stroke="currentColor" class="w-4 h-4">

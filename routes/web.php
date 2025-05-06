@@ -19,6 +19,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RecommendationsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamsMemberController;
+use App\Http\Controllers\NotificationController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -146,7 +147,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/team-recommendation', [TeamRecommendationController::class, 'generateRecommendation'])
         ->name('team.recommendation');
     
+    // Notifications
+    Route::get('/notifications', [NotificationController::class, 'index'])
+     ->name('notifications.index');
 
+    Route::get('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.read');
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.markAsRead');
+    Route::get('/notifications/{notification}/read', [NotificationController::class, 'readAndRedirect'])
+        ->name('notifications.read');
+    
     // Invitations
     Route::prefix('invitation')->group(function () {
     Route::resource('invitation', InvitationController::class);
@@ -184,6 +195,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
     Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
     Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+    Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
+
 
 
 

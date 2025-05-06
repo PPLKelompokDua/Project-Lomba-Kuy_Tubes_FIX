@@ -286,7 +286,7 @@
                             <h3 class="text-xl font-bold mb-2">Butuh Anggota Tim?</h3>
                             <p class="text-indigo-100">Temukan rekan setim potensial secara acak untuk membangun tim pemenang dengan cepat</p>
                         </div>
-                        <div class="flex-shrink-0">
+    
                             <a href="{{ route('competitions.random-members', $competition->id) }}" class="inline-flex items-center px-5 py-3 bg-white text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-150 ease-in-out">
                                 <i class="bi bi-people-fill mr-2 text-lg"></i> Temukan Anggota Team
                             </a>
@@ -301,12 +301,9 @@
                             <h3 class="text-xl font-bold mb-2">Manajemen Team</h3>
                             <p class="text-green-100">Sudah punya tim sendiri? Undang anggota tertentu untuk bergabung dengan tim Anda dalam kompetisi ini</p>
                         </div>
-                        <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4">
-                            @csrf
-                            <input type="email" name="email" placeholder="Enter team member's email" class="px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500" required>
-                            <button type="submit" class="inline-flex items-center px-5 py-3 bg-white text-green-600 font-medium rounded-lg hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-150 ease-in-out">
+                            <a href="{{ route('teams.create', ['competition_id' => $competition->id]) }}" class="inline-flex items-center px-5 py-3 bg-white text-green-600 font-medium rounded-lg hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-150 ease-in-out">
                                 <i class="bi bi-person-plus-fill mr-2 text-lg"></i> Undang Tim 
-                            </button>
+                            </a>
                         </form>
                     </div>
                 </div>

@@ -129,4 +129,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(ForumPost::class);
     }
+
+    public function memberTeams()
+    {
+        return $this->belongsToMany(Team::class, 'team_members')
+                    ->wherePivot('status', 'accepted');
+    }
 }

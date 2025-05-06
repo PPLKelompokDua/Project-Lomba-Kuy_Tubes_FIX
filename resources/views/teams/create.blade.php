@@ -1,8 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="mb-4">
+<a href="{{ route('teams.index') }}" class="inline-flex items-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+         ← Back to My Teams
+    </a>
+</div>
 <div class="container mt-5">
     <h2 class="mb-4">Create Team</h2>
+
+    @if (session('error'))
+        <div class="bg-red-100 text-red-800 p-3 rounded mb-4">
+                {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+                {{ session('success') }}
+        </div>
+    @endif
 
     <form method="POST" action="{{ route('teams.store') }}">
         @csrf
@@ -44,6 +61,8 @@
 
         @if(isset($competition))
             <input type="hidden" name="competition_id" value="{{ $competition->id }}">
+        @else
+            <input type="hidden" name="competition_id" value="">
         @endif
 
         <button type="submit" class="btn btn-primary">Create Team</button>

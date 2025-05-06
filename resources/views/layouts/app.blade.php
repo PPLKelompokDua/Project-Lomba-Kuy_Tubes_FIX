@@ -36,9 +36,44 @@
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
         <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition font-medium">Eksplorasi Lomba</a>
-        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Team Saya</a>
-        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Invitation</a>
-        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story Space</a>
+        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Tim Saya</a>
+        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Undangan</a>
+        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Cerita</a>
+        @auth
+          @php 
+            // ambil unread notification
+            $notif = \App\Models\Notification::where('user_id', auth()->id())
+                      ->where('is_read', false)
+                      ->orderBy('created_at','desc')
+                      ->get();
+          @endphp
+
+          <div class="relative" x-data="{ open: false }">
+            <button @click="open = !open" class="relative text-white">
+              <i class="fas fa-bell"></i>
+              @if($notif->count())
+                <span class="absolute top-0 right-0 bg-red-600 text-xs text-white rounded-full px-1">
+                  {{ $notif->count() }}
+                </span>
+              @endif
+            </button>
+            <div x-show="open" @click.away="open = false"
+                class="absolute right-0 mt-2 w-64 bg-white text-black shadow-lg rounded">
+              @forelse($notif as $notification)
+                <form method="POST" action="{{ route('notifications.markAsRead', $notification->id) }}">
+                <a href="{{ route('notifications.read', $notification->id) }}" class="block px-4 py-2 hover:bg-gray-100">
+                  📩 {{ $notification->message }}
+                </a>
+
+                </form>
+              @empty
+                <div class="px-4 py-2 text-sm text-gray-500">
+                  Tidak ada notifikasi baru
+                </div>
+              @endforelse
+            </div>
+          </div>
+        @endauth
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->
@@ -89,8 +124,9 @@
       <nav class="flex flex-col space-y-3">
         <a href="{{ route('dashboard') }}" class="text-white hover:text-indigo-200 transition py-2">Dashboard</a>
         <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition py-2">Eksplorasi Lomba</a>
-        <a href="#" class="text-white hover:text-indigo-200 transition py-2">Team Saya</a>
-        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition py-2">Feed Story</a>
+        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Tim Saya</a>
+        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Undangan</a>
+        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Cerita</a>
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->

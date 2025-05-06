@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Ensure a user is not invited multiple times to the same team
-            $table->unique(['sender_id','receiver_id']);
+            $table->unique(['sender_id', 'receiver_id', 'team_id']);
         });
     }
 

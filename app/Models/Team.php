@@ -71,6 +71,5 @@ class Team extends Model
     public function acceptedMembers()
     {
         return $this->members()->wherePivot('status', 'accepted');
-    }
-    
+    }   
 }

@@ -57,58 +57,78 @@ class TeamController extends Controller
         $competitionId = $validated['competition_id'] ?? null;
 
         $existingTeam = Team::where('leader_id', Auth::id())
-            ->when($competitionId, function ($query, $competitionId) {
-                return $query->where('competition_id', $competitionId);
-            })
+            ->where('competition_id', $competitionId)
+            ->where('name', $validated['name'])
             ->first();
 
         // Kalau sudah ada, skip create dan langsung redirect ke invitation
         if ($existingTeam) {
-            if (!empty($validated['invite_user_id'])) {
-                return redirect()->route('invitations.create', [
-                    'team_id' => $existingTeam->id,
-                    'user_id' => $validated['invite_user_id']
-                ]);
-            } else {
-                return redirect()->route('invitations.index')->with('success', 'Team already exists.');
-            }
+            return back()->with('error', 'You already created a team with this name for this competition.');
         }
 
         // Kalau belum, create baru
         $team = Team::create([
             'name' => $validated['name'],
-            'competition_id' => $validated['competition_id'],
+            'competition_id' => $validated['competition_id'] ?? null,
             'leader_id' => Auth::id(),
             'competition_name' => $validated['competition_name'],
-            'category' => $validated['category'],
-            'deadline' => $validated['deadline'],
-            'location' => $validated['location'],
-            'description' => $validated['description'],
+            'category' => $validated['category'] ?? null,
+            'deadline' => $validated['deadline'] ?? null,
+            'location' => $validated['location'] ?? null,
+            'description' => $validated['description'] ?? null,
         ]);
+        
 
+        if (!empty($validated['invite_user_id'])) {
+            return redirect()->route('invitations.index', [
+                'team_id' => $team->id,
+                'user_id' => $validated['invite_user_id']
+            ])->with('success', 'Team berhasil dibuat!');
+        }
+        
         return redirect()->route('invitations.index', [
-            'team_id' => $team->id,
-            'user_id' => $validated['invite_user_id']
-        ]);
+            'team_id' => $team->id
+        ])->with('success', 'Team berhasil dibuat!');
     }
 
     public function index()
     {
-        $teams = Auth::user()->ledTeams()->with('invitations', 'acceptedMembers')->get();
+        $user = Auth::user();
 
-        return view('teams.index', compact('teams'));
+        $ledTeams = $user->ledTeams()->with('invitations', 'acceptedMembers')->get();
+
+        // Tim yang diikuti sebagai member
+        $memberTeams = $user->memberTeams()->with('acceptedMembers')->get();
+
+        // Gabungkan tanpa duplikat (kalau user adalah leader dan member sekaligus)
+        $teams = $ledTeams->merge($memberTeams)->unique('id');
+
+        return view('teams.index', compact('teams', 'user'));
     }
 
     public function show($id)
     {
         $team = Team::with(['acceptedMembers', 'competition'])->findOrFail($id);
+        $user = Auth::user();
 
-        if ($team->leader_id !== Auth::id()) {
+        // Boleh lihat jika leader atau anggota accepted
+        $isMember = $team->acceptedMembers->contains('id', $user->id);
+
+        if ($team->leader_id !== $user->id && !$isMember) {
             abort(403);
         }
 
-        return view('teams.show', compact('team'));
+        return view('teams.show', compact('team', 'user'));
     }
 
+    public function destroy(Team $team)
+    {
+        if ($team->leader_id !== Auth::id()) {
+            abort(403, 'Only the team leader can delete the team.');
+        }
 
+        $team->delete();
+
+        return redirect()->route('teams.index')->with('success', 'Team deleted successfully.');
+    }
 }

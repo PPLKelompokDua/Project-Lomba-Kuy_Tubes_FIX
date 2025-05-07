@@ -20,6 +20,7 @@ use App\Http\Controllers\RecommendationsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamsMemberController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\FeedbackController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -196,7 +197,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
     Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
     Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
+    Route::patch('/teams/{team}/status', [TeamController::class, 'updateStatus'])->name('teams.updateStatus');
 
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('feedbacks', \App\Http\Controllers\FeedbackController::class);
+    });
+
+    Route::get('/feedbacks', [FeedbackController::class, 'index'])->name('feedbacks.index');
+    Route::get('/feedbacks/create', [FeedbackController::class, 'create'])->name('feedbacks.create');
+    Route::get('/feedbacks/received', [FeedbackController::class, 'received'])->name('feedbacks.received');
+    Route::get('/feedbacks/{team_id}/edit', [FeedbackController::class, 'edit'])->name('feedbacks.edit');
+    Route::put('/feedbacks/update-by-team/{team_id}', [FeedbackController::class, 'updateByTeam'])->name('feedbacks.updateByTeam');
+    Route::delete('/feedbacks/destroy-by-team/{team_id}', [FeedbackController::class, 'destroyByTeam'])
+    ->name('feedbacks.destroyByTeam');
 
 
 

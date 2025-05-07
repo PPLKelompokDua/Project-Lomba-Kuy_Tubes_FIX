@@ -25,11 +25,19 @@
                                 <p class="card-text mb-1"><strong>Competition:</strong> {{ $team->competition_name }}</p>
                                 <p class="card-text mb-3"><strong>Members:</strong> {{ $team->acceptedMembers->count() + 1 }}</p>
                             </div>
+                            <!-- Tambahan di bagian <div class="card-body"> -->
+                            <p class="card-text mb-1">
+                                <strong>Status:</strong>
+                                <span class="badge {{ $team->status_team === 'finished' ? 'bg-secondary' : 'bg-success' }}">
+                                    {{ ucfirst($team->status_team) }}
+                                </span>
+                            </p>
                             <div class="d-flex justify-content-between mt-3">
                                 <a href="{{ route('teams.show', $team->id) }}" class="btn btn-primary btn-sm">
                                     View Team
                                 </a>
-                                @if($team->leader_id === $user->id)
+                                <!-- Sembunyikan tombol jika finished -->
+                                @if($team->leader_id === $user->id && $team->status_team !== 'finished')
                                     <a href="{{ route('invitations.index', ['team_id' => $team->id]) }}" class="btn btn-success btn-sm">
                                         Manage Invitations
                                     </a>

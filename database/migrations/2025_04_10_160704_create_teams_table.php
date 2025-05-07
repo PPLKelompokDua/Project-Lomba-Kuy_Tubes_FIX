@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('deadline')->nullable();
             $table->string('location')->nullable();
             $table->text('description')->nullable();
+            $table->enum('status_team', ['ongoing', 'finished'])->default('ongoing');
             $table->timestamps();
         });
     }

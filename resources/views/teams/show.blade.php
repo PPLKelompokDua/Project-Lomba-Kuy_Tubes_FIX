@@ -11,7 +11,23 @@
 <div class="container py-5">
     <h2>{{ $team->name }} - Team Members</h2>
     <p>{{ $team->competition_name }}</p>
-
+    @if($team->leader_id === $user->id)
+        <form action="{{ route('teams.updateStatus', $team) }}" method="POST" class="mb-4">
+            @csrf
+            @method('PATCH')
+            <div class="d-flex align-items-center gap-2">
+                <label for="status_team" class="fw-bold">Team Status:</label>
+                <select name="status_team" id="status_team" class="form-select w-auto">
+                    @foreach($statuses as $status)
+                        <option value="{{ $status }}" {{ $team->status_team === $status ? 'selected' : '' }}>
+                            {{ ucfirst($status) }}
+                        </option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+            </div>
+        </form>
+    @endif
     <h4 class="mt-4">Team Members</h4>
     <ul class="list-group">
         {{-- Tambahkan Leader --}}
@@ -32,8 +48,8 @@
             @endif
         @endforeach
     </ul>
-
-    @if($team->leader_id === $user->id)
+    <!-- Tombol Manage hanya muncul kalau belum finished -->
+    @if($team->leader_id === $user->id && $team->status_team !== 'finished')
         <a href="{{ route('invitations.index', ['team_id' => $team->id]) }}" class="btn btn-success btn-sm">
             Manage Invitations
         </a>

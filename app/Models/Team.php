@@ -18,6 +18,7 @@ class Team extends Model
         'deadline',
         'location',
         'description',
+        'status_team',
     ];
 
     /**
@@ -70,6 +71,12 @@ class Team extends Model
      */
     public function acceptedMembers()
     {
-        return $this->members()->wherePivot('status', 'accepted');
-    }   
+        return $this->belongsToMany(\App\Models\User::class, 'team_members')
+                    ->where('status', 'accepted');
+    }
+
+    public function teamMembers()
+    {
+        return $this->hasMany(\App\Models\TeamMember::class);
+    }
 }

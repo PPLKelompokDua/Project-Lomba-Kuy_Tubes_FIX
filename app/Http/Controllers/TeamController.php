@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Invitation;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TeamController extends Controller
 {
+    use AuthorizesRequests;
+
     public function create(Request $request)
     {
         $competitionId = $request->input('competition_id');
@@ -118,7 +121,11 @@ class TeamController extends Controller
             abort(403);
         }
 
-        return view('teams.show', compact('team', 'user'));
+        return view('teams.show', [
+            'team' => $team,
+            'user' => $user,
+            'statuses' => ['ongoing', 'finished'] // ← Tambahkan ini
+        ]);
     }
 
     public function destroy(Team $team)
@@ -130,5 +137,22 @@ class TeamController extends Controller
         $team->delete();
 
         return redirect()->route('teams.index')->with('success', 'Team deleted successfully.');
+    }
+
+    public function updateStatus(Request $request, Team $team)
+    {
+
+        if ($team->leader_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'status_team' => 'required|in:ongoing,finished',
+        ]);
+
+        $team->status_team = $request->status_team;
+        $team->save();
+
+        return redirect()->back()->with('success', 'Team status updated.');
     }
 }

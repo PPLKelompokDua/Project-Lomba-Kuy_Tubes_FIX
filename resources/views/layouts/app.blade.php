@@ -39,6 +39,7 @@
         <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Tim Saya</a>
         <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Undangan</a>
         <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Cerita</a>
+        <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedbacks</a>
         @auth
           @php 
             // ambil unread notification
@@ -127,6 +128,7 @@
         <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Tim Saya</a>
         <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Undangan</a>
         <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Cerita</a>
+        <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedbacks</a>
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->

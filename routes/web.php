@@ -42,103 +42,37 @@ Route::get('/competitions/explore', [CompetitionController::class, 'explore'])->
 // 🔐 Protected Routes (role-based dashboard)
 Route::middleware(['auth'])->group(function () {
     
-    // Dashboard redirect sesuai role
-    Route::get('/dashboard', function () {
-        $role = auth()->user()->role;
+    // Feedback Routes
+    Route::get('/feedbacks', [FeedbackController::class, 'index'])->name('feedbacks.index');
+    Route::get('/feedbacks/create', [FeedbackController::class, 'create'])->name('feedbacks.create');
+    Route::get('/feedbacks/received', [FeedbackController::class, 'received'])->name('feedbacks.received');
+    Route::get('/feedbacks/{team_id}/edit', [FeedbackController::class, 'edit'])->name('feedbacks.edit');
+    Route::put('/feedbacks/update-by-team/{team_id}', [FeedbackController::class, 'updateByTeam'])->name('feedbacks.updateByTeam');
+    Route::delete('/feedbacks/destroy-by-team/{team_id}', [FeedbackController::class, 'destroyByTeam'])->name('feedbacks.destroyByTeam');
+    Route::post('/feedbacks', [FeedbackController::class, 'store'])->name('feedbacks.store');
 
-        if ($role === 'admin') return redirect()->route('admin.dashboard');
-        if ($role === 'organizer') return redirect()->route('organizer.dashboard');
-    
-        $competitions = Competition::latest()->take(6)->get();
-        $user = auth()->user(); // ambil user sekarang
-    
-        // Tambahan menghitung saved
-        $savedCompetitions = $user->savedCompetitions()->count(); 
-    
-        // Tambahan menghitung active dan completed competitions (dummy dulu 0)
-        $activeCompetitions = 0; // kalau belum ada fitur lomba aktif
-        $completedCompetitions = 0; // kalau belum ada fitur lomba selesai
-    
-        return view('dashboard', compact('competitions', 'savedCompetitions', 'activeCompetitions', 'completedCompetitions', 'user'));
-    })->name('dashboard');
+    //Settings dan Profile
+    Route::get('/settings', [ProfileController::class, 'settings'])->name('settings');
+    Route::put('/settings', [ProfileController::class, 'settingsUpdate'])->name('settings.update');
+    Route::delete('/settings', [ProfileController::class, 'delete'])->name('settings.delete');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/password/edit', [ProfileController::class, 'editPassword'])->name('profile.password.edit');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 
-    // Admin
-    Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    // Bookmark actions
+    Route::post('/competitions/{competition}/save', [CompetitionController::class, 'save'])->name('competitions.save');
+    Route::delete('/competitions/{competition}/unsave', [CompetitionController::class, 'unsave'])->name('competitions.unsave');
 
-    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    });
-    Route::middleware(['auth'])->prefix('organizer')->name('organizer.')->group(function () {
-        Route::resource('competitions', \App\Http\Controllers\Organizer\CompetitionController::class);
-    });
+    // 🔥 Tambahkan ini untuk halaman list bookmark
+    Route::get('/saved-competitions', [CompetitionController::class, 'saved'])->name('competitions.saved');
 
-
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/settings', [ProfileController::class, 'settings'])->name('settings');
-        Route::put('/settings', [ProfileController::class, 'settingsUpdate'])->name('settings.update');
-        Route::delete('/settings', [ProfileController::class, 'delete'])->name('settings.delete');
-        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::get('/profile/password/edit', [ProfileController::class, 'editPassword'])->name('profile.password.edit');
-        Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-    });
-    
-    // Organizer
-    Route::get('/organizer/dashboard', [OrganizerCompetitionController::class, 'index'])->name('organizer.dashboard');
-    
-    Route::prefix('organizer')->name('organizer.')->group(function () {
-        Route::resource('competitions', OrganizerCompetitionController::class)->except(['index']);
-    });
-    Route::middleware(['auth'])->prefix('organizer')->name('organizer.')->group(function () {
-        Route::resource('competitions', OrganizerCompetitionController::class);
-    });
-
-    //Bookmarks
-    Route::middleware(['auth'])->group(function () {
-        // Bookmark actions
-        Route::post('/competitions/{competition}/save', [CompetitionController::class, 'save'])->name('competitions.save');
-        Route::delete('/competitions/{competition}/unsave', [CompetitionController::class, 'unsave'])->name('competitions.unsave');
-    
-        // 🔥 Tambahkan ini untuk halaman list bookmark
-        Route::get('/saved-competitions', [CompetitionController::class, 'saved'])->name('competitions.saved');
-    });
-    
     // Untuk lihat detail kompetisi
     Route::get('/competitions/{competition}', [CompetitionController::class, 'show'])->name('competitions.show');
 
     // Untuk cari anggota tim random
     Route::get('/competitions/{competition}/random-members', [CompetitionController::class, 'randomMembers'])->name('competitions.random-members');
-
-    Route::middleware(['auth'])->group(function () {
-        // Posts
-        Route::get('/stories', [PostController::class, 'index'])->name('posts.index');
-        Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-        Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-        
-        // Comments
-        Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
-        Route::get('/posts/{post}/comments', [CommentController::class, 'fetch'])->name('comments.fetch');
-
-        //Likes
-        Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
-        Route::delete('/posts/{post}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
-
-        //delete post
-        Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-    
-        // API untuk ambil comment list (optional kalau mau ajax beneran)
-        Route::get('/stories/{post}/comments', function ($postId) {
-            $post = \App\Models\Post::with('comments.user')->findOrFail($postId);
-            return response()->json(
-                $post->comments->map(fn($comment) => [
-                    'user_name' => $comment->user->name,
-                    'comment' => $comment->content,
-                    'created_at' => $comment->created_at->diffForHumans(),
-                ])
-            );
-        });
-    });
 
     // Assessment Routes
     Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
@@ -199,18 +133,73 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::patch('/teams/{team}/status', [TeamController::class, 'updateStatus'])->name('teams.updateStatus');
 
-    Route::middleware(['auth'])->group(function () {
-        Route::resource('feedbacks', \App\Http\Controllers\FeedbackController::class);
+
+    // Posts
+    Route::get('/stories', [PostController::class, 'index'])->name('posts.index');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    
+    // Comments
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/posts/{post}/comments', [CommentController::class, 'fetch'])->name('comments.fetch');
+
+    //Likes
+    Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
+    Route::delete('/posts/{post}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
+
+    //delete post
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    // API untuk ambil comment list (optional kalau mau ajax beneran)
+    Route::get('/stories/{post}/comments', function ($postId) {
+        $post = \App\Models\Post::with('comments.user')->findOrFail($postId);
+        return response()->json(
+            $post->comments->map(fn($comment) => [
+                'user_name' => $comment->user->name,
+                'comment' => $comment->content,
+                'created_at' => $comment->created_at->diffForHumans(),
+            ])
+        );
     });
 
-    Route::get('/feedbacks', [FeedbackController::class, 'index'])->name('feedbacks.index');
-    Route::get('/feedbacks/create', [FeedbackController::class, 'create'])->name('feedbacks.create');
-    Route::get('/feedbacks/received', [FeedbackController::class, 'received'])->name('feedbacks.received');
-    Route::get('/feedbacks/{team_id}/edit', [FeedbackController::class, 'edit'])->name('feedbacks.edit');
-    Route::put('/feedbacks/update-by-team/{team_id}', [FeedbackController::class, 'updateByTeam'])->name('feedbacks.updateByTeam');
-    Route::delete('/feedbacks/destroy-by-team/{team_id}', [FeedbackController::class, 'destroyByTeam'])
-    ->name('feedbacks.destroyByTeam');
+    // Dashboard redirect sesuai role
+    Route::get('/dashboard', function () {
+        $role = auth()->user()->role;
 
+        if ($role === 'admin') return redirect()->route('admin.dashboard');
+        if ($role === 'organizer') return redirect()->route('organizer.dashboard');
+    
+        $competitions = Competition::latest()->take(6)->get();
+        $user = auth()->user(); // ambil user sekarang
+    
+        // Tambahan menghitung saved
+        $savedCompetitions = $user->savedCompetitions()->count(); 
+    
+        // Tambahan menghitung active dan completed competitions (dummy dulu 0)
+        $activeCompetitions = 0; // kalau belum ada fitur lomba aktif
+        $completedCompetitions = 0; // kalau belum ada fitur lomba selesai
+    
+        return view('dashboard', compact('competitions', 'savedCompetitions', 'activeCompetitions', 'completedCompetitions', 'user'));
+    })->name('dashboard');
 
+    // Admin
+    Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/feedbacks', [FeedbackController::class, 'receivedForAdmin'])->name('feedbacks.index');
+    });
+    
+    // Organizer
+    Route::get('/organizer/dashboard', [OrganizerCompetitionController::class, 'index'])->name('organizer.dashboard');
+    
+    Route::middleware(['auth'])->prefix('organizer')->name('organizer.')->group(function () {
+        Route::resource('competitions', OrganizerCompetitionController::class);
+
+        Route::resource('competitions', \App\Http\Controllers\Organizer\CompetitionController::class);
+
+        Route::get('/feedbacks', [FeedbackController::class, 'receivedForOrganizer'])->name('feedbacks.index');
+    });
 
 });

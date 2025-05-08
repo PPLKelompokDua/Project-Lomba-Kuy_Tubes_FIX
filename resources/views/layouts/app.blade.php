@@ -35,10 +35,10 @@
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
-        <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition font-medium">Eksplorasi Lomba</a>
-        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Tim Saya</a>
-        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Undangan</a>
-        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Cerita</a>
+        <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition font-medium">Explore Competitions</a>
+        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">My Team</a>
+        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Invitations</a>
+        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story Space</a>
         <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedbacks</a>
         @auth
           @php 
@@ -92,11 +92,11 @@
                 <p class="text-xs text-gray-600">{{ auth()->user()->email }}</p>
               </div>
               <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-800 hover:bg-indigo-100 transition">
-                <i class="fas fa-user mr-2"></i> Lihat Profil
+                <i class="fas fa-user mr-2"></i> View Profile
               </a>
               @if(auth()->user()->role === 'user')
                 <a href="{{ route('settings') }}" class="block px-4 py-2 text-sm text-gray-800 hover:bg-indigo-100 transition">
-                  <i class="fas fa-cog mr-2"></i> Pengaturan
+                  <i class="fas fa-cog mr-2"></i> Settings
                 </a>
               @endif
               <form action="{{ route('logout') }}" method="POST" class="block">
@@ -124,10 +124,10 @@
     <div class="mobile-menu hidden md:hidden p-4 bg-indigo-700">
       <nav class="flex flex-col space-y-3">
         <a href="{{ route('dashboard') }}" class="text-white hover:text-indigo-200 transition py-2">Dashboard</a>
-        <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition py-2">Eksplorasi Lomba</a>
-        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Tim Saya</a>
-        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Undangan</a>
-        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Cerita</a>
+        <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition py-2">Explore Competitions</a>
+        <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">My Team</a>
+        <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Invitations</a>
+        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story Space</a>
         <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedbacks</a>
         @auth
           <div x-data="{ open: false }" class="relative">
@@ -146,11 +146,11 @@
                 <p>{{ auth()->user()->email }}</p>
               </div>
               <a href="{{ route('profile.show') }}" class="block py-2 text-white hover:text-indigo-200 transition">
-                <i class="fas fa-user mr-2"></i> Lihat Profil
+                <i class="fas fa-user mr-2"></i> View Profile
               </a>
               @if(auth()->user()->role === 'user')
                 <a href="{{ route('settings') }}" class="block py-2 text-white hover:text-indigo-200 transition">
-                  <i class="fas fa-cog mr-2"></i> Pengaturan
+                  <i class="fas fa-cog mr-2"></i> Settings
                 </a>
               @endif
               <form action="{{ route('logout') }}" method="POST" class="block py-2">

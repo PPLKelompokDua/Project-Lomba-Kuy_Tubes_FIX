@@ -30,7 +30,6 @@
         LombaKuy Admin
       </a>
       <nav class="hidden md:flex space-x-6 items-center">
-        <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-gray-300 transition font-medium">Dashboard</a>
         <form action="{{ route('logout') }}" method="POST" class="inline">
           @csrf
           <button class="bg-red-600 text-white hover:bg-red-700 transition px-4 py-2 rounded-lg font-medium">Logout</button>
@@ -50,7 +49,6 @@
     <!-- Mobile menu -->
     <div class="mobile-menu hidden md:hidden p-4 bg-gray-800">
       <nav class="flex flex-col space-y-3">
-        <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-gray-300 transition py-2">Dashboard</a>
         <form action="{{ route('logout') }}" method="POST" class="inline py-2">
           @csrf
           <button class="text-white hover:text-gray-300 transition">Logout</button>
@@ -70,6 +68,10 @@
         <nav class="flex flex-col space-y-1">
           <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition">
             <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
+          </a>
+
+          <a href="{{ route('admin.feedbacks.index') }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition">
+            <i class="fas fa-comments mr-3"></i> View Feedback
           </a>
         </nav>
       </div>

@@ -114,27 +114,28 @@ class FeedbackController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Feedback $feedback)
+    public function edit($team_id)
     {
-        $team = $feedback->team;
+        $team = Team::with('acceptedMembers', 'leader', 'competition')->findOrFail($team_id);
+        $senderId = auth()->id();
 
         $memberFeedback = Feedback::where('team_id', $team->id)
-            ->where('sender_id', auth()->id())
+            ->where('sender_id', $senderId)
             ->where('type', 'member')
             ->get()
             ->keyBy('target_user_id');
 
         $platformFeedback = Feedback::where('team_id', $team->id)
-            ->where('sender_id', auth()->id())
+            ->where('sender_id', $senderId)
             ->where('type', 'platform')
             ->first();
 
         $organizerFeedback = Feedback::where('team_id', $team->id)
-            ->where('sender_id', auth()->id())
+            ->where('sender_id', $senderId)
             ->where('type', 'organizer')
             ->first();
 
-        return view('feedbacks.edit', compact('feedback', 'team', 'memberFeedback', 'platformFeedback', 'organizerFeedback'));
+        return view('feedbacks.edit', compact('team', 'memberFeedback', 'platformFeedback', 'organizerFeedback'));
     }
 
 
@@ -172,7 +173,10 @@ class FeedbackController extends Controller
     
     public function received()
     {
-        $feedbacksForMe = Feedback::where('target_user_id', auth()->id())->latest()->get();
+        $feedbacksForMe = Feedback::where('target_user_id', auth()->id())
+            ->with('sender')
+            ->latest()
+            ->get();
 
         return view('feedbacks.received', compact('feedbacksForMe'));
     }
@@ -231,5 +235,37 @@ class FeedbackController extends Controller
         return redirect()->route('feedbacks.index')->with('success', 'Feedback berhasil diperbarui!');
     }
 
+    public function receivedForOrganizer()
+    {
+        $user = Auth::user();
+
+        if ($user->role !== 'organizer') {
+            abort(403);
+        }
+
+        $organizerFeedbacks = Feedback::where('type', 'organizer')
+            ->where('target_user_id', $user->id)
+            ->with(['sender', 'team.competition']) // ← tambahkan ini
+            ->latest()
+            ->get();
+
+        return view('organizer.feedbacks.index', compact('organizerFeedbacks'));
+    }
+
+    public function receivedForAdmin()
+    {
+        $user = Auth::user();
+
+        if ($user->role !== 'admin') {
+            abort(403);
+        }
+
+        $platformFeedbacks = Feedback::where('type', 'platform')
+            ->with(['sender', 'team'])
+            ->latest()
+            ->get();
+
+        return view('admin.feedbacks.index', compact('platformFeedbacks'));
+    }
 
 }

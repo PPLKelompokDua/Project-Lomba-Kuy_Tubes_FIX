@@ -34,6 +34,7 @@
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
+        <a href="{{ route('organizer.feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Views Feedbacks</a>
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->
@@ -81,6 +82,7 @@
     <div class="mobile-menu hidden md:hidden p-4 bg-indigo-700">
       <nav class="flex flex-col space-y-3">
         <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition py-2">Dashboard</a>
+        <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition py-2">Feedbacks</a>
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->

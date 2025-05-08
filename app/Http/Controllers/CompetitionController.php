@@ -71,9 +71,12 @@ class CompetitionController extends Controller
 
         $competitions = $query->latest()->paginate(12)->withQueryString();
 
+        $totalActive = Competition::where('deadline', '>=', now())->count();
+
         return view('competitions.explore', [
             'competitions' => $competitions,
             'categories' => $categories,
+            'totalActive' => $totalActive,
         ]);
     }
     /**

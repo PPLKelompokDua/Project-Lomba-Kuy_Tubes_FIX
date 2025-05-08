@@ -124,7 +124,7 @@ class InvitationController extends Controller
             'invitation_id' => $invitation->id,
             'type' => 'invitation',
             'message'       => Auth::user()->name
-                            . ' mengundang Anda bergabung ke tim '
+                            . ' invited you to join the team '
                             . $team->name,
             'link' => route('invitations.index', [
                 'team_id' => $request->team_id,
@@ -189,7 +189,7 @@ class InvitationController extends Controller
             'user_id'       => $invitation->sender_id,
             'invitation_id' => $invitation->id,
             'type'          => 'invitation',
-            'message'       => auth()->user()->name . ' menerima undangan timmu: ' . $invitation->team->name,
+            'message'       => auth()->user()->name . ' has accepted your team invitation: ' . $invitation->team->name,
             'link'          => route('invitations.index'),
             'is_read'       => false,
         ]);

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Profil')
+@section('title', 'Edit Profile')
 
 @section('content')
 <div class="max-w-4xl mx-auto py-8">
@@ -11,7 +11,7 @@
             <a href="{{ route('profile.show') }}"
                class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold transition"
                data-aos="fade-left">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Profil
+                <i class="fas fa-arrow-left mr-2"></i> Back to Profile
             </a>
         </div>
 
@@ -25,7 +25,7 @@
             <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg relative" role="alert" data-aos="fade-up">
                 <div class="flex items-center">
                     <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span class="font-semibold">Terjadi Kesalahan:</span>
+                    <span class="font-semibold">An Error Occurred:</span>
                 </div>
                 <ul class="list-disc pl-5 mt-2 text-sm">
                     @foreach ($errors->all() as $error)
@@ -46,7 +46,7 @@
             <!-- Name -->
             <div class="mb-6">
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-user mr-2"></i> Nama <span class="text-red-500">*</span>
+                    <i class="fas fa-user mr-2"></i> Name <span class="text-red-500">*</span>
                 </label>
                 <div class="relative">
                     <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -78,7 +78,7 @@
             <!-- Description -->
             <div class="mb-6">
                 <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-align-left mr-2"></i> Deskripsi Diri
+                    <i class="fas fa-align-left mr-2"></i> Description
                 </label>
                 <textarea name="description" id="description" rows="4"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
@@ -91,7 +91,7 @@
             <!-- Achievements -->
             <div class="mb-6">
                 <label for="achievements" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-trophy mr-2"></i> Prestasi (Opsional)
+                    <i class="fas fa-trophy mr-2"></i> Achievements (Optional)
                 </label>
                 <textarea name="achievements" id="achievements" rows="3"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
@@ -104,7 +104,7 @@
             <!-- Profile Image -->
             <div class="mb-6" data-aos="fade-up" data-aos-delay="200">
                 <label for="profile_image" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-image mr-2"></i> Foto Profil (Opsional)
+                    <i class="fas fa-image mr-2"></i> Profile Photo (Optional)
                 </label>
                 <div class="relative">
                     <input type="file" name="profile_image" id="profile_image" accept="image/*"
@@ -116,13 +116,13 @@
                          alt="Current Profile"
                          class="w-48 h-48 object-cover rounded-lg mx-auto cursor-pointer"
                          onclick="openPreviewModal('{{ $user->profile_image ? asset('storage/images/' . $user->profile_image) : 'https://via.placeholder.com/150' }}')">
-                    <p class="text-sm text-gray-500 mt-2 text-center">Foto profil saat ini</p>
+                    <p class="text-sm text-gray-500 mt-2 text-center">Current Profile Photo</p>
                 </div>
                 <!-- New Image Preview -->
                 <div id="imagePreview" class="mt-4 hidden">
                     <img id="previewImage" class="w-48 h-48 object-cover rounded-lg mx-auto" alt="Profile Preview">
                     <button type="button" class="mt-2 text-red-600 hover:text-red-800 text-sm" onclick="clearImagePreview()">
-                        <i class="fas fa-trash mr-1"></i> Hapus Gambar
+                        <i class="fas fa-trash mr-1"></i> Delete Photo
                     </button>
                 </div>
                 @error('profile_image')
@@ -133,7 +133,7 @@
             <!-- Competition Experience -->
             <div class="mb-8" data-aos="fade-up" data-aos-delay="200" id="competition-experience">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Competition Experience</h3>
-                <p class="text-sm text-gray-600 mb-4">Tambahkan kategori kompetisi yang pernah Anda ikuti. Informasi ini akan membantu pengguna lain menemukan Anda saat mereka mencari anggota tim.</p>
+                <p class="text-sm text-gray-600 mb-4"> Add the categories of competitions you have participated in. This information will help other users find you when they're looking for team members.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
@@ -181,7 +181,7 @@
                         </div>
                         <div class="ml-3">
                             <p class="text-sm text-yellow-700">
-                                Menambahkan pengalaman kompetisi Anda akan meningkatkan visibilitas Anda saat pengguna lain mencari anggota tim dengan keahlian tertentu.
+                            Adding your competition experience will increase your visibility when other users search for team members with specific skills.
                             </p>
                         </div>
                     </div>
@@ -191,14 +191,14 @@
             <!-- Password -->
             <div class="mb-6" data-aos="fade-up" data-aos-delay="250">
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-lock mr-2"></i> Kata Sandi Baru (Opsional)
+                    <i class="fas fa-lock mr-2"></i> New Password (Optional)
                 </label>
                 <div class="relative">
                     <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     <input type="password" name="password" id="password"
                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
                 </div>
-                <p class="text-sm text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah kata sandi</p>
+                <p class="text-sm text-gray-500 mt-1">Leave blank if you don't want to change your password.</p>
                 @error('password')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -207,7 +207,7 @@
             <!-- Password Confirmation -->
             <div class="mb-6" data-aos="fade-up" data-aos-delay="300">
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-lock mr-2"></i> Konfirmasi Kata Sandi
+                    <i class="fas fa-lock mr-2"></i> Password Conformation
                 </label>
                 <div class="relative">
                     <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -223,11 +223,11 @@
             <div class="flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="350">
                 <button type="submit"
                         class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg flex items-center justify-center transition min-w-[120px] shadow-md action-button">
-                    <i class="fas fa-save mr-2"></i> Simpan
+                    <i class="fas fa-save mr-2"></i> Save
                 </button>
                 <a href="{{ route('profile.show') }}"
                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg flex items-center justify-center transition min-w-[120px] action-button">
-                    <i class="fas fa-arrow-left mr-2"></i> Kembali
+                    <i class="fas fa-arrow-left mr-2"></i> Cancel
                    </a>
             </div>
         </form>
@@ -241,7 +241,7 @@
             <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
         </div>
         <div class="p-4 border-t border-gray-200">
-            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
         </div>
     </div>
 </div>

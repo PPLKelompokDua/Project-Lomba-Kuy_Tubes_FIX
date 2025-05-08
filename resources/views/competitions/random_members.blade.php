@@ -3,6 +3,26 @@
 @section('title', 'Find Team Members')
 
 @section('content')
+<!-- Breadcrumb Navigation -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="text-sm text-gray-600" aria-label="breadcrumb">
+        <ol class="flex space-x-2">
+            <li>
+                <a href="{{ route('dashboard') }}" class="text-indigo-600 hover:underline">Dashboard</a>
+                <span class="mx-2">/</span>
+            </li>
+            <li>
+                <a href="{{ route('explore') }}" class="text-indigo-600 hover:underline">Explore</a>
+                <span class="mx-2">/</span>
+            </li>
+            <li>
+                <a href="{{ route('competitions.show', $competition->id) }}" class="text-indigo-600 hover:underline">{{ Str::limit($competition->title, 30) }}</a>
+                <span class="mx-2">/</span>
+            </li>
+            <li class="text-gray-500">Find Team Members</li>
+        </ol>
+    </nav>
+</div>
 <!-- Hero Section -->
 <div class="bg-gradient-to-r from-indigo-800 to-indigo-600 text-white rounded-xl shadow-xl mb-8 overflow-hidden">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -45,31 +45,31 @@
       <!-- Left Column: Welcome Content -->
       <div data-aos="fade-right" data-aos-duration="1000" class="w-full md:w-1/2 text-white mb-10 md:mb-0 md:pr-10">
         <div class="max-w-md mx-auto md:ml-auto md:mr-0">
-          <h1 class="text-4xl md:text-5xl font-extrabold mb-6">Selamat Datang!</h1>
+          <h1 class="text-4xl md:text-5xl font-extrabold mb-6">Welcome Back!</h1>
           <p class="text-lg mb-8">
-            Masuk dan mulai eksplorasi lomba, bentuk tim terbaik, dan capai prestasi bersama LombaKuy.
+            Log in and start exploring competitions, forming the best teams, and achieving success with LombaKuy.
           </p>
           
           <div class="bg-white bg-opacity-20 backdrop-blur-lg p-6 rounded-xl mb-8">
-            <h3 class="text-lg font-bold mb-4">Fitur Utama</h3>
+            <h3 class="text-lg font-bold mb-4">Main Features</h3>
             <ul class="space-y-3 text-sm">
               <li class="flex items-start">
                 <svg class="w-5 h-5 text-indigo-200 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span>Temukan berbagai lomba terkini</span>
+                <span>Discover the latest competitions</span>
               </li>
               <li class="flex items-start">
                 <svg class="w-5 h-5 text-indigo-200 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span>Kolaborasi tim berbasis rekomendasi</span>
+                <span>Team collaboration based on recommendations</span>
               </li>
               <li class="flex items-start">
                 <svg class="w-5 h-5 text-indigo-200 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span>Kelola tugas & pantau progres lomba</span>
+                <span>Manage tasks & track competition progress</span>
               </li>
             </ul>
           </div>
@@ -80,7 +80,7 @@
               <img src="{{ asset('storage/images/testi1.jpg') }}" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
               <img src="{{ asset('storage/images/testi2.jpg') }}" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
             </div>
-            <p class="ml-4 text-sm">Dipercaya oleh 1000+ mahasiswa/i di Indonesia</p>
+            <p class="ml-4 text-sm">Trusted by over 1000+ students in Indonesia</p>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@
           <div class="p-8">
             <div class="text-center mb-8">
               <h2 class="text-3xl font-bold text-gray-800">Log In</h2>
-              <p class="text-gray-600 mt-2">Akses akun LombaKuy Anda</p>
+              <p class="text-gray-600 mt-2">Access your LombaKuy account</p>
             </div>
             
             @if ($errors->any())
@@ -113,7 +113,7 @@
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
               @csrf
               <div>
-                <label class="block text-gray-700 font-medium mb-2" for="email">Alamat Email</label>
+                <label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,8 +128,8 @@
               
               <div>
                 <div class="flex items-center justify-between mb-2">
-                  <label class="block text-gray-700 font-medium" for="password">Kata Sandi</label>
-                  <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800">Lupa Sandi?</a>
+                  <label class="block text-gray-700 font-medium" for="password">Password</label>
+                  <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800">Forgot Password?</a>
                 </div>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -152,7 +152,7 @@
             </form>
             
             <p class="mt-8 text-center text-gray-600">
-              Belum punya akun? 
+              Don't have an account? 
               <a href="{{ route('register') }}" class="text-indigo-600 font-bold hover:underline">Sign Up</a>
             </p>
           </div>
@@ -197,7 +197,7 @@
         </div>
       </div>
       <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm">
-        <p>&copy; 2025 LombaKuy. All Rights Reserved.</p>
+        <p>© 2025 LombaKuy. All Rights Reserved.</p>
       </div>
     </div>
   </footer>

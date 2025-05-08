@@ -56,7 +56,7 @@
       <a href="#testimonials" class="block py-2 hover:bg-indigo-800 px-3 rounded">Testimonials</a>
       <a href="#faq" class="block py-2 hover:bg-indigo-800 px-3 rounded">FAQ</a>
       <a href="#aboutus" class="block py-2 hover:bg-indigo-800 px-3 rounded">About Us</a>
-      <a href="#contact" class="block py-2 hover:bg-indigo-800 px-3 rounded">Hubungi Kami</a>
+      <a href="#contact" class="block py-2 hover:bg-indigo-800 px-3 rounded">Contact Us</a>
       <div class="flex space-x-3 mt-4">
         <a href="/login" class="block w-1/2">
           <button class="w-full bg-white text-indigo-600 font-bold py-2 px-4 rounded-lg">
@@ -93,7 +93,7 @@
             Organize, Compete, <span class="text-indigo-200">Succeed</span>
           </h1>
           <p class="mt-6 text-lg font-light text-white">
-            Temukan kompetisi, bentuk tim terbaik, dan pantau progres kamu secara real-time dengan LombaKuy. Platform kompetisi terlengkap untuk mahasiswa Telkom University.
+            Discover competitions, form the best teams, and track your progress in real-time with LombaKuy. The most comprehensive competition platform for Telkom University students.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
             <a href="/register">
@@ -135,8 +135,8 @@
     <div class="container mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">WHY CHOOSE US</span>
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Mengapa Mahasiswa Memilih LombaKuy</h2>
-        <p class="text-gray-600">Platform lengkap yang memudahkan perjalanan kompetisi mahasiswa dari awal hingga akhir.</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Why Students Choose LombaKuy</h2>
+        <p class="text-gray-600">A complete platform that simplifies the competition journey for students from start to finish.</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -150,7 +150,7 @@
               </svg>
             </div>
             <h3 class="text-xl font-bold text-gray-800 mb-4">All-in-One Competition Platform</h3>
-            <p class="text-gray-600">Temukan, daftar, dan kelola berbagai lomba dalam satu platform terpadu. Tidak perlu lagi mencari informasi di banyak tempat.</p>
+            <p class="text-gray-600">Discover, register, and manage various competitions in one integrated platform. No need to search for information in multiple places.</p>
           </div>
         </div>
 
@@ -164,7 +164,7 @@
               </svg>
             </div>
             <h3 class="text-xl font-bold text-gray-800 mb-4">Smart Team Formation</h3>
-            <p class="text-gray-600">Temukan rekan tim yang cocok melalui tes psikologi dan sistem rekomendasi berdasarkan keterampilan dan minat.</p>
+            <p class="text-gray-600">Find suitable teammates through psychological tests and a recommendation system based on skills and interests.</p>
           </div>
         </div>
 
@@ -178,7 +178,7 @@
               </svg>
             </div>
             <h3 class="text-xl font-bold text-gray-800 mb-4">Real-time Progress Tracking</h3>
-            <p class="text-gray-600">Pantau kemajuan tim dan analisis performa dengan visualisasi data yang jelas dan intuitif untuk hasil yang lebih baik.</p>
+            <p class="text-gray-600">Monitor team progress and analyze performance with clear and intuitive data visualizations for better results.</p>
           </div>
         </div>
       </div>
@@ -190,11 +190,11 @@
     <div class="container mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">FEATURES</span>
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Fitur Komprehensif LombaKuy</h2>
-        <p class="text-gray-600">Dirancang khusus untuk membantu mahasiswa Telkom University memaksimalkan potensi mereka dalam kompetisi.</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">LombaKuy’s Comprehensive Features</h2>
+        <p class="text-gray-600">Designed specifically to help Telkom University students maximize their potential in competitions.</p>
       </div>
       
-      <!-- Grid Fitur: 6 item, 2 baris x 3 kolom di resolusi md ke atas -->
+      <!-- Feature Grid: 6 items, 2 rows x 3 columns on md resolution and above -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <!-- 1. Competition Search & Registration -->
@@ -207,29 +207,29 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-gray-800 mb-4">
-            Eksplorasi & Pendaftaran Lomba
+            Competition Exploration & Registration
           </h3>
           <p class="text-gray-600 mb-6">
-            Cari dan filter kompetisi sesuai kategori, deadline, dan tingkat kesulitan. Dapatkan informasi detail dan daftar dengan mudah melalui tautan resmi.
+            Search and filter competitions by category, deadline, and difficulty level. Get detailed information and register easily through official links.
           </p>
           <ul class="text-gray-600 space-y-2">
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Filter berdasarkan kategori</span>
+              <span>Filter by category</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Informasi detail kompetisi</span>
+              <span>Detailed competition information</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Tautan pendaftaran resmi</span>
+              <span>Official registration links</span>
             </li>
           </ul>
         </div>
@@ -245,29 +245,29 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-gray-800 mb-4">
-            Tes Kecocokan & Pembentukan Tim
+            Team Compatibility Test & Formation
           </h3>
           <p class="text-gray-600 mb-6">
-            Temukan rekan tim potensial melalui tes psikologi dan sistem rekomendasi berbasis data untuk membentuk tim yang saling melengkapi.
+            Find potential teammates through psychological tests and a data-driven recommendation system to form complementary teams.
           </p>
           <ul class="text-gray-600 space-y-2">
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Tes psikologi dan asesmen</span>
+              <span>Psychological tests and assessments</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Sistem pencarian rekan tim</span>
+              <span>Teammate search system</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Manajemen invitasi tim</span>
+              <span>Team invitation management</span>
             </li>
           </ul>
         </div>
@@ -284,29 +284,29 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-gray-800 mb-4">
-            Milestones & Manajemen Tugas
+            Milestones & Task Management
           </h3>
           <p class="text-gray-600 mb-6">
-            Pantau tugas, milestone, dan deadline kompetisi kamu dalam timeline visual yang terstruktur dengan reminder otomatis.
+            Monitor tasks, milestones, and competition deadlines in a structured visual timeline with automatic reminders.
           </p>
           <ul class="text-gray-600 space-y-2">
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Timeline visual interaktif</span>
+              <span>Interactive visual timeline</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Task management terintegrasi</span>
+              <span>Integrated task management</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Reminder deadline otomatis</span>
+              <span>Automatic deadline reminders</span>
             </li>
           </ul>
         </div>
@@ -325,29 +325,29 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-gray-800 mb-4">
-            Analisis Performa & Produktivitas
+            Performance & Productivity Analytics
           </h3>
           <p class="text-gray-600 mb-6">
-            Lihat data dan grafik performa tim untuk identifikasi area perbaikan dan kesuksesan melalui visualisasi yang mudah dipahami.
+            View team performance data and graphs to identify areas for improvement and success through easy-to-understand visualizations.
           </p>
           <ul class="text-gray-600 space-y-2">
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Dashboard produktivitas tim</span>
+              <span>Team productivity dashboard</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Grafik progres kompetisi</span>
+              <span>Competition progress graphs</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Laporan aktivitas anggota</span>
+              <span>Member activity reports</span>
             </li>
           </ul>
         </div>
@@ -361,10 +361,10 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-gray-800 mb-4">
-            Story Space & Sistem Feedback
+            Story Space & Feedback System
           </h3>
           <p class="text-gray-600 mb-6">
-            Bagikan pengalaman kompetisi kamu, berikan feedback pada tim dan penyelenggara lomba untuk evaluasi berkelanjutan.
+            Share your competition experiences, provide feedback on teams and organizers for continuous evaluation.
           </p>
           <ul class="text-gray-600 space-y-2">
             <li class="flex items-start">
@@ -377,13 +377,13 @@
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Sistem evaluasi pada team lomba, lombanya dan fitur lombakuy</span>
+              <span>Evaluation system for teams, competitions, and LombaKuy features</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Berbagi pengalaman kompetisi</span>
+              <span>Sharing competition experiences</span>
             </li>
           </ul>
         </div>
@@ -398,29 +398,29 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-gray-800 mb-4">
-            Sumber Edukasi & Panduan Lomba
+            Educational Resources & Competition Guides
           </h3>
           <p class="text-gray-600 mb-6">
-            Akses video tutorial, artikel panduan, dan strategi lomba untuk meningkatkan peluang kesuksesan tim dalam kompetisi.
+            Access video tutorials, guide articles, and competition strategies to increase your team’s chances of success.
           </p>
           <ul class="text-gray-600 space-y-2">
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Video tips & strategi lomba</span>
+              <span>Video tips & competition strategies</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Artikel panduan kompetisi</span>
+              <span>Competition guide articles</span>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-indigo-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span>Resource pengembangan diri</span>
+              <span>Personal development resources</span>
             </li>
           </ul>
         </div>
@@ -433,8 +433,8 @@
     <div class="container mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">PROCESS</span>
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Bagaimana LombaKuy Bekerja?</h2>
-        <p class="text-gray-600">Empat langkah mudah untuk memaksimalkan pengalaman kompetisi kamu</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">How LombaKuy Works</h2>
+        <p class="text-gray-600">Four simple steps to maximize your competition experience</p>
       </div>
       
       <!-- Timeline Steps -->
@@ -445,10 +445,10 @@
         <!-- Step 1 -->
         <div data-aos="fade-right" class="relative flex flex-col md:flex-row items-center mb-16">
           <div class="flex-1 w-full md:w-1/2 md:pr-16 mb-8 md:mb-0 md:text-right">
-            <span class="text-indigo-600 font-bold text-lg mb-2 block">LANGKAH 1</span>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Temukan Kompetisi Ideal</h3>
+            <span class="text-indigo-600 font-bold text-lg mb-2 block">STEP 1</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Find Your Ideal Competition</h3>
             <p class="text-gray-600 max-w-md ml-auto">
-              Cari kompetisi yang cocok dengan minat dan keahlianmu. Filter berdasarkan kategori, level, deadline, dan hadiah untuk menemukan peluang terbaik.
+              Search for competitions that match your interests and skills. Filter by category, level, deadline, and prizes to find the best opportunities.
             </p>
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">1</div>
@@ -460,10 +460,10 @@
         <!-- Step 2 -->
         <div data-aos="fade-left" class="relative flex flex-col md:flex-row-reverse items-center mb-16">
           <div class="flex-1 w-full md:w-1/2 md:pl-16 mb-8 md:mb-0 md:text-left">
-            <span class="text-indigo-600 font-bold text-lg mb-2 block">LANGKAH 2</span>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Bentuk Tim Berkualitas</h3>
+            <span class="text-indigo-600 font-bold text-lg mb-2 block">STEP 2</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Build a Quality Team</h3>
             <p class="text-gray-600 max-w-md">
-              Ikuti tes kecocokan tim dan temukan rekan yang melengkapi skillset-mu. Manfaatkan sistem undangan dan rekrut anggota terbaik untuk kompetisi.
+              Take the team compatibility test and find partners who complement your skillset. Utilize the invitation system to recruit the best members for the competition.
             </p>
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">2</div>
@@ -475,10 +475,10 @@
         <!-- Step 3 -->
         <div data-aos="fade-right" class="relative flex flex-col md:flex-row items-center mb-16">
           <div class="flex-1 w-full md:w-1/2 md:pr-16 mb-8 md:mb-0 md:text-right">
-            <span class="text-indigo-600 font-bold text-lg mb-2 block">LANGKAH 3</span>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Kelola Progres & Tugas</h3>
+            <span class="text-indigo-600 font-bold text-lg mb-2 block">STEP 3</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Manage Progress & Tasks</h3>
             <p class="text-gray-600 max-w-md ml-auto">
-              Tetapkan milestone, bagi tugas, dan pantau kemajuan tim melalui dashboard interaktif. Gunakan analytics untuk memaksimalkan produktivitas.
+              Set milestones, assign tasks, and monitor team progress through an interactive dashboard. Use analytics to maximize productivity.
             </p>
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">3</div>
@@ -490,10 +490,10 @@
         <!-- Step 4 -->
         <div data-aos="fade-left" class="relative flex flex-col md:flex-row-reverse items-center">
           <div class="flex-1 w-full md:w-1/2 md:pl-16 mb-8 md:mb-0 md:text-left">
-            <span class="text-indigo-600 font-bold text-lg mb-2 block">LANGKAH 4</span>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Evaluasi & Berkembang</h3>
+            <span class="text-indigo-600 font-bold text-lg mb-2 block">STEP 4</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Evaluate & Grow</h3>
             <p class="text-gray-600 max-w-md">
-              Dapatkan feedback, bagikan pencapaian di Winning Post, dan terus tingkatkan performa dengan resource edukatif yang tersedia.
+              Receive feedback, share achievements on Winning Post, and continuously improve performance with available educational resources.
             </p>
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">4</div>
@@ -507,7 +507,7 @@
       <div class="mt-16 text-center">
         <a href="/register" data-aos="zoom-in">
           <button dusk="footer-get-started-button" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition shadow-lg transform hover:scale-105">
-            Mulai Perjalanan Kompetisimu
+            Start Your Competition Journey
             <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
@@ -522,8 +522,8 @@
     <div class="container mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">TESTIMONIALS</span>
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Apa Kata Mahasiswa</h2>
-        <p class="text-gray-600">Pengalaman mahasiswa Telkom University yang telah memanfaatkan LombaKuy untuk kesuksesan kompetisi mereka</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">What Students Say</h2>
+        <p class="text-gray-600">Experiences of Telkom University students who have used LombaKuy to succeed in competitions</p>
       </div>
       
       <!-- Testimonials Grid -->
@@ -539,13 +539,13 @@
           </div>
           <div class="pt-6">
             <p class="text-gray-600 italic mb-6">
-              "LombaKuy sangat membantu tim kami dalam mengorganisir persiapan lomba UI/UX Design. Berkat platform ini, kami berhasil memenangkan juara 2 tingkat nasional!"
+              "LombaKuy greatly helped our team organize preparations for the UI/UX Design competition. Thanks to this platform, we won 2nd place at the national level!"
             </p>
             <div class="flex items-center">
               <img src="{{ asset('storage/images/testi1.jpg') }}" alt="User Avatar" class="w-12 h-12 rounded-full mr-4 object-cover">
               <div>
                 <h4 class="font-bold text-gray-900">Anita Wijaya</h4>
-                <p class="text-sm text-gray-600">Mahasiswa Desain Komunikasi Visual</p>
+                <p class="text-sm text-gray-600">Visual Communication Design Student</p>
               </div>
             </div>
           </div>
@@ -562,13 +562,13 @@
           </div>
           <div class="pt-6">
             <p class="text-gray-600 italic mb-6">
-              "Fitur tes kecocokan tim membantu saya menemukan partner yang tepat untuk lomba programming. Analisis performa juga sangat bermanfaat untuk evaluasi tim."
+              "The team compatibility test helped me find the right partner for the programming competition. Performance analytics were also very useful for team evaluation."
             </p>
             <div class="flex items-center">
               <img src="{{ asset('storage/images/testi2.jpg') }}" alt="User Avatar" class="w-12 h-12 rounded-full mr-4 object-cover">
               <div>
                 <h4 class="font-bold text-gray-900">Diana Putri</h4>
-                <p class="text-sm text-gray-600">Mahasiswa Teknik Informatika</p>
+                <p class="text-sm text-gray-600">Informatics Engineering Student</p>
               </div>
             </div>
           </div>
@@ -585,13 +585,13 @@
           </div>
           <div class="pt-6">
             <p class="text-gray-600 italic mb-6">
-              "Timeline dan progress tracker membuat koordinasi tim jadi lebih efektif. Video tips & strategies juga sangat membantu persiapan kami sebelum lomba!"
+              "The timeline and progress tracker made team coordination more effective. The tips & strategies videos were also very helpful for our preparation!"
             </p>
             <div class="flex items-center">
               <img src="{{ asset('storage/images/testi3.jpg') }}" alt="User Avatar" class="w-12 h-12 rounded-full mr-4 object-cover">
               <div>
                 <h4 class="font-bold text-gray-900">Budi Tan</h4>
-                <p class="text-sm text-gray-600">Mahasiswa Manajemen Bisnis</p>
+                <p class="text-sm text-gray-600">Business Management Student</p>
               </div>
             </div>
           </div>
@@ -607,25 +607,25 @@
         <!-- Stat 1 -->
         <div data-aos="fade-up" data-aos-delay="100">
           <div class="text-4xl font-bold mb-2">500+</div>
-          <div class="text-indigo-200 font-medium">Kompetisi Terdaftar</div>
+          <div class="text-indigo-200 font-medium">Registered Competitions</div>
         </div>
         
         <!-- Stat 2 -->
         <div data-aos="fade-up" data-aos-delay="200">
           <div class="text-4xl font-bold mb-2">2,500+</div>
-          <div class="text-indigo-200 font-medium">Mahasiswa Pengguna</div>
+          <div class="text-indigo-200 font-medium">Student Users</div>
         </div>
         
         <!-- Stat 3 -->
         <div data-aos="fade-up" data-aos-delay="300">
           <div class="text-4xl font-bold mb-2">350+</div>
-          <div class="text-indigo-200 font-medium">Tim Terbentuk</div>
+          <div class="text-indigo-200 font-medium">Teams Formed</div>
         </div>
         
         <!-- Stat 4 -->
         <div data-aos="fade-up" data-aos-delay="400">
           <div class="text-4xl font-bold mb-2">75+</div>
-          <div class="text-indigo-200 font-medium">Prestasi Diraih</div>
+          <div class="text-indigo-200 font-medium">Achievements Earned</div>
         </div>
       </div>
     </div>
@@ -636,22 +636,22 @@
     <div class="container mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">FAQ</span>
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Pertanyaan yang Sering Diajukan</h2>
-        <p class="text-gray-600">Temukan jawaban untuk pertanyaan umum tentang LombaKuy</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+        <p class="text-gray-600">Find answers to common questions about LombaKuy</p>
       </div>
       
       <div class="max-w-3xl mx-auto">
         <!-- FAQ Item 1 -->
         <div data-aos="fade-up" data-aos-delay="100" class="mb-6 border-b border-gray-200 pb-6">
           <button class="flex justify-between items-center w-full text-left focus:outline-none">
-            <span class="text-xl font-bold text-gray-800">Apakah LombaKuy gratis untuk digunakan?</span>
+            <span class="text-xl font-bold text-gray-800">Is LombaKuy free to use?</span>
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           <div class="mt-3">
             <p class="text-gray-600">
-              Ya, LombaKuy dapat digunakan secara gratis untuk semua mahasiswa Telkom University. Semua fitur inti tersedia tanpa biaya apapun untuk mendukung kegiatan kompetisi mahasiswa.
+              Yes, LombaKuy is free to use for all Telkom University students. All core features are available at no cost to support student competition activities.
             </p>
           </div>
         </div>
@@ -659,14 +659,15 @@
         <!-- FAQ Item 2 -->
         <div data-aos="fade-up" data-aos-delay="200" class="mb-6 border-b border-gray-200 pb-6">
           <button class="flex justify-between items-center w-full text-left focus:outline-none">
-            <span class="text-xl font-bold text-gray-800">Bagaimana cara kerja tes kecocokan tim?</span>
+            <span class="text-xl font-bold text-gray-800">How does the team compatibility test work?</span>
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="round" stroke-linejoin="round"ɑ
+              stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           <div class="mt-3">
             <p class="text-gray-600">
-              Tes kecocokan tim menggunakan algoritma psikologi yang menganalisis kepribadian, kemampuan teknis, dan preferensi kerja untuk merekomendasikan kombinasi anggota tim yang saling melengkapi dalam berbagai aspek.
+              The team compatibility test uses psychological algorithms to analyze personality, technical skills, and work preferences to recommend complementary team member combinations.
             </p>
           </div>
         </div>
@@ -674,14 +675,14 @@
         <!-- FAQ Item 3 -->
         <div data-aos="fade-up" data-aos-delay="300" class="mb-6 border-b border-gray-200 pb-6">
           <button class="flex justify-between items-center w-full text-left focus:outline-none">
-            <span class="text-xl font-bold text-gray-800">Siapa yang dapat mengunggah informasi lomba?</span>
+            <span class="text-xl font-bold text-gray-800">Who can upload competition information?</span>
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           <div class="mt-3">
             <p class="text-gray-600">
-              Informasi lomba dapat diunggah oleh penyelenggara kompetisi dan admin LombaKuy. Mahasiswa juga dapat mengusulkan lomba yang belum terdaftar untuk diverifikasi oleh admin.
+              Competition information can be uploaded by competition organizers and LombaKuy admins. Students can also propose unlisted competitions for admin verification.
             </p>
           </div>
         </div>
@@ -689,14 +690,14 @@
         <!-- FAQ Item 4 -->
         <div data-aos="fade-up" data-aos-delay="400" class="mb-6 border-b border-gray-200 pb-6">
           <button class="flex justify-between items-center w-full text-left focus:outline-none">
-            <span class="text-xl font-bold text-gray-800">Dapatkah saya menggunakan LombaKuy untuk lomba di luar kampus?</span>
+            <span class="text-xl font-bold text-gray-800">Can I use LombaKuy for off-campus competitions?</span>
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           <div class="mt-3">
             <p class="text-gray-600">
-              Tentu saja! LombaKuy mendukung berbagai jenis kompetisi baik tingkat kampus, regional, nasional, maupun internasional. Platform ini dirancang untuk membantu mahasiswa Telkom University berpartisipasi dalam berbagai ajang kompetisi.
+              Absolutely! LombaKuy supports various types of competitions, including campus, regional, national, and international levels. The platform is designed to help Telkom University students participate in diverse competition events.
             </p>
           </div>
         </div>
@@ -704,14 +705,14 @@
         <!-- FAQ Item 5 -->
         <div data-aos="fade-up" data-aos-delay="500" class="mb-6">
           <button class="flex justify-between items-center w-full text-left focus:outline-none">
-            <span class="text-xl font-bold text-gray-800">Bagaimana keamanan data saya di LombaKuy?</span>
+            <span class="text-xl font-bold text-gray-800">How secure is my data on LombaKuy?</span>
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           <div class="mt-3">
             <p class="text-gray-600">
-              Kami menerapkan standar keamanan tinggi untuk melindungi data pengguna. Data personal dan hasil tes hanya digunakan untuk keperluan platform dan tidak akan dibagikan kepada pihak ketiga tanpa persetujuan.
+              We implement high security standards to protect user data. Personal data and test results are used solely for platform purposes and will not be shared with third parties without consent.
             </p>
           </div>
         </div>
@@ -724,8 +725,8 @@
     <div class="container mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">ABOUT US</span>
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Di Balik LombaKuy</h2>
-        <p class="text-gray-600">Platform yang dikembangkan oleh mahasiswa untuk mahasiswa</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Behind LombaKuy</h2>
+        <p class="text-gray-600">A platform developed by students for students</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -734,15 +735,15 @@
         </div>
         
         <div data-aos="fade-left">
-          <h3 class="text-2xl font-bold text-gray-800 mb-6">Misi Kami</h3>
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">Our Mission</h3>
           <p class="text-gray-600 mb-6">
-            LombaKuy lahir dari kebutuhan mahasiswa Telkom University untuk memiliki sistem terintegrasi dalam mencari dan mengelola kompetisi. Kami bertujuan untuk menciptakan ekosistem kompetisi yang lebih terstruktur, kolaboratif, dan mendukung pengembangan soft skill mahasiswa.
+            LombaKuy was born from the need of Telkom University students for an integrated system to find and manage competitions. We aim to create a structured, collaborative, and supportive competition ecosystem that fosters students’ soft skills development.
           </p>
           <p class="text-gray-600 mb-6">
-            Platform ini dirancang dengan fokus pada kemudahan penggunaan, fitur yang komprehensif, dan dukungan untuk berbagai jenis kompetisi. Kami percaya bahwa dengan alat yang tepat, mahasiswa dapat memaksimalkan potensi mereka dan meraih prestasi yang membanggakan.
+            The platform is designed with a focus on ease of use, comprehensive features, and support for various types of competitions. We believe that with the right tools, students can maximize their potential and achieve remarkable accomplishments.
           </p>
           <p class="text-gray-600">
-            LombaKuy juga mendukung SDG 4 (Quality Education) dengan menyediakan akses informasi dan resource edukatif untuk meningkatkan kualitas pengalaman pembelajaran mahasiswa melalui kompetisi.
+            LombaKuy also supports SDG 4 (Quality Education) by providing access to information and educational resources to enhance the quality of students’ learning experiences through competitions.
           </p>
           
           <div class="mt-8 flex space-x-4">
@@ -753,7 +754,6 @@
             </a>
             <a href="https://twitter.com/" class="bg-indigo-600 text-white p-3 rounded-full hover:bg-indigo-700 transition">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c
                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
               </svg>
             </a>
@@ -778,8 +778,8 @@
     <div class="container mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">OUR TEAM</span>
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Tim Developer LombaKuy</h2>
-        <p class="text-gray-600">Mahasiswa Telkom University yang berkomitmen mengembangkan platform inovatif</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">LombaKuy Developer Team</h2>
+        <p class="text-gray-600">Telkom University students committed to developing an innovative platform</p>
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -790,7 +790,7 @@
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Vilson</h4>
           <p class="text-indigo-600 font-medium mb-3">Project Manager | Scrum Master | Fullstack</p>
-          <p class="text-gray-600 text-sm mb-4">Mahasiswa Sistem Informasi yang bertanggung jawab atas koordinasi, scrum proses dan implementasi fitur-fitur utama.</p>
+          <p class="text-gray-600 text-sm mb-4">Information Systems student responsible for coordination, scrum processes, and implementation of key features.</p>
           <div class="flex justify-center space-x-3">
             <a href="https://www.facebook.com/?locale=id_ID" class="text-indigo-500 hover:text-indigo-700">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -812,7 +812,7 @@
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Muhammad Avrisad Garin Rahaguna</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
-          <p class="text-gray-600 text-sm mb-4">Mahasiswa Sistem Informasi yang bertanggung jawab atas implementasi fitur-fitur utama.</p>
+          <p class="text-gray-600 text-sm mb-4">Information Systems student responsible for implementing key features.</p>
           <div class="flex justify-center space-x-3">
             <a href="https://www.facebook.com/?locale=id_ID" class="text-indigo-500 hover:text-indigo-700">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -834,7 +834,7 @@
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Dhimas Faza Wicaksana</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
-          <p class="text-gray-600 text-sm mb-4">Mahasiswa Sistem Informasi yang bertanggung jawab atas implementasi fitur-fitur utama.</p>
+          <p class="text-gray-600 text-sm mb-4">Information Systems student responsible for implementing core features.</p>
           <div class="flex justify-center space-x-3">
             <a href="https://github.com/" class="text-indigo-500 hover:text-indigo-700">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -856,16 +856,16 @@
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Angelyca Ruth Dhebora Samosir</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
-          <p class="text-gray-600 text-sm mb-4">Mahasiswa Sistem Informasi yang bertanggung jawab atas implementasi fitur-fitur utama.</p>
+          <p class="text-gray-600 text-sm mb-4">Information Systems student responsible for implementing core features.</p>
           <div class="flex justify-center space-x-3">
             <a href="https://www.linkedin.com/" class="text-indigo-500 hover:text-indigo-700">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
               </svg>
             </a>
             <a href="https://github.com/" class="text-indigo-500 hover:text-indigo-700">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
             </a>
           </div>
@@ -878,10 +878,9 @@
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Revalina Aurellia Indrawan</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
-          <p class="text-gray-600 text-sm mb-4">Mahasiswa Sistem Informasi yang bertanggung jawab atas implementasi fitur-fitur utama.</p>
+          <p class="text-gray-600 text-sm mb-4">Information Systems student responsible for implementing core features.</p>
           <div class="flex justify-center space-x-3">
             <a href="https://www.linkedin.com/" class="text-indigo-500 hover:text-indigo-700">
-              <!-- LinkedIn Icon -->
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
               </svg>
@@ -896,10 +895,9 @@
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Susanti Afrilia</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
-          <p class="text-gray-600 text-sm mb-4">Mahasiswa Sistem Informasi yang bertanggung jawab atas implementasi fitur-fitur utama.</p>
+          <p class="text-gray-600 text-sm mb-4">Information Systems student responsible for implementing core features.</p>
           <div class="flex justify-center space-x-3">
             <a href="https://github.com/" class="text-indigo-500 hover:text-indigo-700">
-              <!-- GitHub Icon -->
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.547-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.666-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.237-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.41 11.41 0 016.006 0c2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.236 1.911 1.236 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.824 1.102.824 2.222v3.293c0 .319.192.694.801.576C20.562 21.8 24 17.303 24 12c0-6.627-5.373-12-12-12z"/>
               </svg>
@@ -907,165 +905,241 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
+      </div>
+      </section>
 
-  <!-- Featured In Section -->
-  <section class="bg-gray-50 py-16">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12">
-        <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">RECOGNITION</span>
-        <h2 class="text-3xl font-bold text-gray-800">Didukung & Diakui Oleh</h2>
+      <!-- Featured In Section -->
+      <section class="bg-gray-50 py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">RECOGNITION</span>
+          <h2 class="text-3xl font-bold text-gray-800">Supported & Recognized By</h2>
+        </div>
+        
+        <div class="flex flex-wrap justify-center items-center gap-x-16 gap-y-8">
+          <div data-aos="fade-up" class="grayscale hover:grayscale-0 transition">
+            <img src="{{ asset('storage/images/telulogo.png') }}" alt="Telkom University Logo" class="h-12">
+          </div>
+          <div data-aos="fade-up" data-aos-delay="100" class="grayscale hover:grayscale-0 transition">
+            <img src="{{ asset('storage/images/frilogo.png') }}" alt="HMIF Logo" class="h-12">
+          </div>
+          <div data-aos="fade-up" data-aos-delay="200" class="grayscale hover:grayscale-0 transition">
+            <img src="{{ asset('storage/images/tglogo.jpg') }}" alt="BEM Logo" class="h-12">
+          </div>
+        </div>
       </div>
-      
-      <div class="flex flex-wrap justify-center items-center gap-x-16 gap-y-8">
-        <div data-aos="fade-up" class="grayscale hover:grayscale-0 transition">
-          <img src="{{ asset('storage/images/telulogo.png') }}" alt="Telkom University Logo" class="h-12">
-        </div>
-        <div data-aos="fade-up" data-aos-delay="100" class="grayscale hover:grayscale-0 transition">
-          <img src="{{ asset('storage/images/frilogo.png') }}" alt="HMIF Logo" class="h-12">
-        </div>
-        <div data-aos="fade-up" data-aos-delay="200" class="grayscale hover:grayscale-0 transition">
-          <img src="{{ asset('storage/images/tglogo.jpg') }}" alt="BEM Logo" class="h-12">
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Contact Us Section -->
-  <section id="contact" class="bg-gradient-to-r from-indigo-600 to-indigo-800 py-24 relative">
-    <div class="absolute inset-0 bg-pattern opacity-10"></div>
-    <div class="container mx-auto px-6 relative z-10">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="inline-block py-1 px-3 rounded-full bg-indigo-200 text-indigo-800 font-semibold text-sm mb-4">CONTACT US</span>
-        <h2 class="text-4xl font-bold text-white mb-4">Hubungi Kami</h2>
-        <p class="text-indigo-100">Ada pertanyaan atau saran? Jangan ragu untuk menghubungi tim LombaKuy</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Contact Info -->
-        <div data-aos="fade-up" class="bg-white rounded-xl shadow-lg p-8 md:col-span-1">
-          <h3 class="text-2xl font-bold text-gray-800 mb-6">Informasi Kontak</h3>
-          
-          <div class="space-y-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
-                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h4 class="text-lg font-semibold text-gray-800">Alamat</h4>
-                <p class="text-gray-600 mt-1">Gedung TULT, Telkom University, Bandung, Jawa Barat, Indonesia</p>
-              </div>
-            </div>
+      <!-- Contact Us Section -->
+      <section id="contact" class="bg-gradient-to-r from-indigo-600 to-indigo-800 py-24 relative">
+      <div class="absolute inset-0 bg-pattern opacity-10"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="inline-block py-1 px-3 rounded-full bg-indigo-200 text-indigo-800 font-semibold text-sm mb-4">CONTACT US</span>
+          <h2 class="text-4xl font-bold text-white mb-4">Contact Us</h2>
+          <p class="text-indigo-100">Have questions or suggestions? Don't hesitate to reach out to the LombaKuy team.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Contact Info -->
+          <div data-aos="fade-up" class="bg-white rounded-xl shadow-lg p-8 md:col-span-1">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
             
-            <div class="flex items-start">
-              <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
-                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
+                  <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-lg font-semibold text-gray-800">Address</h4>
+                  <p class="text-gray-600 mt-1">TULT Building, Telkom University, Bandung, West Java, Indonesia</p>
+                </div>
               </div>
-              <div class="ml-4">
-                <h4 class="text-lg font-semibold text-gray-800">Email</h4>
-                <p class="text-gray-600 mt-1">hello@lombakuy.id</p>
-                <p class="text-gray-600">support@lombakuy.id</p>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
+                  <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-lg font-semibold text-gray-800">Email</h4>
+                  <p class="text-gray-600 mt-1">hello@lombakuy.id</p>
+                  <p class="text-gray-600">support@lombakuy.id</p>
+                </div>
               </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
-                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
+                  <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-lg font-semibold text-gray-800">Phone</h4>
+                  <p class="text-gray-600 mt-1">+62 822 8807 0000</p>
+                </div>
               </div>
-              <div class="ml-4">
-                <h4 class="text-lg font-semibold text-gray-800">Telepon</h4>
-                <p class="text-gray-600 mt-1">+62 822 8807 0000</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
-                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h4 class="text-lg font-semibold text-gray-800">Media Sosial</h4>
-                <div class="flex space-x-3 mt-2">
-                  <a href="https://www.facebook.com/?locale=id_ID" class="text-indigo-600 hover:text-indigo-800">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
-                    </svg>
-                  </a>
-                  <a href="https://twitter.com/" class="text-indigo-600 hover:text-indigo-800">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
-                    </svg>
-                  </a>
-                  <a href="https://www.instagram.com/" class="text-indigo-600 hover:text-indigo-800">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path
-                        d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3a4.75 4.75 0 1 1 0 9.5 4.75 4.75 0 0 1 0-9.5zm0 1.5a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5zm5.25-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z" />
-                    </svg>
-                  </a>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
+                  <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-lg font-semibold text-gray-800">Social Media</h4>
+                  <div class="flex space-x-3 mt-2">
+                    <a href="https://www.facebook.com/?locale=id_ID" class="text-indigo-600 hover:text-indigo-800">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+                      </svg>
+                    </a>
+                    <a href="https://twitter.com/" class="text-indigo-600 hover:text-indigo-800">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
+                      </svg>
+                    </a>
+                    <a href="https://www.instagram.com/" class="text-indigo-600 hover:text-indigo-800">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                          d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3a4.75 4.75 0 1 1 0 9.5 4.75 4.75 0 0 1 0-9.5zm0 1.5a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5zm5.25-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          
+          <!-- Contact Form -->
+          <div id="contact" data-aos="fade-up" data-aos-delay="200" class="bg-white rounded-xl shadow-lg p-8 md:col-span-2">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Send a Message</h3>
+
+            @if(session('success'))
+                <div dusk="contact-success" class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
+                @csrf
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-nama" placeholder="Enter your full name" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-email" placeholder="example@email.com" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                    <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-subjek" placeholder="Message subject" required>
+                </div>
+
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-pesan" placeholder="Write your message here..." required></textarea>
+                </div>
+
+                <div>
+                    <button type="submit" dusk="contact-submit" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-indigo-800 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <!-- Brand Info -->
+          <div>
+            <a href="/" class="text-2xl font-extrabold text-white flex items-center mb-4">
+              <span class="mr-2">
+                <i class="fas fa-trophy"></i>
+              </span>
+              LombaKuy
+            </a>
+            <p class="text-indigo-200">Empowering students to discover, join, and succeed in competitions with ease.</p>
+          </div>
+          
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li><a href="#features" class="text-indigo-200 hover:text-white transition">Features</a></li>
+              <li><a href="#how-it-works" class="text-indigo-200 hover:text-white transition">How It Works</a></li>
+              <li><a href="#testimonials" class="text-indigo-200 hover:text-white transition">Testimonials</a></li>
+              <li><a href="#faq" class="text-indigo-200 hover:text-white transition">FAQ</a></li>
+              <li><a href="#aboutus" class="text-indigo-200 hover:text-white transition">About Us</a></li>
+            </ul>
+          </div>
+          
+          <!-- Contact Info -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+            <ul class="space-y-2">
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-2 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <a href="mailto:hello@lombakuy.id" class="text-indigo-200 hover:text-white transition">hello@lombakuy.id</a>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-2 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <a href="tel:+6282288070000" class="text-indigo-200 hover:text-white transition">+62 822 8807 0000</a>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Social Media -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+            <div class="flex space-x-4">
+              <a href="https://www.facebook.com/?locale=id_ID" class="text-indigo-200 hover:text-white transition">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+                </svg>
+              </a>
+              <a href="https://twitter.com/" class="text-indigo-200 hover:text-white transition">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/" class="text-indigo-200 hover:text-white transition">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3a4.75 4.75 0 1 1 0 9.5 4.75 4.75 0 0 1 0-9.5zm0 1.5a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5zm5.25-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
         
-        <!-- Contact Form -->
-        <div id="contact" data-aos="fade-up" data-aos-delay="200" class="bg-white rounded-xl shadow-lg p-8 md:col-span-2">
-          <h3 class="text-2xl font-bold text-gray-800 mb-6">Kirim Pesan</h3>
-
-          @if(session('success'))
-              <div dusk="contact-success" class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
-                  {{ session('success') }}
-              </div>
-          @endif
-
-          <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
-              @csrf
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                      <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
-                      <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-nama" placeholder="Masukkan nama lengkap" required>
-                  </div>
-                  <div>
-                      <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                      <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-email" placeholder="contoh@email.com" required>
-                  </div>
-              </div>
-
-              <div>
-                  <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subjek</label>
-                  <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-subjek" placeholder="Subjek pesan" required>
-              </div>
-
-              <div>
-                  <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Pesan</label>
-                  <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" dusk="contact-pesan" placeholder="Tulis pesan anda disini..." required></textarea>
-              </div>
-
-              <div>
-                  <button type="submit" dusk="contact-submit" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                      Kirim Pesan
-                  </button>
-              </div>
-          </form>
+        <div class="mt-8 pt-8 border-t border-indigo-700 text-center">
+          <p class="text-indigo-200">© 2025 LombaKuy. All rights reserved.</p>
+        </div>
       </div>
-      </div>
-    </div>
-  </section>
- 
+      </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
-</body>
-</html>
+      <!-- Scripts -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+      <script>
+      AOS.init();
+      </script>
+      </body>
+      </html>
+        

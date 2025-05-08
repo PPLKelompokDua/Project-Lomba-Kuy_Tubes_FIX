@@ -148,7 +148,7 @@ class MessageController extends Controller
             'user_id' => $receiverId, // penerima pesan
             'invitation_id' => $invitation->id ?? null,
             'type' => 'message', // <--- PASTIKAN TYPE INI BENAR
-            'message' => auth()->user()->name . ' mengirim pesan kepada Anda.',
+            'message' => auth()->user()->name . ' sent you a message.',
             'link' => route('invitations.show', $invitation->id ?? 1), // sesuaikan jika ingin redirect ke messages
             'is_read' => false,
         ]);

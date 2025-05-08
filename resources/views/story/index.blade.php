@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Story & Prestasi Space')
+@section('title', 'Story & Achievements Space')
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">
@@ -8,14 +8,14 @@
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-12 mb-8">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="text-center">
-                <h1 class="text-4xl font-bold mb-4">Story & Prestasi Space</h1>
-                <p class="text-xl text-indigo-100 max-w-2xl mx-auto">Bagikan pengalaman kompetisimu dan inspirasi prestasi dengan komunitas</p>
+                <h1 class="text-4xl font-bold mb-4">Story & Achievements Space</h1>
+                <p class="text-xl text-indigo-100 max-w-2xl mx-auto">Share your competition experiences and inspiring achievements with the community</p>
                 <div class="mt-8">
                     <button onclick="openCreateModal()" class="bg-white text-indigo-700 hover:bg-indigo-50 font-bold py-3 px-8 rounded-full shadow-lg transform transition duration-200 hover:scale-105 flex items-center mx-auto">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
-                        Bagikan Ceritamu
+                        Share Your Story
                     </button>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
-                Buat Postingan
+                Create Post
             </button>
         </div>
 
@@ -82,14 +82,14 @@
                                     </svg>
                                     Edit
                                 </a>
-                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus post ini?');">
+                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="w-full text-left block px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition flex items-center">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                         </svg>
-                                        Hapus
+                                        Delete
                                     </button>
                                 </form>
                             </div>
@@ -109,7 +109,7 @@
                         <p class="text-gray-700 leading-relaxed text-sm line-clamp-3">{{ $post->caption }}</p>
                         @if(strlen($post->caption) > 150)
                             <button class="text-indigo-600 hover:text-indigo-800 text-sm mt-2" onclick="openDetailModal({{ $post->id }}, '{{ addslashes($post->caption) }}', '{{ $post->media ? asset('storage/' . $post->media) : '' }}')">
-                                Baca selengkapnya
+                                Read More
                             </button>
                         @endif
                     </div>
@@ -172,7 +172,7 @@
                 <img id="detailImage" src="" class="w-full h-full object-cover rounded-l-xl" alt="Post image">
             </div>
             <div class="p-6 w-full md:w-1/2">
-                <h3 class="text-xl font-bold text-indigo-800 mb-4">Detail Postingan</h3>
+                <h3 class="text-xl font-bold text-indigo-800 mb-4">Post Details</h3>
                 <p id="detailCaption" class="text-gray-700 whitespace-pre-line"></p>
             </div>
         </div>
@@ -186,7 +186,7 @@
             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
             </svg>
-            Buat Postingan Baru
+            Create New Post
         </h2>
         
         <button onclick="closeCreateModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
@@ -198,13 +198,13 @@
         <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="mb-6">
-                <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">Ceritakan Pengalamanmu</label>
+                <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">Share Your Experience</label>
                 <textarea name="caption" rows="5" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                       placeholder="Bagikan cerita prestasi atau pengalamanmu..." required></textarea>
+                       placeholder="Share your achievement story or experience..." required></textarea>
             </div>
             
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Tambahkan Media</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Add Media</label>
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-400 transition cursor-pointer">
                     <input type="file" name="media" accept="image/*,video/*" class="hidden" id="mediaInput">
                     <label for="mediaInput" class="cursor-pointer">
@@ -212,8 +212,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <p class="mt-1 text-sm text-gray-600">Klik untuk memilih foto atau video</p>
-                        <p class="mt-1 text-xs text-gray-400">Support format JPG, PNG, MP4</p>
+                        <p class="mt-1 text-sm text-gray-600">Click to select a photo or video</p>
+                        <p class="mt-1 text-xs text-gray-400">Supported formats: JPG, PNG, MP4</p>
                     </label>
                 </div>
                 <div id="mediaPreview" class="mt-3 hidden">
@@ -223,13 +223,13 @@
             
             <div class="flex justify-end space-x-3">
                 <button type="button" onclick="closeCreateModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-                    Batal
+                    Cancel
                 </button>
                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg shadow-sm transition flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                     </svg>
-                    Posting
+                    Post
                 </button>
             </div>
         </form>
@@ -243,7 +243,7 @@
             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
             </svg>
-            Edit Postingan
+            Edit Post
         </h2>
         
         <button onclick="closeEditModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
@@ -256,12 +256,12 @@
             @csrf
             @method('PUT')
             <div class="mb-6">
-                <label for="editCaption" class="block text-sm font-medium text-gray-700 mb-2">Edit Ceritamu</label>
+                <label for="editCaption" class="block text-sm font-medium text-gray-700 mb-2">Edit Your Story</label>
                 <textarea name="caption" id="editCaption" rows="5" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required></textarea>
             </div>
             
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Ganti Media (opsional)</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Change Media (optional)</label>
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-400 transition cursor-pointer">
                     <input type="file" name="media" accept="image/*,video/*" class="hidden" id="editMediaInput">
                     <label for="editMediaInput" class="cursor-pointer">
@@ -269,21 +269,21 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <p class="mt-1 text-sm text-gray-600">Klik untuk mengganti foto atau video</p>
-                        <p class="mt-1 text-xs text-gray-400">Biarkan kosong jika tidak ingin mengubah</p>
+                        <p class="mt-1 text-sm text-gray-600">Click to change photo or video</p>
+                        <p class="mt-1 text-xs text-gray-400">Leave empty if you don't want to change</p>
                     </label>
                 </div>
             </div>
             
             <div class="flex justify-end space-x-3">
                 <button type="button" onclick="closeEditModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-                    Batal
+                    Cancel
                 </button>
                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg shadow-sm transition flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    Simpan Perubahan
+                    Save Changes
                 </button>
             </div>
         </form>
@@ -297,7 +297,7 @@
             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
             </svg>
-            Komentar
+            Comments
         </h2>
         
         <button onclick="closeCommentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
@@ -321,7 +321,7 @@
         <form id="commentForm" method="POST" class="border-t border-gray-100 pt-4">
             @csrf
             <div class="flex items-center">
-                <input type="text" name="content" id="commentContent" class="w-full border border-gray-300 rounded-l-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Tulis komentarmu..." required>
+                <input type="text" name="content" id="commentContent" class="w-full border border-gray-300 rounded-l-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Write your comment..." required>
                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-r-lg transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -397,7 +397,7 @@
         e.preventDefault();
 
         const content = document.getElementById('commentContent').value;
-        const action = this.action; // <== ambil URL dari form action yang tadi diubah
+        const action = this.action;
         const token = '{{ csrf_token() }}';
 
         await fetch(action, {
@@ -406,7 +406,7 @@
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': token
             },
-            body: JSON.stringify({ content: content }) // pakai 'content' sesuai validasi backend kamu
+            body: JSON.stringify({ content: content })
         });
 
         document.getElementById('commentContent').value = '';

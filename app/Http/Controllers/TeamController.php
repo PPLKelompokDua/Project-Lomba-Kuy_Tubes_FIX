@@ -94,19 +94,28 @@ class TeamController extends Controller
         ])->with('success', 'Team berhasil dibuat!');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        $ledTeams = $user->ledTeams()->with('invitations', 'acceptedMembers')->get();
+        // Ambil semua team ID user sebagai leader dan member
+        $ledTeamIds = $user->ledTeams()->pluck('teams.id')->toArray();
+        $memberTeamIds = $user->memberTeams()->wherePivot('status', 'accepted')->pluck('teams.id')->toArray();
 
-        // Tim yang diikuti sebagai member
-        $memberTeams = $user->memberTeams()->with('acceptedMembers')->get();
+        $allTeamIds = array_unique(array_merge($ledTeamIds, $memberTeamIds));
 
-        // Gabungkan tanpa duplikat (kalau user adalah leader dan member sekaligus)
-        $teams = $ledTeams->merge($memberTeams)->unique('id');
+        // ✅ Ambil total semua tim
+        $totalTeams = count($allTeamIds);
 
-        return view('teams.index', compact('teams', 'user'));
+        $completedCompetitions = Team::where('status_team', 'finished')->count();
+
+        // Ambil data tim untuk halaman ini (paginated)
+        $teams = Team::whereIn('id', $allTeamIds)
+            ->with(['leader', 'acceptedMembers'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(4);
+
+        return view('teams.index', compact('teams', 'user', 'totalTeams', 'completedCompetitions'));
     }
 
     public function show($id)

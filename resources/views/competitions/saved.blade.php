@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Bookmark Saya')
+@section('title', 'My Bookmarks')
 
 @section('content')
 <div class="py-16 bg-gray-50">
@@ -8,11 +8,11 @@
     <div class="container mx-auto px-6 mb-12">
         <div class="flex justify-between items-center" data-aos="fade-up">
             <div>
-                <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">BOOKMARK SAYA</span>
-                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800">Kompetisi yang Disimpan</h2>
+                <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">MY BOOKMARKS</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800">Saved Competitions</h2>
             </div>
             <a href="{{ route('explore') }}" class="bg-white border-2 border-indigo-600 text-indigo-600 font-bold py-3 px-6 rounded-lg hover:bg-indigo-50 transition transform hover:scale-105 flex items-center">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Eksplorasi
+                <i class="fas fa-arrow-left mr-2"></i> Back to Explore
             </a>
         </div>
     </div>
@@ -22,55 +22,113 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($savedCompetitions as $item)
                 @php $competition = $item->competition; @endphp
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition hover:-translate-y-2 hover:shadow-xl">
-                    <!-- Image Section -->
-                    <div class="relative" style="height: 220px; overflow: hidden;">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:-translate-y-2 hover:shadow-xl border border-gray-100" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
+                    <div class="relative h-56">
                         <img 
-                            src="{{ asset('storage/' . $competition->photo) }}" 
+                            src="{{ asset('storage/' . ($competition->photo ?? 'images/default-competition.jpg')) }}" 
                             class="w-full h-full object-cover"
-                            alt="{{ $competition->title }}"
+                            alt="{{ $competition->title ?? 'Competition Image' }}"
                             style="height: 100%; width: 100%; object-fit: cover;"
-                            onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')"
+                            onclick="openPreviewModal('{{ asset('storage/' . ($competition->photo ?? 'images/default-competition.jpg')) }}')"
                         >
-                        <!-- Bookmark Button -->
-                        <form action="{{ route('competitions.unsave', $competition->id) }}" method="POST" class="absolute top-4 right-4">
-                            @csrf
-                            @method('DELETE')
-                            <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition" title="Hapus Bookmark" onclick="return confirm('Hapus dari bookmark?')">
-                                <i class="fas fa-bookmark text-red-500"></i>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+                        
+                        <!-- Category Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-600 bg-opacity-90 text-white backdrop-blur-sm">
+                                {{ $competition->category }}
+                            </span>
+                        </div>
+                        
+                        <!-- View Poster Button -->
+                        <div class="absolute top-4 right-16">
+                            <button onclick="openPreviewModal('{{ asset('storage/' . ($competition->photo)) }}')" 
+                                    class="bg-white p-2 rounded-full shadow hover:bg-blue-100 transition transform hover:scale-110" 
+                                    title="View Poster">
+                                <i class="fas fa-search-plus text-blue-600"></i>
                             </button>
-                        </form>
+                        </div>
+                        
+                        <!-- Bookmark Button -->
+                        @auth
+                        @if(auth()->user()->role === 'user')
+                            <form action="{{ auth()->user()->savedCompetitions->contains($competition->id) 
+                                            ? route('competitions.unsave', $competition->id) 
+                                            : route('competitions.save', $competition->id) }}" 
+                                method="POST" 
+                                class="absolute top-4 right-4">
+                                @csrf
+                                @if(auth()->user()->savedCompetitions->contains($competition->id))
+                                    @method('DELETE')
+                                    <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition transform hover:scale-110" title="Remove Bookmark">
+                                        <i class="fas fa-bookmark text-red-500"></i>
+                                    </button>
+                                @else
+                                    <button class="bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition transform hover:scale-110" title="Save Bookmark">
+                                        <i class="far fa-bookmark text-indigo-600"></i>
+                                    </button>
+                                @endif
+                            </form>
+                        @endif
+                        @endauth
+                        
+                        <!-- Deadline Badge -->
+                        <div class="absolute bottom-4 left-4">
+                            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-600 bg-opacity-90 text-white backdrop-blur-sm">
+                                <i class="fas fa-clock mr-1"></i>
+                                {{ \Carbon\Carbon::parse($competition->deadline)->diffForHumans() }}
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Card Body -->
                     <div class="p-6">
-                        <h5 class="text-xl font-bold text-gray-800 mb-2">{{ $competition->title }}</h5>
-                        <p class="text-sm text-indigo-600 font-semibold mb-2">{{ $competition->category }}</p>
-                        <p class="text-gray-600 text-sm mb-4">{{ \Illuminate\Support\Str::limit($competition->description, 80) }}</p>
-                    </div>
-
-                    <!-- Card Footer -->
-                    <div class="p-6 bg-gray-50 border-t border-gray-100">
-                        <div class="flex items-center text-sm mb-2">
-                            <i class="fas fa-gift text-indigo-600 mr-2"></i>
-                            <span class="text-gray-800 font-semibold">Hadiah: {{ $competition->prize }}</span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-3 {{ $competition->status === 'open' ? 'bg-green-500 text-white' : ($competition->status === 'closed' ? 'bg-yellow-500 text-white' : 'bg-gray-200 text-gray-800') }}">
+                            <i class="fas {{ $competition->status === 'open' ? 'fa-unlock' : ($competition->status === 'closed' ? 'fa-lock' : 'fa-check-circle') }} mr-1"></i>
+                            {{ ucfirst($competition->status) }}
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 line-clamp-2 hover:text-indigo-600 transition">{{ $competition->title }}</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ \Illuminate\Support\Str::limit($competition->description, 100) }}</p>
+                        
+                        <!-- Prize and Deadline -->
+                        <div class="space-y-4 mb-5">
+                            <!-- Prize -->
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-gift text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Total Prize</p>
+                                    <p class="font-bold text-gray-800">{{ $competition->prize }}</p>
+                                </div>
+                            </div>
+                            <!-- Deadline -->
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-clock text-red-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Deadline</p>
+                                    <p class="font-bold text-gray-800">
+                                        {{ $competition->deadline ? \Carbon\Carbon::parse($competition->deadline)->format('M d, Y') : '-' }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center text-sm mb-4">
-                            <i class="fas fa-clock text-red-500 mr-2"></i>
-                            <span class="text-gray-800">Deadline: {{ \Carbon\Carbon::parse($competition->deadline)->format('d M Y') }}</span>
-                        </div>
-                        <div>
-                            <a href="{{ route('competitions.show', $competition->id) }}" class="block w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition text-center">
-                                Lihat Detail
+                        
+                        <!-- Action Buttons -->
+                        <div class="flex space-x-2">
+                            <a href="{{ route('competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
+                                <i class="fas fa-eye mr-2"></i> View Details
                             </a>
                         </div>
                     </div>
                 </div>
             @empty
                 <div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-12" data-aos="fade-up">
-                    <p class="text-gray-600 text-lg mb-4">Belum ada kompetisi yang kamu simpan.</p>
+                    <p class="text-gray-600 text-lg mb-4">You haven't saved any competitions yet.</p>
                     <a href="{{ route('explore') }}" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition transform hover:scale-105 inline-flex items-center">
-                        <i class="fas fa-search mr-2"></i> Cari Lomba
+                        <i class="fas fa-search mr-2"></i> Find Competitions
                     </a>
                 </div>
             @endforelse
@@ -84,7 +142,7 @@
                 <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
             </div>
             <div class="p-4 border-t border-gray-200">
-                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
             </div>
         </div>
     </div>

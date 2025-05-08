@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard LombaKuy')
+@section('title', 'LombaKuy Dashboard')
 
 @section('content')
 <div class="space-y-8">
@@ -59,21 +59,21 @@
                     <div class="absolute -left-10 -top-10 w-32 h-32 bg-purple-500 rounded-full filter blur-3xl opacity-20"></div>
                     
                     <div class="relative">
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2 drop-shadow-md">Selamat datang, {{ auth()->user()->name }}!</h1>
-                        <p class="text-indigo-100 text-lg mb-6">Mari tingkatkan potensimu dengan mengikuti kompetisi yang sesuai.</p>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2 drop-shadow-md">Welcome, {{ auth()->user()->name }}!</h1>
+                        <p class="text-indigo-100 text-lg mb-6">Let's unlock your potential by joining competitions that suit you.</p>
                                                                       
                         <div class="flex flex-wrap gap-4">
                             <a href="{{ route('explore') }}" class="bg-white text-indigo-600 hover:bg-indigo-50 font-semibold rounded-lg px-5 py-3 transition shadow-lg flex items-center group">
                                 <svg class="w-5 h-5 mr-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
-                                Cari Lomba
+                                Find Competitions
                             </a>
                             <a href="#" class="bg-indigo-500 bg-opacity-30 hover:bg-opacity-40 text-white font-semibold rounded-lg px-5 py-3 transition flex items-center border border-indigo-300 border-opacity-40 group">
                                 <svg class="w-5 h-5 mr-2 transform group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                 </svg>
-                                Cari Teman Lomba
+                                Find Competition Teammates
                             </a>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-transparent opacity-20 rounded-full blur-3xl"></div>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <!-- Lomba Aktif Card -->
+                        <!-- Competition Status Card -->
                         <div class="bg-white bg-opacity-15 backdrop-filter backdrop-blur-md p-5 rounded-xl border border-white border-opacity-20 transform transition-all hover:scale-105 shadow-lg relative group overflow-hidden">
                             <!-- Decorative pattern inside card -->
                             <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-white bg-opacity-20 rounded-full"></div>
@@ -95,7 +95,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                 </div>
-                                <span class="text-gray-800 font-medium">Status Lomba</span>
+                                <span class="text-gray-800 font-medium">Competition Status</span>
                                 
                                 <!-- Glow effect on hover -->
                                 <div class="absolute inset-0 -z-10 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></div>
@@ -103,16 +103,16 @@
                             <div class="flex justify-between relative">
                                 <div>
                                     <h4 class="text-2xl font-bold text-gray-800">{{ $activeCompetitions ?? 0 }}</h4>
-                                    <p class="text-xs text-gray-600">Lomba Aktif</p>
+                                    <p class="text-xs text-gray-600">Active Competitions</p>
                                 </div>
                                 <div>
                                     <h4 class="text-2xl font-bold text-gray-800">{{ $completedCompetitions ?? 0 }}</h4>
-                                    <p class="text-xs text-gray-600">Selesai</p>
+                                    <p class="text-xs text-gray-600">Completed</p>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Lomba Tersimpan Card -->
+                        <!-- Saved Competitions Card -->
                         <div class="bg-white bg-opacity-15 backdrop-filter backdrop-blur-md p-5 rounded-xl border border-white border-opacity-20 transform transition-all hover:scale-105 shadow-lg relative group overflow-hidden">
                             <!-- Decorative pattern inside card -->
                             <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-white bg-opacity-20 rounded-full"></div>
@@ -123,27 +123,27 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                     </svg>
                                 </div>
-                                <span class="text-gray-800 font-medium">Lomba Tersimpan</span>
+                                <span class="text-gray-800 font-medium">Saved Competitions</span>
                                 
                                 <!-- Glow effect on hover -->
                                 <div class="absolute inset-0 -z-10 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></div>
                             </div>
                             <div class="flex items-end justify-between">
                                 <h4 class="text-3xl font-bold text-gray-800">{{ $savedCompetitions ?? 0 }}</h4>
-                                <a href="{{ route('competitions.saved') }}" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline group-hover:text-indigo-800 transition-colors">Lihat Semua</a>
+                                <a href="{{ route('competitions.saved') }}" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline group-hover:text-indigo-800 transition-colors">See All</a>
                             </div>
                         </div>
                         
-                        <!-- Upcoming Events Timeline -->
+                        <!-- Upcoming Schedule Timeline -->
                         <div class="col-span-2 mt-4 bg-white bg-opacity-15 backdrop-filter backdrop-blur-md rounded-xl border border-white border-opacity-20 p-5 transform transition-all hover:scale-102 shadow-lg">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-gray-800 font-medium flex items-center">
                                     <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                     </svg>
-                                    Jadwal Mendatang
+                                    Upcoming Schedule
                                 </h3>
-                                <span class="text-xs px-2 py-1 bg-indigo-700 bg-opacity-50 rounded-full text-white">3 Acara</span>
+                                <span class="text-xs px-2 py-1 bg-indigo-700 bg-opacity-50 rounded-full text-white">3 Events</span>
                             </div>
                             
                             <!-- Timeline -->
@@ -152,7 +152,7 @@
                                 <div class="flex items-center space-x-3">
                                     <div class="w-3 h-3 bg-green-400 rounded-full"></div>
                                     <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
-                                        <span>3 Mei</span>
+                                        <span>May 3</span>
                                         <span class="font-medium">Submit Proposal</span>
                                     </div>
                                 </div>
@@ -161,8 +161,8 @@
                                 <div class="flex items-center space-x-3">
                                     <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
                                     <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
-                                        <span>10 Mei</span>
-                                        <span class="font-medium">Presentasi Final</span>
+                                        <span>May 10</span>
+                                        <span class="font-medium">Final Presentation</span>
                                     </div>
                                 </div>
                                 
@@ -170,8 +170,8 @@
                                 <div class="flex items-center space-x-3">
                                     <div class="w-3 h-3 bg-red-400 rounded-full"></div>
                                     <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
-                                        <span>15 Mei</span>
-                                        <span class="font-medium">Deadline UI/UX Challenge</span>
+                                        <span>May 15</span>
+                                        <span class="font-medium">UI/UX Challenge Deadline</span>
                                     </div>
                                 </div>
                             </div>
@@ -189,9 +189,9 @@
             <!-- Recommended Competitions -->
             <div>
                 <div class="flex justify-between items-center mb-6 relative z-10">
-                    <h2 class="text-2xl font-bold text-gray-800">Lomba Rekomendasi</h2>
+                    <h2 class="text-2xl font-bold text-gray-800">Recommended Competitions</h2>
                     <a href="{{ route('explore') }}" dusk="lihat-semua-lomba" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold">
-                        Lihat Semua
+                        See All
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -223,7 +223,7 @@
                                 <div class="absolute top-4 right-16">
                                     <button onclick="openPreviewModal('{{ asset('storage/' . ($competition->photo ?? 'images/default-competition.jpg')) }}')" 
                                             class="bg-white p-2 rounded-full shadow hover:bg-blue-100 transition transform hover:scale-110" 
-                                            title="Lihat Poster">
+                                            title="View Poster">
                                         <i class="fas fa-search-plus text-blue-600"></i>
                                     </button>
                                 </div>
@@ -239,11 +239,11 @@
                                         @csrf
                                         @if(auth()->user()->savedCompetitions->contains($competition->id))
                                             @method('DELETE')
-                                            <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition transform hover:scale-110" title="Hapus Bookmark">
+                                            <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition transform hover:scale-110" title="Remove Bookmark">
                                                 <i class="fas fa-bookmark text-red-500"></i>
                                             </button>
                                         @else
-                                            <button class="bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition transform hover:scale-110" title="Simpan Bookmark">
+                                            <button class="bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition transform hover:scale-110" title="Save Bookmark">
                                                 <i class="far fa-bookmark text-indigo-600"></i>
                                             </button>
                                         @endif
@@ -262,8 +262,8 @@
 
                             <!-- Card Body -->
                             <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-gray-800 mb-3 line-clamp-2 hover:text-indigo-600 transition">{{ $competition->title ?? 'Judul Kompetisi' }}</h3>
-                                <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ \Illuminate\Support\Str::limit($competition->description ?? 'Deskripsi kompetisi.', 100) }}</p>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3 line-clamp-2 hover:text-indigo-600 transition">{{ $competition->title ?? 'Competition Title' }}</h3>
+                                <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ \Illuminate\Support\Str::limit($competition->description ?? 'Competition description.', 100) }}</p>
                                 
                                 <!-- Prize and Deadline -->
                                 <div class="space-y-4 mb-5">
@@ -273,8 +273,8 @@
                                             <i class="fas fa-gift text-yellow-600"></i>
                                         </div>
                                         <div>
-                                            <p class="text-xs text-gray-500">Total Hadiah</p>
-                                            <p class="font-bold text-gray-800">{{ $competition->prize ?? 'Belum ditentukan' }}</p>
+                                            <p class="text-xs text-gray-500">Total Prize</p>
+                                            <p class="font-bold text-gray-800">{{ $competition->prize ?? 'Not yet determined' }}</p>
                                         </div>
                                     </div>
                                     <!-- Deadline -->
@@ -294,7 +294,7 @@
                                 <!-- Action Buttons -->
                                 <div class="flex space-x-2 mt-auto">
                                     <a href="{{ route('competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
-                                        <i class="fas fa-eye mr-2"></i> Lihat Detail
+                                        <i class="fas fa-eye mr-2"></i> View Details
                                     </a>
                                 </div>
                             </div>
@@ -304,20 +304,20 @@
                             <svg class="w-16 h-16 text-indigo-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Belum ada kompetisi</h3>
-                            <p class="text-gray-600">Kompetisi akan segera ditampilkan di sini.</p>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">No Competitions Yet</h3>
+                            <p class="text-gray-600">Competitions will soon be displayed here.</p>
                             <a href="{{ route('explore') }}" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg px-5 py-2.5">
-                                Temukan Kompetisi
+                                Discover Competitions
                             </a>
                         </div>
                     @endforelse
                 </div>
             </div>
             
-            <!-- Current Competition Progress -->
+            <!-- Active Competition Progress -->
             <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
                 <div class="border-b border-gray-100 px-6 py-4">
-                    <h2 class="text-lg font-bold text-gray-800">Progres Kompetisi Aktif</h2>
+                    <h2 class="text-lg font-bold text-gray-800">Active Competition Progress</h2>
                 </div>
                 
                 @if(isset($activeCompetitions) && $activeCompetitions > 0)
@@ -327,7 +327,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <h3 class="font-semibold text-gray-800">UI/UX Design Competition 2025</h3>
-                                <p class="text-sm text-gray-500">Deadline: 30 Mei 2025</p>
+                                <p class="text-sm text-gray-500">Deadline: May 30, 2025</p>
                             </div>
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">On Going</span>
                         </div>
@@ -346,7 +346,7 @@
                                 <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
                                 <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
                             </div>
-                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Detail →</a>
+                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Details →</a>
                         </div>
                     </div>
                     
@@ -354,10 +354,10 @@
                     <div class="px-6 py-4 hover:bg-gray-50 transition">
                         <div class="flex justify-between items-start mb-2">
                             <div>
-                                <h3 class="font-semibold text-gray-800">Hackathon Nasional Tel-U</h3>
-                                <p class="text-sm text-gray-500">Deadline: 15 Juni 2025</p>
+                                <h3 class="font-semibold text-gray-800">Tel-U National Hackathon</h3>
+                                <p class="text-sm text-gray-500">Deadline: June 15, 2025</p>
                             </div>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Baru Daftar</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Newly Registered</span>
                         </div>
                         <div class="mt-3">
                             <div class="flex justify-between text-xs text-gray-600 mb-1">
@@ -373,7 +373,7 @@
                                 <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
                                 <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
                             </div>
-                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Detail →</a>
+                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Details →</a>
                         </div>
                     </div>
                 </div>
@@ -382,10 +382,10 @@
                     <svg class="w-12 h-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                     </svg>
-                    <h3 class="text-gray-700 font-medium mb-1">Belum Ada Lomba Aktif</h3>
-                    <p class="text-gray-500 text-sm mb-4">Kamu belum mengikuti kompetisi apapun.</p>
+                    <h3 class="text-gray-700 font-medium mb-1">No Active Competitions</h3>
+                    <p class="text-gray-500 text-sm mb-4">You haven't joined any competitions yet.</p>
                     <a href="{{ route('explore') }}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-                        Jelajahi Kompetisi →
+                        Explore Competitions →
                     </a>
                 </div>
                 @endif
@@ -406,47 +406,47 @@
                 <div class="mt-6 grid grid-cols-2 gap-3 text-center">
                     <div class="bg-indigo-50 rounded-lg p-3">
                         <h4 class="text-xl font-bold text-indigo-600">{{ $completedCompetitions ?? 0 }}</h4>
-                        <p class="text-xs text-gray-600">Lomba Selesai</p>
+                        <p class="text-xs text-gray-600">Completed Competitions</p>
                     </div>
                     <div class="bg-indigo-50 rounded-lg p-3">
                         <h4 class="text-xl font-bold text-indigo-600">{{ $achievements ?? 0 }}</h4>
-                        <p class="text-xs text-gray-600">Pencapaian</p>
+                        <p class="text-xs text-gray-600">Achievements</p>
                     </div>
                 </div>
                 <div class="mt-6">
                     <a href="{{ route('profile.show') }}" class="block text-center bg-white border border-indigo-600 hover:bg-indigo-50 text-indigo-600 font-medium rounded-lg py-2 transition">
-                        Lihat Profil
+                        View Profile
                     </a>
                 </div>
             </div>
             
             <!-- Quick Access Features -->
             <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6">
-                <h3 class="font-bold text-gray-800 mb-4">Akses Cepat</h3>
+                <h3 class="font-bold text-gray-800 mb-4">Quick Access</h3>
                 <div class="grid grid-cols-2 gap-3">
                     <a href="#" class="flex flex-col items-center justify-center bg-indigo-50 hover:bg-indigo-100 rounded-lg p-4 transition">
                         <svg class="w-6 h-6 text-indigo-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>
                         </svg>
-                        <span class="text-xs font-medium text-gray-700">Tes Kecocokan</span>
+                        <span class="text-xs font-medium text-gray-700">Assessment</span>
                     </a>
                     <a href="{{ route('teams.index') }}" class="flex flex-col items-center justify-center bg-indigo-50 hover:bg-indigo-100 rounded-lg p-4 transition">
                         <svg class="w-6 h-6 text-indigo-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <span class="text-xs font-medium text-gray-700">Tim Saya</span>
+                        <span class="text-xs font-medium text-gray-700">My Team</span>
                     </a>
                     <a href="{{ route('invitations.index') }}" class="flex flex-col items-center justify-center bg-indigo-50 hover:bg-indigo-100 rounded-lg p-4 transition">
                         <svg class="w-6 h-6 text-indigo-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
-                        <span class="text-xs font-medium text-gray-700">Undangan</span>
+                        <span class="text-xs font-medium text-gray-700">Invitations</span>
                     </a>
                     <a href="#" class="flex flex-col items-center justify-center bg-indigo-50 hover:bg-indigo-100 rounded-lg p-4 transition">
                         <svg class="w-6 h-6 text-indigo-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                         </svg>
-                        <span class="text-xs font-medium text-gray-700">BELUM TAU ISI OPSI APA</span>
+                        <span class="text-xs font-medium text-gray-700">Notifications</span>
                     </a>
                 </div>
             </div>
@@ -454,8 +454,8 @@
             <!-- Educational Resources -->
             <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
                 <div class="border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-                    <h3 class="font-bold text-gray-800">Video & Tips Kompetisi</h3>
-                    <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800">Lihat Semua</a>
+                    <h3 class="font-bold text-gray-800">Competition Videos & Tips</h3>
+                    <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800">See All</a>
                 </div>
                 <div class="p-6 space-y-4">
                     <!-- Video Resource 1 -->
@@ -464,9 +464,9 @@
                             <img src="/api/placeholder/80/80" class="w-full h-full object-cover" alt="Video thumbnail">
                         </div>
                         <div>
-                            <h4 class="font-medium text-gray-800 text-sm">Tips Presentasi Kompetisi yang Menarik</h4>
-                            <p class="text-xs text-gray-500 mt-1">Pelajari cara menyampaikan ide dengan menarik dan persuasif</p>
-                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 mt-2 inline-block">Tonton Video</a>
+                            <h4 class="font-medium text-gray-800 text-sm">Tips for Engaging Competition Presentations</h4>
+                            <p class="text-xs text-gray-500 mt-1">Learn how to deliver ideas compellingly and persuasively</p>
+                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 mt-2 inline-block">Watch Video</a>
                         </div>
                     </div>
                     
@@ -476,29 +476,29 @@
                             <img src="/api/placeholder/80/80" class="w-full h-full object-cover" alt="Video thumbnail">
                         </div>
                         <div>
-                            <h4 class="font-medium text-gray-800 text-sm">Strategi Memenangkan Hackathon</h4>
-                            <p class="text-xs text-gray-500 mt-1">Guide lengkap persiapan dan eksekusi dalam kompetisi coding</p>
-                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 mt-2 inline-block">Tonton Video</a>
+                            <h4 class="font-medium text-gray-800 text-sm">Strategies to Win Hackathons</h4>
+                            <p class="text-xs text-gray-500 mt-1">Comprehensive guide to preparation and execution in coding competitions</p>
+                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 mt-2 inline-block">Watch Video</a>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Winning Stories -->
+            <!-- Success Stories -->
             <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl shadow-lg text-white p-6">
-                <h3 class="font-bold text-xl mb-4">Cerita Sukses</h3>
+                <h3 class="font-bold text-xl mb-4">Success Stories</h3>
                 <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4 mb-4">
-                    <p class="italic text-sm mb-3">"Berkat fitur manajemen tim dan timeline di LombaKuy, tim kami berhasil menjuarai kompetisi desain UI/UX tingkat nasional!"</p>
+                    <p class="italic text-sm mb-3">"Thanks to LombaKuy's team management and timeline features, our team won the national UI/UX design competition!"</p>
                     <div class="flex items-center">
                         <img src="/api/placeholder/32/32" class="w-8 h-8 rounded-full mr-2" alt="User avatar">
                         <div class="text-xs">
                             <p class="font-semibold">Anita Wijaya</p>
-                            <p class="opacity-80">Desain Komunikasi Visual</p>
+                            <p class="opacity-80">Visual Communication Design</p>
                         </div>
                     </div>
                 </div>
                 <a href="#" class="text-center block bg-white text-indigo-600 font-medium text-sm rounded-lg py-2 hover:bg-opacity-90 transition">
-                    Baca Cerita Lainnya
+                    Read More Stories
                 </a>
             </div>
         </div>
@@ -511,7 +511,7 @@
                 <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
             </div>
             <div class="p-4 border-t border-gray-200">
-                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
             </div>
         </div>
     </div>

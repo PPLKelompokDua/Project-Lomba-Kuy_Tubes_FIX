@@ -45,37 +45,37 @@
       <!-- Left Column: Welcome Content -->
       <div data-aos="fade-right" data-aos-duration="1000" class="w-full md:w-1/2 text-white mb-10 md:mb-0 md:pr-10">
         <div class="max-w-md mx-auto md:ml-auto md:mr-0">
-          <h1 class="text-4xl md:text-5xl font-extrabold mb-6">Gabung Sekarang!</h1>
+          <h1 class="text-4xl md:text-5xl font-extrabold mb-6">Join Now!</h1>
           <p class="text-lg mb-8">
-            Daftar dan mulai petualangan kompetitif Anda. Temukan lomba yang sesuai minat dan bakat Anda bersama LombaKuy.
+            Sign up and start your competitive journey. Find competitions that match your interests and talents with LombaKuy.
           </p>
           
           <div class="bg-white bg-opacity-20 backdrop-blur-lg p-6 rounded-xl mb-8">
-            <h3 class="text-lg font-bold mb-4">Keuntungan Menjadi Member</h3>
+            <h3 class="text-lg font-bold mb-4">Benefits of Being a Member</h3>
             <ul class="space-y-3 text-sm">
               <li class="flex items-start">
                 <svg class="w-5 h-5 text-indigo-200 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span>Akses informasi lomba terbaru & eksklusif</span>
+                <span>Access the latest and exclusive competition information</span>
               </li>
               <li class="flex items-start">
                 <svg class="w-5 h-5 text-indigo-200 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span>Bentuk tim impian dengan rekomendasi partner</span>
+                <span>Build your dream team with partner recommendations</span>
               </li>
               <li class="flex items-start">
                 <svg class="w-5 h-5 text-indigo-200 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span>Tools manajemen proyek untuk sukses kompetisi</span>
+                <span>Project management tools for competition success</span>
               </li>
               <li class="flex items-start">
                 <svg class="w-5 h-5 text-indigo-200 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span>Pantau progres & jadwal lomba dengan mudah</span>
+                <span>Easily track progress and competition schedules</span>
               </li>
             </ul>
           </div>
@@ -85,7 +85,7 @@
               <svg class="w-10 h-10 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
               </svg>
-              <p class="ml-3 text-sm">100% aman & gratis untuk mahasiswa & siswa</p>
+              <p class="ml-3 text-sm">100% safe & free for students</p>
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@
           <div class="p-8">
             <div class="text-center mb-8">
               <h2 class="text-3xl font-bold text-gray-800">Sign Up</h2>
-              <p class="text-gray-600 mt-2">Buat akun LombaKuy baru</p>
+              <p class="text-gray-600 mt-2">Create a new LombaKuy account</p>
             </div>
             
             @if ($errors->any())
@@ -120,7 +120,7 @@
               @csrf
               
               <div>
-                <label class="block text-gray-700 font-medium mb-2" for="name">Nama Lengkap</label>
+                <label class="block text-gray-700 font-medium mb-2" for="name">Full Name</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,7 +134,7 @@
               </div>
               
               <div>
-                <label class="block text-gray-700 font-medium mb-2" for="email">Alamat Email</label>
+                <label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,7 +148,7 @@
               </div>
               
               <div>
-                <label class="block text-gray-700 font-medium mb-2" for="role">Tipe Akun</label>
+                <label class="block text-gray-700 font-medium mb-2" for="role">Account Role</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,14 +157,14 @@
                   </div>
                   <select id="role" name="role" required
                           class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
-                    <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>Peserta Lomba</option>
-                    <option value="organizer" {{ old('role') == 'organizer' ? 'selected' : '' }}>Penyelenggara</option>
+                    <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>Competitor</option>
+                    <option value="organizer" {{ old('role') == 'organizer' ? 'selected' : '' }}>Organizer</option>
                   </select>
                 </div>
               </div>
               
               <div>
-                <label class="block text-gray-700 font-medium mb-2" for="password">Kata Sandi</label>
+                <label class="block text-gray-700 font-medium mb-2" for="password">Password</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,11 +175,11 @@
                          class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
                          placeholder="••••••••">
                 </div>
-                <p class="text-xs text-gray-500 mt-1">Minimal 8 karakter, gunakan huruf & angka</p>
+                <p class="text-xs text-gray-500 mt-1">Minimum 8 characters, use letters & numbers</p>
               </div>
               
               <div>
-                <label class="block text-gray-700 font-medium mb-2" for="password_confirmation">Konfirmasi Kata Sandi</label>
+                <label class="block text-gray-700 font-medium mb-2" for="password_confirmation">Confirm Password</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,12 +195,12 @@
               <div class="flex items-center">
                 <input type="checkbox" id="terms" name="terms" required class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
                 <label for="terms" class="ml-2 block text-sm text-gray-700">
-                  Saya setuju dengan <a href="#" class="text-indigo-600 hover:underline">Syarat & Ketentuan</a>
+                  I agree to the <a href="#" class="text-indigo-600 hover:underline">Terms & Conditions</a>
                 </label>
               </div>
               
               <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition transform hover:scale-105 flex items-center justify-center">
-                <span>Daftar Sekarang</span>
+                <span>Register Now</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
@@ -208,7 +208,7 @@
             </form>
             
             <p class="mt-8 text-center text-gray-600">
-              Sudah punya akun? 
+              Already have an account? 
               <a href="{{ route('login') }}" class="text-indigo-600 font-bold hover:underline">Log In</a>
             </p>
           </div>
@@ -253,7 +253,7 @@
         </div>
       </div>
       <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm">
-        <p>&copy; 2025 LombaKuy. All Rights Reserved.</p>
+        <p>© 2025 LombaKuy. All Rights Reserved.</p>
       </div>
     </div>
   </footer>

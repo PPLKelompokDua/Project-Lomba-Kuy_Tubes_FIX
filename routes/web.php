@@ -182,6 +182,8 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard', compact('competitions', 'savedCompetitions', 'activeCompetitions', 'completedCompetitions', 'user'));
     })->name('dashboard');
 
+    Route::get('/dashboard', [\App\Http\Controllers\UserDashboardController::class, 'index'])->name('dashboard');
+    
     // Admin
     Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
 

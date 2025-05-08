@@ -38,11 +38,11 @@
         <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition font-medium">Explore Competitions</a>
         <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">My Team</a>
         <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Invitations</a>
-        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story Space</a>
-        <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedbacks</a>
+        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story & Achievements Space</a>
+        <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedback</a>
         @auth
           @php 
-            // ambil unread notification
+            // Fetch unread notifications
             $notif = \App\Models\Notification::where('user_id', auth()->id())
                       ->where('is_read', false)
                       ->orderBy('created_at','desc')
@@ -65,11 +65,10 @@
                 <a href="{{ route('notifications.read', $notification->id) }}" class="block px-4 py-2 hover:bg-gray-100">
                   📩 {{ $notification->message }}
                 </a>
-
                 </form>
               @empty
                 <div class="px-4 py-2 text-sm text-gray-500">
-                  Tidak ada notifikasi baru
+                  No new notifications
                 </div>
               @endforelse
             </div>
@@ -127,8 +126,8 @@
         <a href="{{ route('explore') }}" class="text-white hover:text-indigo-200 transition py-2">Explore Competitions</a>
         <a href="{{ route('teams.index') }}" class="text-white hover:text-indigo-200 transition font-medium">My Team</a>
         <a href="{{ route('invitations.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Invitations</a>
-        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story Space</a>
-        <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedbacks</a>
+        <a href="{{ route('posts.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Story & Achievements Space</a>
+        <a href="{{ route('feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Feedback</a>
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->

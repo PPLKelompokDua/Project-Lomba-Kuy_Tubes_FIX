@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Eksplorasi Lomba')
+@section('title', 'Explore Competitions')
 
 @section('content')
 <div class="bg-gradient-to-b from-gray-50 to-white min-h-screen">
@@ -14,13 +14,13 @@
             <div class="text-center max-w-3xl mx-auto">
                 <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-800 bg-opacity-40 backdrop-blur-sm mb-6" data-aos="fade-down">
                     <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
-                    <span class="text-indigo-200 uppercase tracking-wider text-sm font-semibold">KATALOG LOMBA</span>
+                    <span class="text-indigo-200 uppercase tracking-wider text-sm font-semibold">Competitions Catalog</span>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight" data-aos="fade-up">
-                    Eksplorasi Katalog Lomba
+                    Explore Competitions Catalog
                 </h1>
                 <p class="text-indigo-100 text-lg md:text-xl max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">
-                    Temukan kompetisi yang sesuai dengan minat dan keahlianmu. Filter, simpan, dan ikuti lomba impianmu sekarang!
+                    Find competitions that match your interests and skills. Filter, save, and join your dream competition now!
                 </p>
                 <div class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
                     <form method="GET" action="{{ route('explore') }}">
@@ -30,10 +30,10 @@
                             </div>
                             <input type="text" name="search" id="search" value="{{ request('search') }}" 
                                 class="w-full pl-12 pr-16 py-4 rounded-full border-0 focus:ring-2 focus:ring-indigo-500 shadow-lg text-gray-700"
-                                placeholder="Cari lomba impianmu disini...">
+                                placeholder="Search for your dream competition here...">
                             <div class="absolute inset-y-0 right-0 pr-4 flex">
                                 <button dusk="submit-cari" type="submit" class="py-2 px-4 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 my-1 transition transform hover:scale-105">
-                                    Cari
+                                    Search
                                 </button>
                             </div>
                         </div>
@@ -56,17 +56,17 @@
                 <div class="p-5 md:p-8">
                     <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
                         <i class="fas fa-sliders-h text-indigo-600 mr-3"></i>
-                        Filter Lomba
+                        Filter Competitions
                     </h3>
                     <form method="GET" action="{{ route('explore') }}" class="grid grid-cols-1 md:grid-cols-6 gap-6" dusk="filter-form">
-                        <!-- Kategori -->
+                        <!-- Category -->
                         <div class="md:col-span-2">
                             <label for="category" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                                <i class="fas fa-th-list text-indigo-500 mr-2"></i> Kategori
+                                <i class="fas fa-th-list text-indigo-500 mr-2"></i> Category
                             </label>
                             <div class="relative">
                                 <select name="category" id="category" class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none">
-                                    <option value="">Semua Kategori</option>
+                                    <option value="">All Categories</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
                                             {{ $category }}
@@ -79,17 +79,17 @@
                             </div>
                         </div>
 
-                        <!-- Hadiah -->
+                        <!-- Prize -->
                         <div class="md:col-span-2">
                             <label for="prize" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                                <i class="fas fa-trophy text-yellow-500 mr-2"></i> Hadiah
+                                <i class="fas fa-trophy text-yellow-500 mr-2"></i> Prize
                             </label>
                             <div class="relative">
                                 <select name="prize_range" id="prize" class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none">
-                                    <option value="">Semua Hadiah</option>
-                                    <option value="lt1" {{ request('prize_range') == 'lt1' ? 'selected' : '' }}>< 1 juta</option>
-                                    <option value="1to2" {{ request('prize_range') == '1to2' ? 'selected' : '' }}>1 - 2 juta</option>
-                                    <option value="gt2" {{ request('prize_range') == 'gt2' ? 'selected' : '' }}>> 2 juta</option>
+                                    <option value="">All Prizes</option>
+                                    <option value="lt1" {{ request('prize_range') == 'lt1' ? 'selected' : '' }}>< 1 million</option>
+                                    <option value="1to2" {{ request('prize_range') == '1to2' ? 'selected' : '' }}>1 - 2 million</option>
+                                    <option value="gt2" {{ request('prize_range') == 'gt2' ? 'selected' : '' }}>> 2 million</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
                                     <i class="fas fa-chevron-down"></i>
@@ -108,7 +108,7 @@
                             @auth
                             @if(auth()->user()->role === 'user')
                                 <a href="{{ route('competitions.saved') }}" class="w-full bg-white border-2 border-indigo-600 text-indigo-600 font-medium py-3 px-4 rounded-lg hover:bg-indigo-50 transition transform hover:scale-105 flex items-center justify-center">
-                                    <i class="fas fa-bookmark mr-2"></i> Bookmark
+                                    <i class="fas fa-bookmark mr-2"></i> Bookmarks
                                 </a>
                             @endif
                             @endauth
@@ -134,29 +134,29 @@
                 <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                     <i class="fas fa-trophy text-indigo-600 text-xl"></i>
                 </div>
-                <h4 class="text-2xl md:text-3xl font-bold text-gray-800">{{ count($competitions) }}+</h4>
-                <p class="text-sm text-gray-500 mt-1">Kompetisi Aktif</p>
+                <h4 class="text-2xl md:text-3xl font-bold text-gray-800">{{ $totalActive }}+</h4>
+                <p class="text-sm text-gray-500 mt-1">Active Competitions</p>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center" data-aos="zoom-in" data-aos-delay="100">
                 <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
                     <i class="fas fa-users text-green-600 text-xl"></i>
                 </div>
                 <h4 class="text-2xl md:text-3xl font-bold text-gray-800">10K+</h4>
-                <p class="text-sm text-gray-500 mt-1">Peserta</p>
+                <p class="text-sm text-gray-500 mt-1">Participants</p>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center" data-aos="zoom-in" data-aos-delay="200">
                 <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
                     <i class="fas fa-medal text-yellow-600 text-xl"></i>
                 </div>
                 <h4 class="text-2xl md:text-3xl font-bold text-gray-800">300+</h4>
-                <p class="text-sm text-gray-500 mt-1">Total Hadiah (Juta)</p>
+                <p class="text-sm text-gray-500 mt-1">Total Prizes (Million)</p>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center" data-aos="zoom-in" data-aos-delay="300">
                 <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
                     <i class="fas fa-calendar-check text-red-600 text-xl"></i>
                 </div>
                 <h4 class="text-2xl md:text-3xl font-bold text-gray-800">30+</h4>
-                <p class="text-sm text-gray-500 mt-1">Kategori</p>
+                <p class="text-sm text-gray-500 mt-1">Categories</p>
             </div>
         </div>
     </div>
@@ -165,15 +165,15 @@
     <div class="container mx-auto px-4 mb-16">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl md:text-3xl font-bold text-gray-800" data-aos="fade-right">
-                <i class="fas fa-list-alt text-indigo-600 mr-2"></i> Daftar Lomba
+                <i class="fas fa-list-alt text-indigo-600 mr-2"></i> Competitions Catalog
             </h2>
             <div class="text-gray-500 flex items-center" data-aos="fade-left">
                 <form method="GET" action="{{ route('explore') }}" id="sortForm" class="flex items-center text-gray-500">
                     <i class="fas fa-sort mr-2"></i>
                     <select name="sort" onchange="document.getElementById('sortForm').submit()" class="border-0 bg-transparent focus:ring-0 text-sm">
-                        <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                        <option value="deadline" {{ request('sort') == 'deadline' ? 'selected' : '' }}>Deadline Terdekat</option>
-                        <option value="prize" {{ request('sort') == 'prize' ? 'selected' : '' }}>Hadiah Terbesar</option>
+                        <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest</option>
+                        <option value="deadline" {{ request('sort') == 'deadline' ? 'selected' : '' }}>Nearest Deadline</option>
+                        <option value="prize" {{ request('sort') == 'prize' ? 'selected' : '' }}>Largest Prize</option>
                     </select>
                 </form>
             </div>
@@ -202,9 +202,9 @@
                         
                         <!-- View Poster Button -->
                         <div class="absolute top-4 right-16">
-                            <button onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')" 
+                            <button onclick="openPreviewModal('{{ asset('storage/' . ($competition->photo)) }}')" 
                                     class="bg-white p-2 rounded-full shadow hover:bg-blue-100 transition transform hover:scale-110" 
-                                    title="Lihat Poster">
+                                    title="View Poster">
                                 <i class="fas fa-search-plus text-blue-600"></i>
                             </button>
                         </div>
@@ -220,11 +220,11 @@
                                 @csrf
                                 @if(auth()->user()->savedCompetitions->contains($competition->id))
                                     @method('DELETE')
-                                    <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition transform hover:scale-110" title="Hapus Bookmark">
+                                    <button class="bg-white p-2 rounded-full shadow hover:bg-red-100 transition transform hover:scale-110" title="Remove Bookmark">
                                         <i class="fas fa-bookmark text-red-500"></i>
                                     </button>
                                 @else
-                                    <button class="bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition transform hover:scale-110" title="Simpan Bookmark">
+                                    <button class="bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition transform hover:scale-110" title="Save Bookmark">
                                         <i class="far fa-bookmark text-indigo-600"></i>
                                     </button>
                                 @endif
@@ -258,7 +258,7 @@
                                     <i class="fas fa-gift text-yellow-600"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-500">Total Hadiah</p>
+                                    <p class="text-xs text-gray-500">Total Prize</p>
                                     <p class="font-bold text-gray-800">{{ $competition->prize }}</p>
                                 </div>
                             </div>
@@ -279,7 +279,7 @@
                         <!-- Action Buttons -->
                         <div class="flex space-x-2">
                             <a href="{{ route('competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
-                                <i class="fas fa-eye mr-2"></i> Lihat Detail
+                                <i class="fas fa-eye mr-2"></i> View Details
                             </a>
                         </div>
                     </div>
@@ -290,10 +290,10 @@
                         <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                             <i class="fas fa-search text-gray-400 text-3xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Lomba Tidak Ditemukan</h3>
-                        <p class="text-gray-600 mb-6">Belum ada kompetisi tersedia. Coba ubah filter atau periksa kembali nanti!</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">No Competitions Found</h3>
+                        <p class="text-gray-600 mb-6">No competitions are available yet. Try changing the filters or check back later!</p>
                         <a href="{{ route('explore') }}" class="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition">
-                            <i class="fas fa-redo mr-2"></i> Reset Filter
+                            <i class="fas fa-redo mr-2"></i> Reset Filters
                         </a>
                     </div>
                 </div>
@@ -302,7 +302,7 @@
 
         <!-- Pagination -->
         <div class="mt-12 flex justify-center" data-aos="fade-up">
-            {{ $competitions->appends(request()->query())->links('vendor.pagination.tailwind') }}
+            {{ $competitions->appends(request()->query())->links('vendor.pagination.custom') }}
         </div>
     </div>
 
@@ -315,13 +315,13 @@
                 </svg>
             </div>
             <div class="relative z-10 md:w-2/3">
-                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Dapatkan Info Lomba Terbaru</h3>
-                <p class="text-indigo-100 mb-6">Jangan lewatkan kompetisi terbaru yang sesuai dengan minat dan keahlianmu. Berlangganan sekarang untuk mendapatkan notifikasi!</p>
+                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Stay Updated on the Latest Competitions</h3>
+                <p class="text-indigo-100 mb-6">Don't miss the latest competitions that match your interests and skills. Subscribe now to receive notifications!</p>
                 
                 <form class="flex flex-col sm:flex-row gap-4">
-                    <input type="email" placeholder="Masukkan email kamu" class="flex-grow py-3 px-4 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:outline-none">
+                    <input type="email" placeholder="Enter your email" class="flex-grow py-3 px-4 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:outline-none">
                     <button type="submit" class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-lg hover:bg-indigo-50 transition transform hover:scale-105 flex items-center justify-center">
-                        <i class="fas fa-paper-plane mr-2"></i> Berlangganan
+                        <i class="fas fa-paper-plane mr-2"></i> Subscribe
                     </button>
                 </form>
             </div>
@@ -335,7 +335,7 @@
                 <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
             </div>
             <div class="p-4 border-t border-gray-200">
-                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
             </div>
         </div>
     </div>
@@ -467,7 +467,7 @@
                 ).join('');
                 suggestionsBox.classList.remove('hidden');
             } else {
-                suggestionsBox.innerHTML = `<div class="px-4 py-3 text-gray-500 flex items-center"><i class="fas fa-info-circle text-gray-400 mr-3"></i>Tidak ditemukan...</div>`;
+                suggestionsBox.innerHTML = `<div class="px-4 py-3 text-gray-500 flex items-center"><i class="fas fa-info-circle text-gray-400 mr-3"></i>No results found...</div>`;
                 suggestionsBox.classList.remove('hidden');
             }
         } catch (error) {

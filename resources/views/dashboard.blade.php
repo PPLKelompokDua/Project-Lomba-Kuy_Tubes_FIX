@@ -317,7 +317,7 @@
             <!-- Active Competition Progress -->
             <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
                 <div class="border-b border-gray-100 px-6 py-4">
-                    <h2 class="text-lg font-bold text-gray-800">Active Competition Progress</h2>
+                    <h2 class="text-lg font-bold text-gray-800">Active Competition Task</h2>
                 </div>
                 
                 @if(isset($activeCompetitions) && $activeCompetitions > 0)

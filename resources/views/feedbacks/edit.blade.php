@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Feedbacks')
+
 @section('content')
 <div class="container py-4">
     <div class="mb-4">

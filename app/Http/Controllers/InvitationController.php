@@ -118,6 +118,13 @@ class InvitationController extends Controller
             'status'      => 'pending',
         ]);
 
+        $team = Team::findOrFail($request->team_id);
+
+        // Cegah jika status tim "finished"
+        if ($team->status_team === 'finished') {
+            return back()->with('error', 'Cannot send invitations to a finished team.');
+        }
+
         // bikin notifikasi manual:
         Notification::create([
             'user_id'       => $request->user_id,

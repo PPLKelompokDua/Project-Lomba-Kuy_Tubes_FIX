@@ -54,38 +54,70 @@
                 <h2 class="section-title mb-0"><i class="fas fa-plus-circle me-2"></i>Create New Task</h2>
             </div>
             <div class="card-body p-4">
-                <form action="{{ route('tasks.store') }}" method="POST">
-                    @csrf
-                    <div class="form-group mb-4">
-                        <label><i class="fas fa-heading me-2"></i>Title</label>
-                        <input type="text" name="title" class="form-control form-control-lg" placeholder="What needs to be done?" required>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label><i class="fas fa-align-left me-2"></i>Description</label>
-                        <textarea name="description" class="form-control" rows="4" placeholder="Add details about this task..." required></textarea>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <div class="form-group">
-                                <label><i class="fas fa-calendar-alt me-2"></i>Due Date</label>
-                                <input type="date" name="due_date" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label><i class="fas fa-flag me-2"></i>Status</label>
-                                <select name="status" class="form-control" required>
-                                    <option value="pending">Pending</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-save me-2"></i>Create Task</button>
-                    </div>
-                </form>
+            <form dusk="create-task-form" action="{{ route('tasks.store') }}" method="POST">
+    @csrf
+
+    <div class="form-group mb-4">
+        <label dusk="label-title"><i class="fas fa-heading me-2"></i>Title</label>
+        <input
+            dusk="input-title"
+            type="text"
+            name="title"
+            class="form-control form-control-lg"
+            placeholder="What needs to be done?"
+            required
+        >
+    </div>
+
+    <div class="form-group mb-4">
+        <label dusk="label-description"><i class="fas fa-align-left me-2"></i>Description</label>
+        <textarea
+            dusk="input-description"
+            name="description"
+            class="form-control"
+            rows="4"
+            placeholder="Add details about this task..."
+            required
+        ></textarea>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <div class="form-group">
+                <label dusk="label-due-date"><i class="fas fa-calendar-alt me-2"></i>Due Date</label>
+                <input
+                    dusk="input-due-date"
+                    type="date"
+                    name="due_date"
+                    class="form-control"
+                    required
+                >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label dusk="label-status"><i class="fas fa-flag me-2"></i>Status</label>
+                <select
+                    dusk="select-status"
+                    name="status"
+                    class="form-control"
+                    required
+                >
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <button dusk="button-submit" type="submit" class="btn btn-primary btn-lg">
+            <i class="fas fa-save me-2"></i>Create Task
+        </button>
+    </div>
+</form>
+
             </div>
         </div>
 

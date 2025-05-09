@@ -441,12 +441,12 @@
                         <span>Last 7 days</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div class="dropdown-content">
-                        <a href="#" class="dropdown-item">Last 7 days</a>
-                        <a href="#" class="dropdown-item">Last 14 days</a>
-                        <a href="#" class="dropdown-item">Last 30 days</a>
-                        <a href="#" class="dropdown-item">Last 90 days</a>
-                    </div>
+                    <!-- Di bagian dropdown content -->
+<div class="dropdown-content">
+    <a href="#" class="dropdown-item" data-period="week">Last 7 days</a>
+    <a href="#" class="dropdown-item" data-period="month">Last 30 days</a>
+    <a href="#" class="dropdown-item" data-period="quarter">Last 90 days</a>
+</div>
                 </div>
                 
                 <!-- Export Report Button -->
@@ -517,20 +517,21 @@
             </div>
         </div>
         
+      
         <!-- Productivity Graph Card -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Team Progress Visualization</h3>
-                <div class="filter-options">
-                    <div class="filter-option active">Week</div>
-                    <div class="filter-option">Month</div>
-                    <div class="filter-option">Quarter</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <canvas id="productivityChart" height="250"></canvas>
-            </div>
+<div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+        <h3 class="card-title">Team Productivity Trend</h3>
+        <div class="filter-options">
+            <div class="filter-option active" data-period="week">Weekly</div>
+            <div class="filter-option" data-period="month">Monthly</div>
+            <div class="filter-option" data-period="quarter">Quarterly</div>
         </div>
+    </div>
+    <div class="card-body">
+        <canvas id="productivityChart" height="300"></canvas>
+    </div>
+</div>
         
         <!-- Two Column Layout -->
         <div class="row">
@@ -668,227 +669,564 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
-        // Productivity Chart
-       // Produktivitas Chart - Menambahkan devicePixelRatio saja
-// Team Progress Visualization Chart
-const productivityCtx = document.getElementById('productivityChart').getContext('2d');
-const productivityChart = new Chart(productivityCtx, {
-    type: 'line',
-    data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [
-            {
-                label: 'Completed Tasks',
-                data: [5, 3, 6, 4, 7, 2, 3],
-                borderColor: '#28a745',
-                backgroundColor: 'rgba(40, 167, 69, 0.1)',
-                tension: 0.4,
-                fill: true,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#28a745'
-            },
-            {
-                label: 'Created Tasks',
-                data: [3, 4, 7, 5, 6, 3, 2],
-                borderColor: '#5C4EE3',
-                backgroundColor: 'rgba(92, 78, 227, 0.1)',
-                tension: 0.4,
-                fill: true,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#5C4EE3'
-            },
-            {
-                label: 'Blocked Tasks',
-                data: [1, 2, 1, 0, 1, 0, 1],
-                borderColor: '#dc3545',
-                backgroundColor: 'rgba(220, 53, 69, 0.1)',
-                tension: 0.4,
-                fill: true,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#dc3545'
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        devicePixelRatio: 2,
-        plugins: {
-            legend: {
-                position: 'top',
-                labels: {
-                    usePointStyle: true,
-                    padding: 20,
-                    font: {
-                        size: 12
+   // Enhanced Team Productivity Dashboard JavaScript
+// Tambahkan script ini setelah deklarasi Chart.js di team-productivity.blade.php
+
+// Enhanced Team Productivity Dashboard JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Get initial data from controller - ensure proper JSON parsing
+    let initialData;
+    try {
+        // Check if initialStats is available and convert to JSON object
+        initialData = @json($initialStats ?? []);
+        // If initialData is a string, parse it
+        if (typeof initialData === 'string') {
+            initialData = JSON.parse(initialData);
+        }
+    } catch (e) {
+        console.error('Error parsing initial data:', e);
+        initialData = {
+            name: 'Completed Tasks',
+            data: initialData.tasksPerDay,
+            dates: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            completed: [5, 3, 6, 4, 7, 2, 3],
+            created: [3, 4, 7, 5, 6, 3, 2],
+            blocked: [1, 2, 1, 0, 1, 0, 1],
+            taskDistribution: [15, 2, 3, 0],
+            completionRate: 75,
+            tasksPerDay: 4.2,
+            avgLeadTime: 2.5,
+            blockedTasksCount: 3,
+            blockedPercentage: 15
+        };
+    }
+    
+    // Ensure all required properties exist, fill with defaults if missing
+    initialData = {
+        dates: initialData.dates || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        completed: initialData.completed || [5, 3, 6, 4, 7, 2, 3],
+        created: initialData.created || [3, 4, 7, 5, 6, 3, 2],
+        blocked: initialData.blocked || [1, 2, 1, 0, 1, 0, 1],
+        taskDistribution: initialData.taskDistribution || [15, 2, 3, 0],
+        completionRate: initialData.completionRate || 75,
+        tasksPerDay: initialData.tasksPerDay || 4.2,
+        avgLeadTime: initialData.avgLeadTime || 2.5,
+        blockedTasksCount: initialData.blockedTasksCount || 3,
+        blockedPercentage: initialData.blockedPercentage || 15,
+        bottleneckTasks: initialData.bottleneckTasks || []
+    };
+    
+    // Productivity Chart - Get canvas context safely
+    const productivityCtx = document.getElementById('productivityChart');
+    if (!productivityCtx) {
+        console.error('Productivity chart canvas not found');
+        return;
+    }
+
+    const productivityChart = new Chart(productivityCtx.getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: initialData.dates,
+            datasets: [
+                {
+                    label: 'Completed Tasks',
+                    data: initialData.completed,
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#28a745'
+                },
+                {
+                    label: 'Created Tasks',
+                    data: initialData.created,
+                    borderColor: '#5C4EE3',
+                    backgroundColor: 'rgba(92, 78, 227, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#5C4EE3'
+                },
+                {
+                    label: 'Blocked Tasks',
+                    data: initialData.blocked,
+                    borderColor: '#dc3545',
+                    backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#dc3545'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            devicePixelRatio: 2,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20,
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    titleColor: '#333',
+                    bodyColor: '#666',
+                    borderColor: '#ddd',
+                    borderWidth: 1,
+                    padding: 10,
+                    displayColors: true,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            return tooltipItems[0].label;
+                        },
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y;
+                            }
+                            return label;
+                        }
                     }
                 }
             },
-            tooltip: {
-                mode: 'index',
-                intersect: false,
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                titleColor: '#333',
-                bodyColor: '#666',
-                borderColor: '#ddd',
-                borderWidth: 1,
-                padding: 10,
-                displayColors: true,
-                callbacks: {
-                    title: function(tooltipItems) {
-                        return tooltipItems[0].label;
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Tasks',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
                     },
-                    label: function(context) {
-                        let label = context.dataset.label || '';
-                        if (label) {
-                            label += ': ';
-                        }
-                        if (context.parsed.y !== null) {
-                            label += context.parsed.y;
-                        }
-                        return label;
-                    }
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Number of Tasks',
-                    font: {
-                        size: 14,
-                        weight: 'bold'
+                    ticks: {
+                        stepSize: 1
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
                     }
                 },
-                ticks: {
-                    stepSize: 1
-                },
-                grid: {
-                    color: 'rgba(0, 0, 0, 0.05)'
+                x: {
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
                 }
             },
-            x: {
-                grid: {
-                    color: 'rgba(0, 0, 0, 0.05)'
+            interaction: {
+                mode: 'nearest',
+                axis: 'x',
+                intersect: false
+            },
+            animations: {
+                tension: {
+                    duration: 1000,
+                    easing: 'linear'
                 }
             }
+        }
+    });
+
+    // Task Distribution Chart - Get canvas context safely
+    const distributionCtx = document.getElementById('taskDistributionChart');
+    if (!distributionCtx) {
+        console.error('Task distribution chart canvas not found');
+        return;
+    }
+
+    const taskDistributionChart = new Chart(distributionCtx.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'In Progress', 'Blocked', 'Pending'],
+            datasets: [{
+                data: initialData.taskDistribution,
+                backgroundColor: [
+                    '#28a745',
+                    '#4b9ce9',
+                    '#dc3545',
+                    '#ffc107'
+                ],
+                borderWidth: 0,
+            }]
         },
-        interaction: {
-            mode: 'nearest',
-            axis: 'x',
-            intersect: false
-        },
-        animations: {
-            tension: {
-                duration: 1000,
-                easing: 'linear'
+        options: {
+            responsive: true,
+            devicePixelRatio: 2,
+            plugins: {
+                legend: {
+                    position: 'right',
+                }
+            },
+            cutout: '60%'
+        }
+    });
+
+    // Initialize stats if available
+    updateStatsDisplay(initialData);
+
+    // Current period state
+    let currentPeriod = 'week';
+    
+    // Update charts and statistics based on selected period
+    function updateCharts(period = 'week') {
+        // Show loading state if needed
+        
+        // Update period display in dropdown button
+        const periodButton = document.querySelector('.dropdown .btn-outline-primary span');
+        let periodText = 'Last 7 days';
+        
+        if (period === 'month') {
+            periodText = 'Last 30 days';
+        } else if (period === 'quarter') {
+            periodText = 'Last 90 days';
+        }
+        
+        periodButton.textContent = periodText;
+        
+        // Store current period
+        currentPeriod = period;
+        
+        // Fetch data from the API - Fix URL to match controller route
+        fetch(`/productivity/data?period=${period}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Update Line Chart
+                productivityChart.data.labels = data.dates;
+                productivityChart.data.datasets[0].data = data.completed;
+                productivityChart.data.datasets[1].data = data.created;
+                productivityChart.data.datasets[2].data = data.blocked;
+                productivityChart.update();
+
+                // Update Doughnut Chart
+                taskDistributionChart.data.datasets[0].data = data.taskDistribution;
+                taskDistributionChart.update();
+
+                // Update Stats Display
+                updateStatsDisplay(data);
+                
+                // Update progress bars
+                updateProgressBars(data.taskDistribution);
+                
+                // Update Bottleneck Analysis
+                updateBottleneckTasks(data.bottleneckTasks);
+            })
+            .catch(error => {
+                console.error('Error fetching productivity data:', error);
+            });
+    }
+
+    // Update stats display from data
+    function updateStatsDisplay(data) {
+        if (!data) return;
+        
+        // Update stats cards
+        if (data.completionRate !== undefined) {
+            document.querySelector('.stats-cards .stats-card:nth-child(1) .stats-content h3').textContent = `${data.completionRate}%`;
+        }
+        
+        if (data.tasksPerDay !== undefined) {
+            document.querySelector('.stats-cards .stats-card:nth-child(2) .stats-content h3').textContent = data.tasksPerDay;
+        }
+        
+        if (data.avgLeadTime !== undefined) {
+            document.querySelector('.stats-cards .stats-card:nth-child(3) .stats-content h3').textContent = `${data.avgLeadTime} days`;
+        }
+        
+        if (data.blockedTasksCount !== undefined) {
+            document.querySelector('.stats-cards .stats-card:nth-child(4) .stats-content h3').textContent = 
+                `${data.blockedTasksCount} <small style="color: var(--gray); font-size: 14px;">(${data.blockedPercentage}%)</small>`;
+        }
+    }
+
+    // Update progress bars with task distribution data
+    function updateProgressBars(distribution) {
+        if (!distribution || !Array.isArray(distribution)) {
+            console.error("Invalid distribution data:", distribution);
+            return;
+        }
+        
+        const [completed, inProgress, blocked, pending] = distribution;
+        const total = completed + inProgress + blocked + pending;
+        
+        // Calculate percentages
+        const completedPerc = total > 0 ? Math.round((completed / total) * 100) : 0;
+        const inProgressPerc = total > 0 ? Math.round((inProgress / total) * 100) : 0;
+        const blockedPerc = total > 0 ? Math.round((blocked / total) * 100) : 0;
+        const pendingPerc = total > 0 ? Math.round((pending / total) * 100) : 0;
+        
+        // Update DOM elements
+        document.querySelector('.progress-item:nth-child(1) .progress-header span:last-child').textContent = `${completed} (${completedPerc}%)`;
+        document.querySelector('.progress-item:nth-child(2) .progress-header span:last-child').textContent = `${inProgress} (${inProgressPerc}%)`;
+        document.querySelector('.progress-item:nth-child(3) .progress-header span:last-child').textContent = `${blocked} (${blockedPerc}%)`;
+        document.querySelector('.progress-item:nth-child(4) .progress-header span:last-child').textContent = `${pending} (${pendingPerc}%)`;
+        
+        // Update progress bar widths
+        document.querySelector('.progress-item:nth-child(1) .progress-bar').style.width = `${completedPerc}%`;
+        document.querySelector('.progress-item:nth-child(2) .progress-bar').style.width = `${inProgressPerc}%`;
+        document.querySelector('.progress-item:nth-child(3) .progress-bar').style.width = `${blockedPerc}%`;
+        document.querySelector('.progress-item:nth-child(4) .progress-bar').style.width = `${pendingPerc}%`;
+    }
+
+    // Update bottleneck tasks list
+    function updateBottleneckTasks(tasks) {
+        const container = document.querySelector('.blocked-tasks');
+        
+        if (!tasks || tasks.length === 0) {
+            container.innerHTML = '<div class="empty-state">' +
+                '<i class="fas fa-check-circle"></i>' +
+                '<p>Great job! No bottleneck tasks found.</p>' +
+                '</div>';
+            return;
+        }
+        
+        // Clear container
+        container.innerHTML = '';
+        
+        // Add each task to the container
+        tasks.forEach(task => {
+            // Determine which days property to use
+            let daysDelayed = task.days_blocked || task.days_delayed || task.days_stagnant || 0;
+            
+            // Make sure assignee exists to prevent errors
+            const assigneeName = task.assignee && task.assignee.name ? task.assignee.name : 'Unassigned';
+            
+            container.innerHTML += `
+                <div class="blocked-task-item">
+                    <div class="blocked-task-header">
+                        <div class="blocked-task-title">${task.title}</div>
+                        <div class="blocked-days">${daysDelayed} days</div>
+                    </div>
+                    <div>Assigned to: ${assigneeName}</div>
+                    <div class="blocked-reason">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        ${task.blocker_reason}
+                    </div>
+                    <div>Due: ${task.due_date_formatted || 'No deadline'}</div>
+                </div>
+            `;
+        });
+    }
+
+    // Apply period selection from dropdown
+    document.querySelectorAll('.dropdown-item[data-period]').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const period = item.getAttribute('data-period');
+            updateCharts(period);
+            
+            // Also update filter options above chart
+            document.querySelectorAll('.filter-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-period') === period) {
+                    option.classList.add('active');
+                }
+            });
+        });
+    });
+
+    // Handle filter options above chart
+    document.querySelectorAll('.filter-option').forEach(option => {
+        option.addEventListener('click', () => {
+            // Update active class
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            
+            // Get and apply period
+            const period = option.getAttribute('data-period');
+            updateCharts(period);
+        });
+    });
+
+    // ===== HANDLE EXPORT REPORT BUTTON =====
+    document.getElementById('exportBtn').addEventListener('click', function() {
+        // Get CSRF token for Laravel (from meta tag)
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+        
+        // Show temporary notification
+        const alert = document.getElementById('successAlert');
+        alert.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Generating report...</span>';
+        alert.style.display = 'flex';
+        
+        // Create form data to send
+        const formData = new FormData();
+        formData.append('period', currentPeriod);
+        formData.append('exportType', 'pdf'); // Default to PDF
+        
+        // Make the AJAX request
+        fetch('/productivity/export', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                // Not setting 'Content-Type': 'application/json' as we're using FormData
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Export failed');
             }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success && data.downloadUrl) {
+                // Success message
+                alert.innerHTML = '<i class="fas fa-check-circle"></i><span>Report has been generated successfully!</span>';
+                
+                // Create a temporary anchor element and trigger the download
+                const downloadLink = document.createElement('a');
+                downloadLink.href = data.downloadUrl;
+                downloadLink.download = data.filename || 'productivity_report.pdf';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            } else {
+                throw new Error('Invalid response data');
+            }
+        })
+        .catch(error => {
+            console.error('Error during export:', error);
+            alert.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Export failed. Please try again.</span>';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        });
+    });
+
+    // ===== HANDLE SHARE FEEDBACK BUTTON =====
+    const shareModal = document.getElementById('shareModal');
+    const closeModal = document.querySelector('.close-modal');
+    const cancelShare = document.getElementById('cancelShare');
+    const confirmShare = document.getElementById('confirmShare');
+    
+    // Show modal when Share Feedback button is clicked
+    document.getElementById('shareBtn').addEventListener('click', function() {
+        shareModal.style.display = 'block';
+    });
+    
+    // Close modal functions
+    function closeShareModal() {
+        shareModal.style.display = 'none';
+        // Clear form fields
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+    }
+    
+    closeModal.addEventListener('click', closeShareModal);
+    cancelShare.addEventListener('click', closeShareModal);
+    
+    // Handle share form submission
+    confirmShare.addEventListener('click', function() {
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        
+        // Basic validation
+        if (!email) {
+            alert('Please enter an email address');
+            return;
+        }
+        
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        
+        // Get CSRF token for Laravel
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+        
+        // Show loading state on button
+        confirmShare.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        confirmShare.disabled = true;
+        
+        // Create form data to send
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('message', message);
+        formData.append('period', currentPeriod);
+        
+        // Send data using fetch
+        fetch('/productivity/share', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+                // Not setting Content-Type as FormData sets it automatically with boundary
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Share request failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Close modal
+                closeShareModal();
+                
+                // Show success message
+                const alert = document.getElementById('successAlert');
+                alert.innerHTML = '<i class="fas fa-check-circle"></i><span>Report has been shared successfully to ' + email + '!</span>';
+                alert.style.display = 'flex';
+                
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            } else {
+                throw new Error(data.message || 'Failed to share report');
+            }
+        })
+        .catch(error => {
+            console.error('Share failed:', error);
+            alert('Failed to share report: ' + error.message);
+        })
+        .finally(() => {
+            // Reset button state
+            confirmShare.innerHTML = 'Share Report';
+            confirmShare.disabled = false;
+        });
+    });
+
+    // Initial load
+    if (Object.keys(initialData).length === 0) {
+        updateCharts('week'); // If no initial data, load data with default period
+    } else if (initialData.taskDistribution) {
+        // Update progress bars with initial data if available
+        updateProgressBars(initialData.taskDistribution);
+        // Update bottleneck tasks with initial data if available
+        if (initialData.bottleneckTasks) {
+            updateBottleneckTasks(initialData.bottleneckTasks);
         }
     }
 });
-
-// Task Distribution Chart
-const distributionCtx = document.getElementById('taskDistributionChart').getContext('2d');
-const taskDistributionChart = new Chart(distributionCtx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Completed', 'In Progress', 'Blocked', 'Pending'],
-        datasets: [{
-            data: [15, 2, 3, 0],
-            backgroundColor: [
-                '#28a745',
-                '#4b9ce9',
-                '#dc3545',
-                '#ffc107'
-            ],
-            borderWidth: 0,
-        }]
-    },
-    options: {
-        responsive: true,
-        devicePixelRatio: 2, // Kunci untuk memperbaiki blur
-        plugins: {
-            legend: {
-                position: 'right',
-            }
-        },
-        cutout: '60%'
-    }
-});
-
-// Sisakan kode asli dari updateCharts anda
-function updateCharts(period = 'week') {
-    fetch(`/productivity/data?period=${period}`)
-        .then(response => response.json())
-        .then(data => {
-            // Update Line Chart
-            productivityChart.data.labels = data.dates;
-            productivityChart.data.datasets[0].data = data.completed;
-            productivityChart.data.datasets[1].data = data.created;
-            productivityChart.data.datasets[2].data = data.blocked;
-            productivityChart.update();
-
-            // Update Doughnut Chart
-            taskDistributionChart.data.datasets[0].data = [
-                data.taskDistribution[0],
-                data.taskDistribution[1],
-                data.taskDistribution[2],
-                data.taskDistribution[3]
-            ];
-            taskDistributionChart.update();
-
-            // Update Stats
-            document.getElementById('completion-rate').textContent = `${data.completionRate}%`;
-            document.getElementById('tasks-per-day').textContent = data.tasksPerDay;
-            document.getElementById('avg-lead-time').textContent = `${data.avgLeadTime} days`;
-            document.getElementById('blocked-tasks').textContent = data.blockedTasksCount;
-
-            // Update Bottleneck Analysis
-            updateBottleneckTasks(data.bottleneckTasks);
-        });
-}
-
-function updateBottleneckTasks(tasks) {
-    const container = document.querySelector('.blocked-tasks');
-    container.innerHTML = tasks.length ? '' : '<div class="empty-state">No bottleneck tasks found</div>';
-
-    tasks.forEach(task => {
-        container.innerHTML += `
-            <div class="blocked-task-item">
-                <div class="blocked-task-header">
-                    <div class="blocked-task-title">${task.title}</div>
-                    <div class="blocked-days">${task.days_blocked || task.days_delayed} days</div>
-                </div>
-                <div>Assigned to: ${task.assignee.name}</div>
-                <div class="blocked-reason">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    ${task.blocker_reason}
-                </div>
-                <div>Due: ${task.due_date_formatted}</div>
-            </div>
-        `;
-    });
-}
-
-// Auto-refresh data every minute
-setInterval(() => updateCharts(document.querySelector('.filter-option.active').textContent.toLowerCase()), 60000);
-
-// Handle filter clicks
-document.querySelectorAll('.filter-option').forEach(option => {
-    option.addEventListener('click', () => {
-        document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
-        option.classList.add('active');
-        updateCharts(option.textContent.toLowerCase());
-    });
-});
-
-// Initial load
-updateCharts('week');
     </script>
 </body>
 </html>

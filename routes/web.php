@@ -43,13 +43,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Export Report
-Route::get('/team-productivity/export', [ProductivityController::class, 'export'])
-->name('team.productivity.export');
-
-// Share Feedback
-Route::post('/team-productivity/share', [ProductivityController::class, 'share'])
-->name('team.productivity.share');
-
-Route::get('/productivity/data', [ProductivityController::class, 'getProductivityData'])
-     ->name('productivity.data');
+    Route::get('/productivity/data', [ProductivityController::class, 'getProductivityData'])->name('productivity.data');
+    Route::post('/productivity/export', [ProductivityController::class, 'exportReport'])->name('productivity.export');
+    Route::post('/productivity/share', [ProductivityController::class, 'shareReport'])->name('productivity.share');
+    
 });

@@ -6,6 +6,10 @@ use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf; // Jika menggunakan dompdf
+use Maatwebsite\Excel\Facades\Excel; // Jika menggunakan Laravel Excel
+use App\Exports\ProductivityExport; // Jika menggunakan Laravel Excel
+
 
 class ProductivityController extends Controller
 {
@@ -26,12 +30,13 @@ class ProductivityController extends Controller
      * Get productivity data for charts based on time period
      */
     public function getProductivityData(Request $request)
-    {
-        $period = $request->input('period', 'week');
-        
-        return response()->json($this->getProductivityStats($period));
-    }
+{
+    $period = $request->input('period', 'week');
     
+    $stats = $this->getProductivityStats($period);
+    
+    return response()->json($stats);
+}
     /**
      * Compute productivity statistics based on specified time period
      */
@@ -96,7 +101,11 @@ class ProductivityController extends Controller
         $totalTasks = $completed + $inProgress + $blocked + $pending;
         $completionRate = $totalTasks > 0 ? round(($completed / $totalTasks) * 100) : 0;
         
-        $tasksPerDay = $this->calculateTasksPerDay($completedData, count($dateLabels));
+        // Ambil semua nilai (jumlah tugas) dari array as-is
+        $tasksPerDay = array_map(function($date) use($completedData){
+            return $completedData[$date] ?? 0;
+        }, $dateLabels);
+    ;
         
         $avgLeadTime = $this->calculateAverageLeadTime($completionTimes);
         
@@ -313,6 +322,9 @@ class ProductivityController extends Controller
         return $days > 0 ? round($totalCompleted / $days, 1) : 0;
     }
     
+
+        
+
     /**
      * Calculate average lead time (days from creation to completion)
      */
@@ -324,4 +336,63 @@ class ProductivityController extends Controller
         
         return round(array_sum($completionTimes) / count($completionTimes), 1);
     }
+
+    public function exportReport(Request $request)
+    {
+
+        // Validate request
+        $request->validate([
+            'period' => 'required|string|in:week,month,quarter',
+            'exportType' => 'required|string|in:pdf,csv,excel'
+        ]);
+        
+        $period = $request->input('period');
+        $exportType = $request->input('exportType');
+        
+        // Get productivity data
+        $data = $this->getProductivityStats($period);
+        
+        // Generate filename
+        $filename = 'productivity_report_' . date('Y-m-d') . '.' . strtolower($exportType);
+        
+        // In a real implementation, you would use a PDF library like dompdf, mpdf, or other reporting tools
+        // to generate the actual report file.
+        
+        // For this example, we'll just return a download URL
+        $downloadUrl = url('storage/exports/' . $filename);
+        
+        // Return the download URL
+        return response()->json([
+            'success' => true,
+            'downloadUrl' => $downloadUrl,
+            'filename' => $filename
+        ]);
+    }
+    
+    /**
+     * Share productivity report via email
+     */
+    public function shareReport(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'message' => 'nullable|string',
+        'period' => 'required|string|in:week,month,quarter'
+    ]);
+    
+    $data = $this->getProductivityStats($request->period);
+    
+    // Generate PDF
+    $pdf = PDF::loadView('exports.report', $data);
+    
+    // Kirim email
+    Mail::to($request->email)->send(new ProductivityReportMail($data, $request->message, $pdf));
+    
+    return response()->json([
+        'success' => true,
+        'message' => 'Report has been shared successfully to ' . $request->email
+    ]);
+}
+
+    
 }

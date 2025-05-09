@@ -197,7 +197,28 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
     Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
 
+    Route::get('/assessment', [AssessmentController::class, 'showForm'])->name('assessment.form');
+    Route::post('/assessment', [AssessmentController::class, 'submitForm'])->name('assessment.submit');
 
+    Route::middleware(['auth'])->group(function () {
+        // Halaman form assessment
+        Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
+        
+        // Submit form assessment
+        Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
 
+        Route::get('/assessment/result', [AssessmentController::class, 'result'])->name('assessment.result');
+
+        
+        // Hasil assessment
+        Route::get('/assessment/result', [AssessmentController::class, 'showResults'])->name('assessment.result');
+
+        
+        // Ulangi assessment
+        Route::get('/assessment/retry', [AssessmentController::class, 'index'])->name('assessment.retry');
+        
+        // Dashboard / Home
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    });
 
 });

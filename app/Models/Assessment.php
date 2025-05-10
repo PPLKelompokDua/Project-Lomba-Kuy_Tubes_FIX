@@ -13,7 +13,12 @@ class Assessment extends Model
         'user_id',
         'personality_type',
         'preferred_role',
-        'results'
+        'results',
+        'total_score',
+        'recommended_role',
+        'strengths',
+        'weaknesses',
+        'compatibility_score'
     ];
 
     protected $casts = [

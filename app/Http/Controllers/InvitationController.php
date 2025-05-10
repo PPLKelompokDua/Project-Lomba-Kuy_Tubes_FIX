@@ -22,7 +22,7 @@ class InvitationController extends Controller
         $authUser = Auth::user();
 
         $users = User::where('id', '!=', $authUser->id)->get();
-        $teams = $authUser->ledTeams; // <-- tambahkan ini
+        $teams = $authUser->ledTeams;
 
         $receivedInvitations = $authUser->receivedInvitations()
             ->with(['team', 'sender'])
@@ -33,18 +33,19 @@ class InvitationController extends Controller
             ->with(['team', 'receiver'])
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
         $defaultUserId = request('user_id');
         $defaultTeamId = request('team_id');
-
+        $defaultCompetitionId = request('competition_id'); // <= tambahan ini
 
         return view('invitations.index', [
             'users' => $users,
             'receivedInvitations' => $receivedInvitations,
             'sentInvitations' => $sentInvitations,
-            'teams' => $teams, // <-- kirim ke view
+            'teams' => $teams,
             'defaultUserId' => $defaultUserId,
             'defaultTeamId' => $defaultTeamId,
+            'defaultCompetitionId' => $defaultCompetitionId, // <= dan ini
         ]);
     }
 

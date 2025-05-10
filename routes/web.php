@@ -78,6 +78,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
     Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
 
+    Route::get('/assessment/internal', [AssessmentController::class, 'showTestForm'])->name('assessment.form');
+    Route::post('/assessment/internal', [AssessmentController::class, 'submitTest'])->name('assessment.submit');
+
     // Team Recommendation Route
     Route::get('/team-recommendation', [TeamRecommendationController::class, 'generateRecommendation'])
         ->name('team.recommendation');

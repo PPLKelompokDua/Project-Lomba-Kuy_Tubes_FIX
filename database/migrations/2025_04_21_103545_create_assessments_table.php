@@ -17,6 +17,10 @@ return new class extends Migration
             $table->json('results');
             $table->integer('total_score')->nullable();
             $table->string('assessment_type')->default('team');
+            $table->string('recommended_role')->nullable();
+            $table->string('strengths')->nullable();
+            $table->string('weaknesses')->nullable();
+            $table->integer('compatibility_score')->nullable();
             $table->timestamps();
         });
     }

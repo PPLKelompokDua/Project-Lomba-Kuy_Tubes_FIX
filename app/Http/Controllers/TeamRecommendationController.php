@@ -61,50 +61,39 @@ class TeamRecommendationController extends Controller
     }
 
     return redirect()->route('assessment.index')->with('error', 'Silakan lengkapi assessment terlebih dahulu.');
-}
-
+} 
     private function analyzeAssessment($assessment)
     {
-        if (empty($assessment->results)) {
-            return $this->defaultRecommendation();
-        }
-
-        $scores = is_array($assessment->results)
-            ? $assessment->results
-            : json_decode($assessment->results, true);
+        $scores = json_decode($assessment->results, true);
 
         if (!is_array($scores)) {
             return $this->defaultRecommendation();
         }
 
-        $logical = $scores['logical'] ?? 0;
-        $emotional = $scores['emotional'] ?? 0;
-        $teamwork = $scores['teamwork'] ?? 0;
+        // Ubah penghitungan sesuai kategori yang ada
+        $gayaKerja = $scores['Gaya Kerja']['A'] ?? 0;
+        $leadership = $scores['Leadership & Problem Solving']['A'] ?? 0;
+        $komunikasi = $scores['Komunikasi dalam Tim']['A'] ?? 0;
 
-        $averageScore = ($logical + $emotional + $teamwork) / 3;
-        $compatibilityScore = round($averageScore);
+        $total = $gayaKerja + $leadership + $komunikasi;
+        $compatibilityScore = round(($total / 18) * 100); // Asumsikan 6 soal per kategori (6*3 = 18)
 
-        // Penentuan role lebih make sense
-        if ($logical >= 80 && $teamwork >= 70) {
+        if ($leadership >= 4) {
             $role = 'Project Manager';
-            $strengths = 'Leadership, Decision Making';
-            $weaknesses = 'Detail Orientation';
-        } elseif ($emotional >= 80 && $teamwork >= 70) {
-            $role = 'Team Leader';
-            $strengths = 'Empathy, Motivation';
-            $weaknesses = 'Overthinking';
-        } elseif ($logical >= 60 && $teamwork >= 60) {
-            $role = 'Core Member';
-            $strengths = 'Problem Solving, Critical Thinking';
-            $weaknesses = 'Communication Skills';
-        } elseif ($teamwork >= 50) {
-            $role = 'Support Member';
-            $strengths = 'Teamwork, Cooperation';
-            $weaknesses = 'Initiative Taking';
+            $strengths = 'Leadership, Strategic Thinking';
+            $weaknesses = 'Micromanagement';
+        } elseif ($gayaKerja >= 4) {
+            $role = 'Planner';
+            $strengths = 'Organization, Planning';
+            $weaknesses = 'Too rigid';
+        } elseif ($komunikasi >= 4) {
+            $role = 'Team Coordinator';
+            $strengths = 'Communication, Mediation';
+            $weaknesses = 'Emotional decisions';
         } else {
-            $role = 'Freelance Member';
-            $strengths = 'Flexibility';
-            $weaknesses = 'Consistency';
+            $role = 'Support Member';
+            $strengths = 'Helpful, Reliable';
+            $weaknesses = 'Passive';
         }
 
         return [
@@ -113,15 +102,8 @@ class TeamRecommendationController extends Controller
             'weaknesses' => $weaknesses,
             'score' => min(100, max(0, $compatibilityScore)),
         ];
-    }
-
-    private function defaultRecommendation()
-    {
-        return [
-            'role' => 'Support Member',
-            'strengths' => 'Adaptability',
-            'weaknesses' => 'Limited Leadership',
-            'score' => 50,
-        ];
+        if (empty($scores)) {
+                return redirect()->route('assessment.form')->with('error', 'Tidak ada jawaban yang diberikan.');
+            }
     }
 }

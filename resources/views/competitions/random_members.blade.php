@@ -230,10 +230,11 @@
                     </div>
 
                     <div class="space-y-3">
-                            <a href="{{ route('teams.create', ['competition_id' => $competition->id, 'user_id' => $user->id]) }}"
-                               class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:-translate-y-1">
+                            <button
+                                onclick="showInviteModal({{ $user->id }})"
+                                class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none">
                                 <i class="bi bi-person-plus-fill mr-2"></i> Invite {{ $firstName }}
-                            </a>
+                            </button>
                     </div>
                 </div>
             </div>
@@ -304,5 +305,56 @@
             </div>
         </div>
     </div>
+    <!-- Invitation Confirmation Modal -->
+    <div id="inviteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 shadow-xl p-6 border-t-4 border-indigo-600">
+            <h2 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Confirm Invitation
+            </h2>
+            <p class="text-gray-600 mb-6 pl-8">Do you already have a team for this competition on LombaKuy?</p>
+            <div class="flex flex-col sm:flex-row justify-end gap-3">
+                <button onclick="closeInviteModal()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors">
+                    Cancel
+                </button>
+                <a id="createTeamLink" href="#" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Not Yet, Create Team
+                </a>
+                <a id="sendInviteLink" href="#" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Already Have, Invite
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
+
+<script>
+    function showInviteModal(userId) {
+        const modal = document.getElementById('inviteModal');
+        const createTeamLink = document.getElementById('createTeamLink');
+        const sendInviteLink = document.getElementById('sendInviteLink');
+
+        // Update href sesuai dengan user yang dipilih
+        const competitionId = "{{ $competition->id }}";
+        createTeamLink.href = `/teams/create?competition_id=${competitionId}&user_id=${userId}`;
+        sendInviteLink.href = `/invitations?competition_id=${competitionId}&user_id=${userId}`;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeInviteModal() {
+        const modal = document.getElementById('inviteModal');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
+</script>

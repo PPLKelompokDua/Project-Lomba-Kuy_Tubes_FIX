@@ -3,19 +3,12 @@
 @section('title', 'Explore Competitions')
 
 @section('content')
-<div class="bg-gradient-to-b from-gray-50 to-white min-h-screen">
+<div class="bg-gray-50 min-h-screen">
     <!-- Hero Section -->
     <div class="relative bg-indigo-900 overflow-hidden">
-        <div class="absolute inset-0">
-            <img src="{{ asset('images/competition-bg.jpg') }}" alt="Background" class="w-full h-full object-cover opacity-20">
-            <div class="absolute inset-0 bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-900 mix-blend-multiply"></div>
-        </div>
         <div class="container mx-auto px-6 py-16 md:py-24 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-800 bg-opacity-40 backdrop-blur-sm mb-6" data-aos="fade-down">
-                    <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
-                    <span class="text-indigo-200 uppercase tracking-wider text-sm font-semibold">Competitions Catalog</span>
-                </div>
+                <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">Competitions Catalog</span>
                 <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight" data-aos="fade-up">
                     Explore Competitions Catalog
                 </h1>

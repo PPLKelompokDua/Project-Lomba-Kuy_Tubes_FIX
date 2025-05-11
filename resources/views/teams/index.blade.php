@@ -68,7 +68,7 @@
                             <a href="{{ route('teams.create') }}" class="btn px-4 py-2 shadow-sm" style="background-color: #4f46e5; color: white; border-radius: 8px;">
                                 <i class="fas fa-plus-circle me-2"></i>Create Your First Team
                             </a>
-                            <a href="#" class="btn btn-link ms-2" style="color: #4f46e5;">Learn how teams work</a>
+                            <a href="{{ route('explore') }}" class="btn btn-link ms-2" style="color: #4f46e5;">Looking An Competitions? Explore Catalog</a>
                         </div>
                     </div>
                 </div>
@@ -209,6 +209,13 @@
                                            style="background-color: #4f46e5; color: white; border-radius: 8px;">
                                             <i class="fas fa-eye me-1"></i> View Details
                                         </a>
+
+                                        @if($team->status_team !== 'finished')
+                                        <a href="{{ route('tasks.team', $team->id) }}" class="btn btn-sm px-3 py-2"
+                                            style="background-color: #10b981; color: white; border-radius: 8px;">
+                                             <i class="fas fa-tasks me-1"></i> Manage Tasks
+                                        </a>
+                                        @endif
                                         
                                         @if($team->leader_id === $user->id && $team->status_team !== 'finished')
                                             <a href="{{ route('invitations.index', ['team_id' => $team->id]) }}" class="btn btn-sm px-3 py-2" 

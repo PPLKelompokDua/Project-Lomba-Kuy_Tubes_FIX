@@ -1,9 +1,9 @@
 @extends('layouts.organizer')
 
-@section('title', 'Detail Lomba')
+@section('title', 'Competition Details')
 
 @section('content')
-<div class="max-w-4xl mx-auto py-8">
+<div class="max-w-5xl mx-auto py-8">
     <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover-rise" data-aos="fade-up">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
@@ -11,7 +11,7 @@
             <a href="{{ route('organizer.competitions.index') }}"
                class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold transition"
                data-aos="fade-left">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Dashboard
+                <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
             </a>
         </div>
 
@@ -20,16 +20,16 @@
             <!-- Metadata -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Kategori:</strong> {{ $competition->category ?? 'Tidak ada' }}</p>
-                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Hadiah:</strong> {{ $competition->prize ?? 'Tidak ada' }}</p>
-                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Lokasi:</strong> {{ $competition->location ?? 'Tidak ada' }}</p>
-                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Maksimum Peserta:</strong> {{ $competition->max_participants ?? 'Tidak ditentukan' }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Category:</strong> {{ $competition->category ?? 'Not specified' }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Prize:</strong> {{ $competition->prize ?? 'Not specified' }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Location:</strong> {{ $competition->location ?? 'Not specified' }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Maximum Participants:</strong> {{ $competition->max_participants ?? 'Not specified' }}</p>
                 </div>
                 <div>
                     <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Deadline:</strong> {{ \Carbon\Carbon::parse($competition->deadline)->format('d M Y') }}</p>
-                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Tanggal Mulai:</strong> {{ \Carbon\Carbon::parse($competition->start_date)->format('d M Y') }}</p>
-                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Tanggal Selesai:</strong> {{ \Carbon\Carbon::parse($competition->end_date)->format('d M Y') }}</p>
-                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Link Pendaftaran:</strong> 
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Start Date:</strong> {{ \Carbon\Carbon::parse($competition->start_date)->format('d M Y') }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">End Date:</strong> {{ \Carbon\Carbon::parse($competition->end_date)->format('d M Y') }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong class="text-gray-800">Registration Link:</strong> 
                         <a href="{{ $competition->registration_link }}" class="text-indigo-600 hover:underline" target="_blank">
                             {{ Str::limit($competition->registration_link, 30) }}
                         </a>
@@ -38,8 +38,8 @@
             </div>
             <!-- Description -->
             <div class="bg-gray-50 p-4 rounded-lg max-h-96 overflow-y-auto">
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Deskripsi</h3>
-                <p class="text-gray-700 leading-relaxed whitespace-pre-wrap">{{ $competition->description ?? 'Tidak ada deskripsi' }}</p>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Description</h3>
+                <p class="text-gray-700 leading-relaxed whitespace-pre-wrap">{{ $competition->description ?? 'No description available' }}</p>
             </div>
         </div>
 
@@ -50,10 +50,10 @@
                      alt="Poster {{ $competition->title }}"
                      class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-lg mx-auto cursor-pointer shadow-md"
                      onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')">
-                <p class="text-sm text-gray-500 mt-2">Klik gambar untuk melihat ukuran penuh</p>
+                <p class="text-sm text-gray-500 mt-2">Click the image to view full size</p>
             @else
                 <div class="w-48 h-48 md:w-64 md:h-64 bg-gray-100 rounded-lg mx-auto flex items-center justify-center">
-                    <p class="text-gray-500 text-sm">Tidak ada poster</p>
+                    <p class="text-gray-500 text-sm">No poster available</p>
                 </div>
             @endif
         </div>
@@ -62,19 +62,19 @@
         <div class="flex flex-col sm:flex-row sm:justify-between items-center gap-4" data-aos="fade-up" data-aos-delay="250">
             <a href="{{ route('organizer.competitions.index') }}"
                class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center transition min-w-[120px] action-button">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali
+                <i class="fas fa-arrow-left mr-2"></i> Back
             </a>
             <div class="flex gap-3">
                 <a href="{{ route('organizer.competitions.edit', $competition->id) }}"
                    class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg flex items-center transition min-w-[120px] shadow-md action-button">
                     <i class="fas fa-edit mr-2"></i> Edit
                 </a>
-                <form action="{{ route('organizer.competitions.destroy', $competition->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus lomba ini?')">
+                <form action="{{ route('organizer.competitions.destroy', $competition->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this competition?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
                             class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center transition min-w-[120px] shadow-md action-button">
-                        <i class="fas fa-trash mr-2"></i> Hapus
+                        <i class="fas fa-trash mr-2"></i> Delete
                     </button>
                 </form>
             </div>
@@ -89,7 +89,7 @@
             <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
         </div>
         <div class="p-4 border-t border-gray-200">
-            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
         </div>
     </div>
 </div>
@@ -153,7 +153,7 @@
     
     /* Responsive adjustments */
     @media (max-width: 640px) {
-        .max-w-4xl {
+        .max-w-5xl {
             padding-left: 1rem;
             padding-right: 1rem;
         }

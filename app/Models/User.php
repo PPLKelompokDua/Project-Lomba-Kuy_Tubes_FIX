@@ -135,4 +135,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Team::class, 'team_members')
                     ->wherePivot('status', 'accepted');
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

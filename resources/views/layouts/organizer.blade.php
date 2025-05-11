@@ -34,7 +34,7 @@
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex space-x-6 items-center">
         <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-indigo-200 transition font-medium">Dashboard</a>
-        <a href="{{ route('organizer.feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">Views Feedbacks</a>
+        <a href="{{ route('organizer.feedbacks.index') }}" class="text-white hover:text-indigo-200 transition font-medium">View Feedbacks</a>
         @auth
           <div x-data="{ open: false }" class="relative">
             <!-- Profile Picture -->

@@ -24,17 +24,17 @@
 
     <!-- Competitions Table -->
     <div class="bg-white p-6 rounded-lg shadow hover-rise" data-aos="fade-up" data-aos-delay="200">
-        <h2 class="text-xl font-bold mb-4 text-indigo-700">Semua Kompetisi</h2>
+        <h2 class="text-xl font-bold mb-4 text-indigo-700">All Competitions</h2>
 
         @if ($competitions->count())
             <div class="overflow-x-auto">
                 <table class="table-auto w-full text-sm border">
                     <thead class="bg-indigo-100 text-left">
                         <tr>
-                            <th class="p-3">Judul</th>
+                            <th class="p-3">Title</th>
                             <th class="p-3">Organizer</th>
                             <th class="p-3">Deadline</th>
-                            <th class="p-3">Aksi</th>
+                            <th class="p-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,7 +50,7 @@
                                     <form action="{{ route('organizer.competitions.destroy', $competition->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin hapus?')">
                                         @csrf @method('DELETE')
                                         <button class="text-red-600 hover:text-red-800 flex items-center text-sm font-semibold transition" type="submit">
-                                            <i class="fas fa-trash mr-1"></i> Hapus
+                                            <i class="fas fa-trash mr-1"></i> Delete
                                         </button>
                                     </form>
                                 </td>

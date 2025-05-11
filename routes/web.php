@@ -21,6 +21,8 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamsMemberController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\Admin\AssessmentQuestionController;
+use App\Http\Controllers\TaskController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -165,6 +167,12 @@ Route::middleware(['auth'])->group(function () {
         );
     });
 
+    //Task management
+    Route::resource('tasks', TaskController::class);
+    Route::get('/teams/{team}/tasks', [TaskController::class, 'forTeam'])->name('tasks.team');
+
+
+
     // Dashboard redirect sesuai role
     Route::get('/dashboard', function () {
         $role = auth()->user()->role;
@@ -194,7 +202,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/feedbacks', [FeedbackController::class, 'receivedForAdmin'])->name('feedbacks.index');
-    });
+
+        Route::resource('assessment-questions', \App\Http\Controllers\Admin\AssessmentQuestionController::class);
+        Route::resource('assessment-questions', AssessmentQuestionController::class);
+});
     
     // Organizer
     Route::get('/organizer/dashboard', [OrganizerCompetitionController::class, 'index'])->name('organizer.dashboard');

@@ -73,6 +73,9 @@
           <a href="{{ route('admin.feedbacks.index') }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition">
             <i class="fas fa-comments mr-3"></i> View Feedback
           </a>
+          <a href="{{ route('admin.assessment-questions.index') }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition">
+            <i class="fas fa-question-circle mr-3"></i> Soal Assessment
+          </a>
         </nav>
       </div>
     </aside>

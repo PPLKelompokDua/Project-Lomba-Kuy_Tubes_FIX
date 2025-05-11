@@ -50,16 +50,31 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate that at least one feedback field is filled
         $request->validate([
             'team_id' => 'required|exists:teams,id',
+            'feedback_member.*' => 'nullable|string|max:1000',
+            'feedback_platform' => 'nullable|string|max:1000',
+            'feedback_organizer' => 'nullable|string|max:1000',
+        ], [
+            'feedback_member.*.max' => 'Member feedback must not exceed 1000 characters.',
+            'feedback_platform.max' => 'Platform feedback must not exceed 1000 characters.',
+            'feedback_organizer.max' => 'Organizer feedback must not exceed 1000 characters.',
         ]);
 
-        $team = Team::with('acceptedMembers', 'competition')->findOrFail($request->team_id);
+        // Check if at least one feedback field is filled
+        $hasFeedback = collect($request->input('feedback_member', []))->filter()->isNotEmpty() ||
+                      $request->filled('feedback_platform') ||
+                      $request->filled('feedback_organizer');
 
+        if (!$hasFeedback) {
+            return redirect()->back()->withErrors(['feedback' => 'Please provide at least one feedback for a member, platform, or organizer.'])->withInput();
+        }
+
+        $team = Team::with('acceptedMembers', 'competition')->findOrFail($request->team_id);
         $senderId = auth()->id();
 
-        $feedbacksForMe = Feedback::where('target_user_id', Auth::id())->get();
-
+        // Store feedback for members
         foreach ($request->input('feedback_member', []) as $userId => $content) {
             if ($content) {
                 Feedback::updateOrCreate([
@@ -73,6 +88,7 @@ class FeedbackController extends Controller
             }
         }
 
+        // Store feedback for platform
         if ($request->filled('feedback_platform')) {
             Feedback::updateOrCreate([
                 'team_id' => $team->id,
@@ -84,9 +100,9 @@ class FeedbackController extends Controller
             ]);
         }
 
+        // Store feedback for organizer
         if ($team->competition_id && $request->filled('feedback_organizer')) {
             $competition = $team->competition;
-        
             if ($competition && $competition->organizer_id) {
                 Feedback::updateOrCreate([
                     'team_id' => $team->id,
@@ -99,7 +115,7 @@ class FeedbackController extends Controller
             }
         }
 
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback berhasil dikirim!');
+        return redirect()->route('feedbacks.index')->with('success', 'Feedback successfully submitted!');
     }
 
 
@@ -183,14 +199,31 @@ class FeedbackController extends Controller
 
     public function updateByTeam(Request $request, $team_id)
     {
+        // Validate that at least one feedback field is filled
         $request->validate([
             'team_id' => 'required|exists:teams,id',
+            'feedback_member.*' => 'nullable|string|max:1000',
+            'feedback_platform' => 'nullable|string|max:1000',
+            'feedback_organizer' => 'nullable|string|max:1000',
+        ], [
+            'feedback_member.*.max' => 'Member feedback must not exceed 1000 characters.',
+            'feedback_platform.max' => 'Platform feedback must not exceed 1000 characters.',
+            'feedback_organizer.max' => 'Organizer feedback must not exceed 1000 characters.',
         ]);
+
+        // Check if at least one feedback field is filled
+        $hasFeedback = collect($request->input('feedback_member', []))->filter()->isNotEmpty() ||
+                      $request->filled('feedback_platform') ||
+                      $request->filled('feedback_organizer');
+
+        if (!$hasFeedback) {
+            return redirect()->back()->withErrors(['feedback' => 'Please provide at least one feedback for a member, platform, or organizer.'])->withInput();
+        }
 
         $team = Team::with('acceptedMembers', 'competition')->findOrFail($team_id);
         $senderId = auth()->id();
 
-        // Update feedback untuk anggota
+        // Update feedback for members
         foreach ($request->input('feedback_member', []) as $userId => $content) {
             if ($content) {
                 Feedback::updateOrCreate([
@@ -201,10 +234,18 @@ class FeedbackController extends Controller
                 ], [
                     'content' => $content,
                 ]);
+            } else {
+                // Delete feedback if content is empty
+                Feedback::where([
+                    'team_id' => $team->id,
+                    'sender_id' => $senderId,
+                    'target_user_id' => $userId,
+                    'type' => 'member',
+                ])->delete();
             }
         }
 
-        // Update feedback platform
+        // Update feedback for platform
         if ($request->filled('feedback_platform')) {
             Feedback::updateOrCreate([
                 'team_id' => $team->id,
@@ -214,12 +255,19 @@ class FeedbackController extends Controller
             ], [
                 'content' => $request->feedback_platform,
             ]);
+        } else {
+            // Delete platform feedback if empty
+            Feedback::where([
+                'team_id' => $team->id,
+                'sender_id' => $senderId,
+                'type' => 'platform',
+                'target_user_id' => null,
+            ])->delete();
         }
 
-        // Update feedback organizer jika ada
+        // Update feedback for organizer
         if ($team->competition_id && $request->filled('feedback_organizer')) {
             $competition = $team->competition;
-
             if ($competition && $competition->organizer_id) {
                 Feedback::updateOrCreate([
                     'team_id' => $team->id,
@@ -230,9 +278,16 @@ class FeedbackController extends Controller
                     'content' => $request->feedback_organizer,
                 ]);
             }
+        } else {
+            // Delete organizer feedback if empty
+            Feedback::where([
+                'team_id' => $team->id,
+                'sender_id' => $senderId,
+                'type' => 'organizer',
+            ])->delete();
         }
 
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback berhasil diperbarui!');
+        return redirect()->route('feedbacks.index')->with('success', 'Feedback successfully updated!');
     }
 
     public function receivedForOrganizer()

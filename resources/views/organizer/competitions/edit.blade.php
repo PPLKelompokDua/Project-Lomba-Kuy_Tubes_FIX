@@ -1,17 +1,17 @@
 @extends('layouts.organizer')
 
-@section('title', 'Edit Lomba')
+@section('title', 'Edit Competition')
 
 @section('content')
-<div class="max-w-2xl mx-auto py-8">
+<div class="max-w-3xl mx-auto py-8">
     <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8" data-aos="fade-up">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Edit Lomba</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Edit Competition</h2>
             <a href="{{ route('organizer.competitions.index') }}"
                class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold transition"
                data-aos="fade-left">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Dashboard
+                <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
             </a>
         </div>
 
@@ -20,7 +20,7 @@
             <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg relative" role="alert" data-aos="fade-up">
                 <div class="flex items-center">
                     <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span class="font-semibold">Terjadi Kesalahan:</span>
+                    <span class="font-semibold">An Error Occurred:</span>
                 </div>
                 <ul class="list-disc pl-5 mt-2 text-sm">
                     @foreach ($errors->all() as $error)
@@ -39,52 +39,52 @@
             @method('PUT')
 
             <div class="space-y-6">
-                <!-- Judul Lomba -->
+                <!-- Competition Title -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Judul Lomba <span class="text-red-500">*</span></label>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Competition Title <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-heading absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" name="title" id="title" value="{{ old('title', $competition->title) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan judul lomba" required>
+                        <input type="text" name="title" id="title" value="{{ old('title', $competition->title) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter competition title" required>
                         @error('title')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Deskripsi -->
+                <!-- Description -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="150">
-                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi <span class="text-red-500">*</span></label>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-align-left absolute left-3 top-4 text-gray-400"></i>
-                        <textarea name="description" id="description" rows="5" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Jelaskan detail lomba" required>{{ old('description', $competition->description) }}</textarea>
+                        <textarea name="description" id="description" rows="5" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Describe competition details" required>{{ old('description', $competition->description) }}</textarea>
                         @error('description')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Kategori -->
+                <!-- Category -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <label for="category_select" class="block text-sm font-medium text-gray-700 mb-1">Kategori <span class="text-red-500">*</span></label>
+                    <label for="category_select" class="block text-sm font-medium text-gray-700 mb-1">Category <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <select name="category_select" id="category_select" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required onchange="toggleCustomCategory()">
-                            <option value="" disabled>Pilih kategori</option>
-                            <option value="Desain" {{ old('category_select', $competition->category) == 'Desain' ? 'selected' : '' }}>Desain</option>
-                            <option value="Teknologi" {{ old('category_select', $competition->category) == 'Teknologi' ? 'selected' : '' }}>Teknologi</option>
-                            <option value="Musik" {{ old('category_select', $competition->category) == 'Musik' ? 'selected' : '' }}>Musik</option>
-                            <option value="Olahraga" {{ old('category_select', $competition->category) == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
-                            <option value="Pendidikan" {{ old('category_select', $competition->category) == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
-                            <option value="Other" {{ !in_array(old('category_select', $competition->category), ['Desain', 'Teknologi', 'Musik', 'Olahraga', 'Pendidikan']) ? 'selected' : '' }}>Other</option>
+                            <option value="" disabled>Select category</option>
+                            <option value="Design" {{ old('category_select', $competition->category) == 'Design' ? 'selected' : '' }}>Design</option>
+                            <option value="Technology" {{ old('category_select', $competition->category) == 'Technology' ? 'selected' : '' }}>Technology</option>
+                            <option value="Music" {{ old('category_select', $competition->category) == 'Music' ? 'selected' : '' }}>Music</option>
+                            <option value="Sports" {{ old('category_select', $competition->category) == 'Sports' ? 'selected' : '' }}>Sports</option>
+                            <option value="Education" {{ old('category_select', $competition->category) == 'Education' ? 'selected' : '' }}>Education</option>
+                            <option value="Other" {{ !in_array(old('category_select', $competition->category), ['Design', 'Technology', 'Music', 'Sports', 'Education']) ? 'selected' : '' }}>Other</option>
                         </select>
                         @error('category')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div id="customCategoryContainer" class="mt-2 {{ in_array(old('category_select', $competition->category), ['Desain', 'Teknologi', 'Musik', 'Olahraga', 'Pendidikan']) ? 'hidden' : '' }}">
+                    <div id="customCategoryContainer" class="mt-2 {{ in_array(old('category_select', $competition->category), ['Design', 'Technology', 'Music', 'Sports', 'Education']) ? 'hidden' : '' }}">
                         <div class="relative">
                             <i class="fas fa-pen absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" id="custom_category" value="{{ !in_array(old('category_select', $competition->category), ['Desain', 'Teknologi', 'Musik', 'Olahraga', 'Pendidikan']) ? old('category', $competition->category) : '' }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan kategori lain">
+                            <input type="text" id="custom_category" value="{{ !in_array(old('category_select', $competition->category), ['Design', 'Technology', 'Music', 'Sports', 'Education']) ? old('category', $competition->category) : '' }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter other category">
                         </div>
                     </div>
                     <input type="hidden" name="category" id="category" value="{{ old('category', $competition->category) }}">
@@ -102,57 +102,57 @@
                     </div>
                 </div>
 
-                <!-- Hadiah -->
+                <!-- Prize -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <label for="prize" class="block text-sm font-medium text-gray-700 mb-1">Hadiah <span class="text-red-500">*</span></label>
+                    <label for="prize" class="block text-sm font-medium text-gray-700 mb-1">Prize <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-gift absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" name="prize" id="prize" value="{{ old('prize', $competition->prize) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Rp 1.000.000" required>
+                        <input type="text" name="prize" id="prize" value="{{ old('prize', $competition->prize) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Example: $1,000" required>
                         @error('prize')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Link Pendaftaran -->
+                <!-- Registration Link -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="350">
-                    <label for="registration_link" class="block text-sm font-medium text-gray-700 mb-1">Link Pendaftaran <span class="text-red-500">*</span></label>
+                    <label for="registration_link" class="block text-sm font-medium text-gray-700 mb-1">Registration Link <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-link absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="url" name="registration_link" id="registration_link" value="{{ old('registration_link', $competition->registration_link) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan URL pendaftaran" required>
+                        <input type="url" name="registration_link" id="registration_link" value="{{ old('registration_link', $competition->registration_link) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter registration URL" required>
                         @error('registration_link')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Maksimum Peserta -->
+                <!-- Maximum Participants -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="450">
-                    <label for="max_participants" class="block text-sm font-medium text-gray-700 mb-1">Maksimum Peserta (Opsional)</label>
+                    <label for="max_participants" class="block text-sm font-medium text-gray-700 mb-1">Maximum Participants (Optional)</label>
                     <div class="relative">
                         <i class="fas fa-users absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="number" name="max_participants" id="max_participants" value="{{ old('max_participants', $competition->max_participants) }}" min="1" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan jumlah maksimum peserta">
+                        <input type="number" name="max_participants" id="max_participants" value="{{ old('max_participants', $competition->max_participants) }}" min="1" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter maximum number of participants">
                         @error('max_participants')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Lokasi -->
+                <!-- Location -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="500">
-                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Lokasi <span class="text-red-500">*</span></label>
+                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" name="location" id="location" value="{{ old('location', $competition->location) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan lokasi lomba" required>
+                        <input type="text" name="location" id="location" value="{{ old('location', $competition->location) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter competition location" required>
                         @error('location')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Tanggal Mulai -->
+                <!-- Start Date -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="550">
-                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
+                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-calendar-plus absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <input type="date" name="start_date" id="start_date" value="{{ old('start_date', $competition->start_date->format('Y-m-d')) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
@@ -162,9 +162,9 @@
                     </div>
                 </div>
 
-                <!-- Tanggal Selesai -->
+                <!-- End Date -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="600">
-                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai <span class="text-red-500">*</span></label>
+                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-calendar-minus absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <input type="date" name="end_date" id="end_date" value="{{ old('end_date', $competition->end_date->format('Y-m-d')) }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
@@ -174,9 +174,9 @@
                     </div>
                 </div>
 
-                <!-- Poster Lomba -->
+                <!-- Competition Poster -->
                 <div class="mb-6" data-aos="fade-up" data-aos-delay="650">
-                    <label for="photo" class="block text-sm font-medium text-gray-700 mb-1">Poster Lomba (Opsional)</label>
+                    <label for="photo" class="block text-sm font-medium text-gray-700 mb-1">Competition Poster (Optional)</label>
                     <div class="relative">
                         <input type="file" name="photo" id="photo" accept="image/*" class="w-full border border-gray-300 rounded-lg p-2 cursor-pointer">
                         @error('photo')
@@ -185,14 +185,14 @@
                     </div>
                     @if ($competition->photo)
                         <div class="mt-4">
-                            <p class="text-sm text-gray-600 mb-2">Poster Saat Ini:</p>
+                            <p class="text-sm text-gray-600 mb-2">Current Poster:</p>
                             <img src="{{ asset('storage/' . $competition->photo) }}" class="w-48 h-48 object-cover rounded-lg cursor-pointer" alt="Current Poster" onclick="openPreviewModal('{{ asset('storage/' . $competition->photo) }}')">
                         </div>
                     @endif
                     <div id="imagePreview" class="mt-4 hidden">
                         <img id="previewImage" class="w-48 h-48 object-cover rounded-lg" alt="Poster Preview">
                         <button type="button" class="mt-2 text-red-600 hover:text-red-800 text-sm" onclick="clearImagePreview()">
-                            <i class="fas fa-trash mr-1"></i> Hapus Gambar
+                            <i class="fas fa-trash mr-1"></i> Remove Image
                         </button>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                 <!-- Submit Button -->
                 <div class="flex justify-end" data-aos="fade-up" data-aos-delay="700">
                     <button type="submit" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition shadow-lg flex items-center">
-                        <i class="fas fa-save mr-2"></i> Update Lomba
+                        <i class="fas fa-save mr-2"></i> Update Competition
                     </button>
                 </div>
             </div>
@@ -215,7 +215,7 @@
             <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
         </div>
         <div class="p-4 border-t border-gray-200">
-            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
         </div>
     </div>
 </div>
@@ -266,7 +266,7 @@
     
     /* Responsive adjustments */
     @media (max-width: 640px) {
-        .max-w-2xl {
+        .max-w-3xl {
             padding-left: 1rem;
             padding-right: 1rem;
         }

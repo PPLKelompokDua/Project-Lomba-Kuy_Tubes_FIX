@@ -1,17 +1,17 @@
 @extends('layouts.organizer')
 
-@section('title', 'Tambah Lomba')
+@section('title', 'Add Competition')
 
 @section('content')
-<div class="max-w-2xl mx-auto py-8">
+<div class="max-w-3xl mx-auto py-8">
     <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8" data-aos="fade-up">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Tambah Lomba Baru</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Add New Competition</h2>
             <a href="{{ route('organizer.competitions.index') }}"
                class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold transition"
                data-aos="fade-left">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Dashboard
+                <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
             </a>
         </div>
 
@@ -19,7 +19,7 @@
         <div id="client-errors" class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg relative hidden" role="alert" data-aos="fade-up">
             <div class="flex items-center">
                 <i class="fas fa-exclamation-circle mr-2"></i>
-                <span class="font-semibold">Terjadi Kesalahan:</span>
+                <span class="font-semibold">An Error Occurred:</span>
             </div>
             <ul id="client-error-list" class="list-disc pl-5 mt-2 text-sm"></ul>
             <button class="absolute top-2 right-2 text-red-500 hover:text-red-700" onclick="this.parentElement.classList.add('hidden')">
@@ -32,7 +32,7 @@
             <div class="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg relative" role="alert" data-aos="fade-up">
                 <div class="flex items-center">
                     <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span class="font-semibold">Terjadi Kesalahan:</span>
+                    <span class="font-semibold">An Error Occurred:</span>
                 </div>
                 <ul class="list-disc pl-5 mt-2 text-sm">
                     @foreach ($errors->all() as $error)
@@ -51,41 +51,41 @@
             @csrf
 
             <div class="space-y-6">
-                <!-- Judul Lomba -->
+                <!-- Competition Title -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Judul Lomba <span class="text-red-500">*</span></label>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Competition Title <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-heading absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" name="title" id="title" value="{{ old('title') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan judul lomba" required>
+                        <input type="text" name="title" id="title" value="{{ old('title') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter competition title" required>
                         @error('title')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Deskripsi -->
+                <!-- Description -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="150">
-                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi <span class="text-red-500">*</span></label>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-align-left absolute left-3 top-4 text-gray-400"></i>
-                        <textarea name="description" id="description" rows="5" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Jelaskan detail lomba" required>{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" rows="5" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Describe competition details" required>{{ old('description') }}</textarea>
                         @error('description')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Kategori -->
+                <!-- Category -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <label for="category_select" class="block text-sm font-medium text-gray-700 mb-1">Kategori <span class="text-red-500">*</span></label>
+                    <label for="category_select" class="block text-sm font-medium text-gray-700 mb-1">Category <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <select name="category_select" id="category_select"
                             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                             required onchange="toggleCustomCategory()">
-                            <option value="" disabled {{ old('category') ? '' : 'selected' }}>Pilih kategori</option>
+                            <option value="" disabled {{ old('category') ? '' : 'selected' }}>Select category</option>
                             @php
-                                $preset = ['Desain', 'Teknologi', 'Musik', 'Olahraga', 'Pendidikan'];
+                                $preset = ['Design', 'Technology', 'Music', 'Sports', 'Education'];
                                 $category = old('category');
                             @endphp
                             @foreach($preset as $presetCategory)
@@ -97,15 +97,15 @@
                         </select>
                     </div>
 
-                    {{-- Input Custom Category --}}
+                    <!-- Input Custom Category -->
                     <div id="customCategoryContainer" class="mt-2 {{ $category && !in_array($category, $preset) ? '' : 'hidden' }}">
                         <div class="relative">
                             <i class="fas fa-pen absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                             <input type="text" id="custom_category"
                                 value="{{ $category && !in_array($category, $preset) ? $category : '' }}"
                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                                placeholder="Masukkan kategori lain">
-                            <span id="custom_category-error" class="text-red-500 text-sm hidden">Kategori lain harus diisi.</span>
+                                placeholder="Enter other category">
+                            <span id="custom_category-error" class="text-red-500 text-sm hidden">Other category is required.</span>
                         </div>
                     </div>
 
@@ -115,7 +115,7 @@
                     @enderror
                 </div>
                 
-                <!-- Deadline (Fixed) -->
+                <!-- Deadline -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="250">
                     <label for="deadline" class="block text-sm font-medium text-gray-700 mb-1">Deadline <span class="text-red-500">*</span></label>
                     <div class="relative">
@@ -127,60 +127,60 @@
                     @error('deadline')
                         <span class="text-red-500 text-sm block mt-1">{{ $message }}</span>
                     @enderror
-                    <span id="deadline-error" class="text-red-500 text-sm hidden block mt-1">Deadline harus hari ini atau di masa depan.</span>
+                    <span id="deadline-error" class="text-red-500 text-sm hidden block mt-1">Deadline must be today or in the future.</span>
                 </div>
 
-                <!-- Hadiah -->
+                <!-- Prize -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <label for="prize" class="block text-sm font-medium text-gray-700 mb-1">Hadiah <span class="text-red-500">*</span></label>
+                    <label for="prize" class="block text-sm font-medium text-gray-700 mb-1">Prize <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-gift absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" name="prize" id="prize" value="{{ old('prize') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Rp 1.000.000" required>
+                        <input type="text" name="prize" id="prize" value="{{ old('prize') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Example: $1,000" required>
                         @error('prize')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Link Pendaftaran -->
+                <!-- Registration Link -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="350">
-                    <label for="registration_link" class="block text-sm font-medium text-gray-700 mb-1">Link Pendaftaran <span class="text-red-500">*</span></label>
+                    <label for="registration_link" class="block text-sm font-medium text-gray-700 mb-1">Registration Link <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-link absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="url" name="registration_link" id="registration_link" value="{{ old('registration_link') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan URL pendaftaran" required>
+                        <input type="url" name="registration_link" id="registration_link" value="{{ old('registration_link') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter registration URL" required>
                         @error('registration_link')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Maksimum Peserta -->
+                <!-- Maximum Participants -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="450">
-                    <label for="max_participants" class="block text-sm font-medium text-gray-700 mb-1">Maksimum Peserta (Opsional)</label>
+                    <label for="max_participants" class="block text-sm font-medium text-gray-700 mb-1">Maximum Participants (Optional)</label>
                     <div class="relative">
                         <i class="fas fa-users absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="number" name="max_participants" id="max_participants" value="{{ old('max_participants') }}" min="1" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan jumlah maksimum peserta">
+                        <input type="number" name="max_participants" id="max_participants" value="{{ old('max_participants') }}" min="1" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter maximum number of participants">
                         @error('max_participants')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Lokasi -->
+                <!-- Location -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="500">
-                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Lokasi <span class="text-red-500">*</span></label>
+                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" name="location" id="location" value="{{ old('location') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Masukkan lokasi lomba" required>
+                        <input type="text" name="location" id="location" value="{{ old('location') }}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter competition location" required>
                         @error('location')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!-- Tanggal Mulai (Fixed) -->
+                <!-- Start Date -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="550">
-                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
+                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
                             <i class="fas fa-calendar-plus"></i>
@@ -190,12 +190,12 @@
                     @error('start_date')
                         <span class="text-red-500 text-sm block mt-1">{{ $message }}</span>
                     @enderror
-                    <span class="text-sm text-gray-500 block mt-1">Tanggal Mulai dimulai dari awal masa registrasi</span>
+                    <span class="text-sm text-gray-500 block mt-1">Start Date begins from the start of the registration period</span>
                 </div>
 
-                <!-- Tanggal Selesai (Fixed) -->
+                <!-- End Date -->
                 <div class="mb-4" data-aos="fade-up" data-aos-delay="600">
-                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai <span class="text-red-500">*</span></label>
+                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
                             <i class="fas fa-calendar-minus"></i>
@@ -205,13 +205,13 @@
                     @error('end_date')
                         <span class="text-red-500 text-sm block mt-1">{{ $message }}</span>
                     @enderror
-                    <span id="end_date-error" class="text-red-500 text-sm hidden block mt-1">Tanggal Selesai harus di masa depan.</span>
-                    <span class="text-sm text-gray-500 block mt-1">Tanggal Selesai hingga semua timeline lomba selesai contohnya pengumuman lomba</span>
+                    <span id="end_date-error" class="text-red-500 text-sm hidden block mt-1">End Date must be in the future.</span>
+                    <span class="text-sm text-gray-500 block mt-1">End Date until all competition timelines are complete, e.g., announcement</span>
                 </div>
 
-                <!-- Poster Lomba -->
+                <!-- Competition Poster -->
                 <div class="mb-6" data-aos="fade-up" data-aos-delay="650">
-                    <label for="photo" class="block text-sm font-medium text-gray-700 mb-1">Poster Lomba (Opsional)</label>
+                    <label for="photo" class="block text-sm font-medium text-gray-700 mb-1">Competition Poster (Optional)</label>
                     <div class="relative">
                         <input type="file" name="photo" id="photo" accept="image/*" class="w-full border border-gray-300 rounded-lg p-2 cursor-pointer">
                         @error('photo')
@@ -221,7 +221,7 @@
                     <div id="imagePreview" class="mt-4 hidden">
                         <img id="previewImage" class="w-48 h-48 object-cover rounded-lg" alt="Poster Preview">
                         <button type="button" class="mt-2 text-red-600 hover:text-red-800 text-sm" onclick="clearImagePreview()">
-                            <i class="fas fa-trash mr-1"></i> Hapus Gambar
+                            <i class="fas fa-trash mr-1"></i> Remove Image
                         </button>
                     </div>
                 </div>
@@ -229,7 +229,7 @@
                 <!-- Submit Button -->
                 <div dusk="btn-simpan-lomba" class="flex justify-end" data-aos="fade-up" data-aos-delay="700">
                     <button type="submit" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition shadow-lg flex items-center">
-                        <i class="fas fa-save mr-2"></i> Simpan Lomba
+                        <i class="fas fa-save mr-2"></i> Save Competition
                     </button>
                 </div>
             </div>
@@ -244,7 +244,7 @@
             <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
         </div>
         <div class="p-4 border-t border-gray-200">
-            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
         </div>
     </div>
 </div>
@@ -304,7 +304,7 @@
     
     /* Responsive adjustments */
     @media (max-width: 640px) {
-        .max-w-2xl {
+        .max-w-3xl {
             padding-left: 1rem;
             padding-right: 1rem;
         }
@@ -322,41 +322,45 @@
     });
 
     function toggleCustomCategory() {
-    const select = document.getElementById('category_select');
-    const customContainer = document.getElementById('customCategoryContainer');
-    const customInput = document.getElementById('custom_category');
-    const categoryInput = document.getElementById('category');
-
-    if (select.value === 'Other') {
-        customContainer.classList.remove('hidden');
-        customInput.setAttribute('required', 'required');
-        categoryInput.value = customInput.value.trim();
-    } else {
-        customContainer.classList.add('hidden');
-        customInput.removeAttribute('required');
-        customInput.value = '';
-        categoryInput.value = select.value;
-    }
-}
-
-    // Saat form disubmit
-    document.getElementById('competitionForm').addEventListener('submit', function(event) {
         const select = document.getElementById('category_select');
+        const customContainer = document.getElementById('customCategoryContainer');
         const customInput = document.getElementById('custom_category');
         const categoryInput = document.getElementById('category');
 
-        // Sinkronkan sebelum validasi
         if (select.value === 'Other') {
+            customContainer.classList.remove('hidden');
+            customInput.setAttribute('required', 'required');
             categoryInput.value = customInput.value.trim();
         } else {
+            customContainer.classList.add('hidden');
+            customInput.removeAttribute('required');
+            customInput.value = '';
             categoryInput.value = select.value;
         }
+    }
 
-        if (!validateForm()) {
-            event.preventDefault();
+    // Validate category
+    function validateCategory() {
+        const select = document.getElementById('category_select');
+        const customInput = document.getElementById('custom_category');
+        const error = document.getElementById('custom_category-error');
+        let isValid = true;
+        let errors = [];
+
+        if (select.value === 'Other' && !customInput.value.trim()) {
+            error.classList.remove('hidden');
+            customInput.classList.add('border-red-500');
+            errors.push('Other category is required.');
+            isValid = false;
+        } else {
+            error.classList.add('hidden');
+            customInput.classList.remove('border-red-500');
         }
-    });
 
+        return { isValid, errors };
+    }
+
+    // Sync category on form submission
     function syncCategory() {
         const select = document.getElementById('category_select');
         const customInput = document.getElementById('custom_category');
@@ -366,7 +370,7 @@
             const val = customInput.value.trim();
             categoryInput.value = val;
             if (!val) {
-                alert("Kategori lain harus diisi.");
+                alert("Other category is required.");
                 customInput.focus();
                 return false;
             }
@@ -468,7 +472,7 @@
         if (!deadlineInput.value || deadlineInput.value < today) {
             deadlineError.classList.remove('hidden');
             deadlineInput.classList.add('border-red-500');
-            errors.push('Deadline harus hari ini atau di masa depan.');
+            errors.push('Deadline must be today or in the future.');
             isValid = false;
         } else {
             deadlineError.classList.add('hidden');
@@ -479,7 +483,7 @@
         if (!endDateInput.value || endDateInput.value <= today) {
             endDateError.classList.remove('hidden');
             endDateInput.classList.add('border-red-500');
-            errors.push('Tanggal Selesai harus di masa depan.');
+            errors.push('End Date must be in the future.');
             isValid = false;
         } else {
             endDateError.classList.add('hidden');

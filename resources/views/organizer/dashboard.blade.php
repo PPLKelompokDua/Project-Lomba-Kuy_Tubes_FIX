@@ -13,11 +13,11 @@
             
             <div class="relative grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2" data-aos="fade-right">Selamat datang, {{ auth()->user()->name }}!</h1>
-                    <p class="text-indigo-100 text-lg mb-6" data-aos="fade-right" data-aos-delay="100">Kelola kompetisi Anda dan wujudkan acara luar biasa.</p>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2" data-aos="fade-right">Welcome, {{ auth()->user()->name }}!</h1>
+                    <p class="text-indigo-100 text-lg mb-6" data-aos="fade-right" data-aos-delay="100">Manage your competitions and create amazing events.</p>
                     <a href="{{ route('organizer.competitions.create') }}" class="bg-white text-indigo-600 hover:bg-indigo-50 font-semibold rounded-lg px-5 py-3 transition shadow-lg flex items-center w-fit" data-aos="fade-right" data-aos-delay="200">
                         <i class="fas fa-plus-circle mr-2"></i>
-                        Tambah Lomba Baru
+                        Add New Competition
                     </a>
                 </div>
                 <div class="grid grid-cols-1 gap-4" data-aos="fade-left">
@@ -26,7 +26,7 @@
                             <div class="p-2 bg-indigo-900 bg-opacity-50 rounded-lg">
                                 <i class="fas fa-trophy text-white text-2xl"></i>
                             </div>
-                            <span class="text-white text-lg font-semibold">Total Kompetisi Dibuat</span>
+                            <span class="text-white text-lg font-semibold">Total Competitions Created</span>
                         </div>
                         <h4 class="text-4xl font-bold text-white">{{ $totalCompetitions }}</h4>
                     </div>
@@ -38,9 +38,9 @@
     <!-- Competitions Table -->
     <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden" data-aos="fade-up">
         <div class="border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-            <h2 class="text-xl font-bold text-gray-800">Kompetisi yang Kamu Buat</h2>
+            <h2 class="text-xl font-bold text-gray-800">Competitions You Created</h2>
             <a href="{{ route('organizer.competitions.create') }}" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold">
-                <i class="fas fa-plus-circle mr-1"></i> Tambah Lomba
+                <i class="fas fa-plus-circle mr-1"></i> Add Competition
             </a>
         </div>
         
@@ -50,11 +50,11 @@
                     <thead class="bg-indigo-50 text-left text-gray-700">
                         <tr>
                             <th class="p-4">Poster</th>
-                            <th class="p-4">Judul</th>
-                            <th class="p-4">Kategori</th>
+                            <th class="p-4">Title</th>
+                            <th class="p-4">Category</th>
                             <th class="p-4">Deadline</th>
-                            <th class="p-4">Hadiah</th>
-                            <th class="p-4 text-center">Aksi</th>
+                            <th class="p-4">Prize</th>
+                            <th class="p-4 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,13 +69,13 @@
                                     >
                                 </td>
                                 <td class="p-4 font-medium">{{ $competition->title }}</td>
-                                <td class="p-4">{{ $competition->category ?? 'Umum' }}</td>
+                                <td class="p-4">{{ $competition->category ?? 'General' }}</td>
                                 <td class="p-4">{{ \Carbon\Carbon::parse($competition->deadline)->format('d M Y') }}</td>
                                 <td class="p-4">{{ $competition->prize }}</td>
                                 <td class="p-4 flex gap-3 justify-center">
                                     <a href="{{ route('organizer.competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}"
                                        class="text-indigo-600 hover:bg-indigo-100 p-2 rounded-full transition"
-                                       title="Detail">
+                                       title="Details">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="{{ route('organizer.competitions.edit', $competition->id) }}" dusk="edit-lomba-{{ $competition->id }}"
@@ -85,11 +85,11 @@
                                     </a>
                                     <form action="{{ route('organizer.competitions.destroy', $competition->id) }}"
                                           method="POST"
-                                          onsubmit="return confirm('Yakin ingin menghapus lomba ini?')">
+                                          onsubmit="return confirm('Are you sure you want to delete this competition?')">
                                         @csrf @method('DELETE')
                                         <button dusk="hapus-lomba-{{ $competition->id }}" class="text-red-600 hover:bg-red-100 p-2 rounded-full transition"
                                                 type="submit"
-                                                title="Hapus">
+                                                title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -104,10 +104,10 @@
                 <svg class="w-16 h-16 text-indigo-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Belum ada kompetisi</h3>
-                <p class="text-gray-600 mb-4">Buat kompetisi pertama Anda sekarang!</p>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">No competitions yet</h3>
+                <p class="text-gray-600 mb-4">Create your first competition now!</p>
                 <a href="{{ route('organizer.competitions.create') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg px-5 py-2.5">
-                    Tambah Kompetisi
+                    Add Competition
                 </a>
             </div>
         @endif
@@ -126,7 +126,7 @@
                 <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
             </div>
             <div class="p-4 border-t border-gray-200">
-                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+                <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
             </div>
         </div>
     </div>

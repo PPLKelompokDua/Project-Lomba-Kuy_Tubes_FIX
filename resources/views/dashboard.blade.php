@@ -314,78 +314,72 @@
                 </div>
             </div>
             
-            <!-- Active Competition Progress -->
-            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-                <div class="border-b border-gray-100 px-6 py-4">
-                    <h2 class="text-lg font-bold text-gray-800">Active Competition Task</h2>
+            <!-- Active Competition Tasks -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transform transition-all hover:shadow-xl hover:-translate-y-1">
+                <div class="border-b border-gray-100 px-6 py-4 bg-gradient-to-r from-indigo-50 to-white flex justify-between items-center relative">
+                    <h2 class="text-lg font-bold text-gray-800 z-10">Upcoming Tasks (Nearest Deadlines)</h2>
+                    <div class="flex items-center space-x-3 z-10">
+                        <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width: {{ $overallProgress }}%;"></div>
+                        </div>
+                        <span class="text-sm text-gray-600 flex items-center">
+                            <span class="font-semibold text-indigo-600 relative">
+                                {{ $overallProgress }}%
+                                <span class="absolute -top-2 -right-4 w-4 h-4 bg-indigo-600 rounded-full opacity-20 animate-ping"></span>
+                            </span>
+                        </span>
+                    </div>
+                    <!-- Decorative gradient overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-transparent opacity-50 blur-md"></div>
                 </div>
-                
-                @if(isset($activeCompetitions) && $activeCompetitions > 0)
-                <div class="divide-y divide-gray-100">
-                    <!-- Sample Active Competition 1 -->
-                    <div class="px-6 py-4 hover:bg-gray-50 transition">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="font-semibold text-gray-800">UI/UX Design Competition 2025</h3>
-                                <p class="text-sm text-gray-500">Deadline: May 30, 2025</p>
+
+                @if($assignedTasks->count())
+                <div class="divide-y divide-indigo-100/50">
+                    @foreach($assignedTasks as $task)
+                    <div class="px-6 py-5 hover:bg-indigo-50/50 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                        <div class="flex justify-between items-start gap-4 relative">
+                            <!-- Task Details -->
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 text-lg group-hover:text-indigo-600 transition-colors">
+                                    {{ $task->title }}
+                                </h3>
+                                <div class="text-sm text-gray-600 space-y-1 mt-2">
+                                    <p>Competition: {{ $task->team->competition_name ?? '-' }}</p>
+                                    <p>Deadline: {{ \Carbon\Carbon::parse($task->due_date)->format('d M Y') ?? '-' }}</p>
+                                    <p>Team: {{ $task->team->name ?? '-' }}</p>
+                                </div>
                             </div>
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">On Going</span>
+                            <!-- Status Badge with Animation -->
+                            <span class="status-badge {{ str_replace('_', '-', $task->status) }} text-xs font-medium px-3 py-1.5 rounded-full shadow-sm transform transition-all group-hover:scale-105">
+                                {{ ucfirst(str_replace('_', ' ', $task->status)) }}
+                                <span class="ml-1 inline-block w-2 h-2 rounded-full animate-pulse" style="background-color: inherit;"></span>
+                            </span>
                         </div>
-                        <div class="mt-3">
-                            <div class="flex justify-between text-xs text-gray-600 mb-1">
-                                <span>Progress</span>
-                                <span>65%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 65%"></div>
-                            </div>
-                        </div>
-                        <div class="mt-3 flex justify-between items-center">
-                            <div class="flex -space-x-2">
-                                <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
-                                <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
-                                <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
-                            </div>
-                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Details →</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Sample Active Competition 2 -->
-                    <div class="px-6 py-4 hover:bg-gray-50 transition">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="font-semibold text-gray-800">Tel-U National Hackathon</h3>
-                                <p class="text-sm text-gray-500">Deadline: June 15, 2025</p>
-                            </div>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Newly Registered</span>
-                        </div>
-                        <div class="mt-3">
-                            <div class="flex justify-between text-xs text-gray-600 mb-1">
-                                <span>Progress</span>
-                                <span>20%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 20%"></div>
-                            </div>
-                        </div>
-                        <div class="mt-3 flex justify-between items-center">
-                            <div class="flex -space-x-2">
-                                <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
-                                <img class="w-7 h-7 rounded-full border-2 border-white" src="/api/placeholder/30/30" alt="Team member">
-                            </div>
-                            <a href="#" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Details →</a>
+                        <div class="mt-4 flex justify-end">
+                            <a href="{{ route('tasks.index', ['team_id' => $task->team_id]) }}" 
+                            class="text-xs text-indigo-600 hover:text-indigo-700 font-medium flex items-center group/link transition-all">
+                                View Team Tasks →
+                                <svg class="w-3 h-3 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
+                    @endforeach
                 </div>
                 @else
-                <div class="p-8 text-center">
-                    <svg class="w-12 h-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                <div class="p-10 text-center bg-indigo-50/50 rounded-b-xl relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-transparent opacity-30 blur-md"></div>
+                    <svg class="w-16 h-16 text-gray-400 mx-auto mb-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    <h3 class="text-gray-700 font-medium mb-1">No Active Competitions</h3>
-                    <p class="text-gray-500 text-sm mb-4">You haven't joined any competitions yet.</p>
-                    <a href="{{ route('explore') }}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                    <h3 class="text-gray-700 font-medium mb-3 relative z-10">No Tasks Assigned</h3>
+                    <p class="text-gray-500 text-sm mb-6 relative z-10">You are not assigned to any tasks yet.</p>
+                    <a href="{{ route('explore') }}" class="text-indigo-600 hover:text-indigo-700 text-sm font-medium relative z-10 inline-flex items-center">
                         Explore Competitions →
+                        <svg class="w-4 h-4 ml-1 transform hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
                     </a>
                 </div>
                 @endif
@@ -932,4 +926,71 @@
         // In a real application, make an AJAX call to mark notifications as read in the database
     }
 </script>
+
+<style>
+/* Status Badge Styles */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.status-badge.pending {
+    background: #fef3c7; /* Warm yellow */
+    color: #d97706; /* Amber text */
+}
+
+.status-badge.pending .animate-pulse {
+    background: #d97706 !important; /* Match amber text */
+}
+
+.status-badge.in-progress {
+    background: #dbeafe; /* Light blue */
+    color: #1e40af; /* Dark blue text */
+}
+
+.status-badge.in-progress .animate-pulse {
+    background: #1e40af !important; /* Match dark blue text */
+}
+
+.status-badge.completed {
+    background: #d1fae5; /* Light green */
+    color: #047857; /* Green text */
+}
+
+.status-badge.completed .animate-pulse {
+    background: #047857 !important; /* Match green text */
+}
+
+.status-badge.blocked {
+    background: #fee2e2; /* Light red */
+    color: #dc2626; /* Red text */
+}
+
+.status-badge.blocked .animate-pulse {
+    background: #dc2626 !important; /* Match red text */
+}
+
+/* Progress Bar Animation */
+.progress-bar {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.2), transparent);
+    animation: progress-shine 2s infinite;
+}
+
+@keyframes progress-shine {
+    100% { left: 100%; }
+}
+</style>
 @endpush

@@ -15,6 +15,8 @@ class Task extends Model
         'due_date',
         'status',
         'completed_at',
+        'blocked_at',
+        'blocker_reason',
     ];
 
     public function user()
@@ -30,5 +32,10 @@ class Task extends Model
     public function assignedUser()
     {
         return $this->belongsTo(User::class, 'assigned_user_id');
+    }
+    
+    public function competition()
+    {
+        return $this->belongsTo(Competition::class);
     }
 }

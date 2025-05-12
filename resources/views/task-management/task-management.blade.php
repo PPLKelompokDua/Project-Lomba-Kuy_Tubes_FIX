@@ -115,7 +115,6 @@
                             required>
                             <option value="pending">Pending</option>
                             <option value="in_progress">In Progress</option>
-                            <option value="completed">Completed</option>
                         </select>
                     </div>
                 </div>
@@ -141,14 +140,49 @@
 </div>
 
         <!-- All Tasks -->
-        <div class="card shadow-sm mb-5">
-            <div class="card-header bg-transparent">
-                <h2 class="section-title mb-0"><i class="fas fa-users me-2"></i>All Team Tasks</h2>
+        <div class="card shadow-lg mb-5 rounded-xl border border-gray-100 overflow-hidden">
+            <div class="card-header bg-gradient-to-r from-indigo-50 to-white px-5 py-4 flex justify-between items-center relative">
+                <h2 class="section-title mb-0 text-lg font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-users me-2 text-indigo-600"></i>All Team Tasks
+                </h2>
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-transparent opacity-50 blur-md"></div>
             </div>
+            <div class="card-body p-5">
+                <!-- Progress Overview -->
+                <div class="bg-indigo-50/50 rounded-lg p-4 mb-5 shadow-sm">
+                    <h4 class="text-indigo-700 font-semibold text-base mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Progress Overview
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- User's Assigned Task Progress -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1 text-sm text-gray-700">
+                                <span class="font-medium">Your Task Progress</span>
+                                <span class="font-semibold text-indigo-600">{{ $overallProgress }}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500 progress-bar" style="width: {{ $overallProgress }}%;"></div>
+                            </div>
+                        </div>
+                        <!-- Overall Team Progress -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1 text-sm text-gray-700">
+                                <span class="font-medium">Overall Team Task Progress</span>
+                                <span class="font-semibold text-green-600">{{ $teamProgress }}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-green-500 h-2.5 rounded-full transition-all duration-500 progress-bar" style="width: {{ $teamProgress }}%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <div class="card-body p-4">
                 <div class="task-list">
                     @forelse($tasks as $task)
-                        <div class="task-item">
+                        <div class="task-item border border-indigo-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
                             <div class="task-info">
                                 <h4>{{ $task->title }}</h4>
                                 <p>{{ $task->description }}</p>
@@ -156,18 +190,18 @@
                                     @php
                                         $due = \Carbon\Carbon::parse($task->due_date);
                                         $now = \Carbon\Carbon::now();
-                                        $daysLeft = $now->diffInDays($due, false); // hasilnya pasti bulat, bisa negatif
+                                        $daysLeft = (int) $now->diffInDays($due, false); // Ensure integer, though diffInDays already returns integer
                                     @endphp
 
                                     <span class="due-date">
                                         <i class="fas fa-calendar me-1"></i>Due: {{ $due->format('d M Y') }}
                                         <small class="text-muted">
                                             @if($daysLeft > 0)
-                                                ({{ $daysLeft }} day{{ $daysLeft > 1 ? 's' : '' }} left)
+                                                ({{ $daysLeft }} day{{ $daysLeft !== 1 ? 's' : '' }} left)
                                             @elseif($daysLeft === 0)
                                                 (Due today)
                                             @else
-                                                (Overdue {{ abs($daysLeft) }} day{{ abs($daysLeft) > 1 ? 's' : '' }})
+                                                (Overdue {{ abs($daysLeft) }} day{{ abs($daysLeft) !== 1 ? 's' : '' }})
                                             @endif
                                         </small>
                                     </span>
@@ -176,6 +210,8 @@
                                             <i class="fas fa-hourglass-half me-1"></i>
                                         @elseif($task->status == 'in_progress')
                                             <i class="fas fa-spinner me-1"></i>
+                                        @elseif($task->status == 'blocked')
+                                            <i class="fas fa-ban me-1"></i>
                                         @else
                                             <i class="fas fa-check-circle me-1"></i>
                                         @endif
@@ -258,13 +294,20 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><i class="fas fa-flag me-2"></i>Status</label>
-                                <select name="status" id="edit_status" class="form-control" required>
+                                <select name="status" id="edit_status" class="form-control" required onchange="toggleBlockerReason(this.value)">
                                     <option value="pending">Pending</option>
                                     <option value="in_progress">In Progress</option>
                                     <option value="completed">Completed</option>
+                                    <option value="blocked">Blocked</option>
                                 </select>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Tambahkan ini di luar row -->
+                    <div class="form-group mb-4" id="blocker_reason_container" style="display: none;">
+                        <label><i class="fas fa-exclamation-circle me-2"></i>Reason for Block</label>
+                        <input type="text" name="blocker_reason" id="edit_blocker_reason" class="form-control form-control-lg" placeholder="Why is this task blocked?">
                     </div>
                 </form>
             </div>
@@ -537,6 +580,11 @@
     color: #155724;
 }
 
+.status-badge.blocked {
+    background: #fee2e2; /* Light red background */
+    color: #dc2626; /* Red text to match the icon */
+}
+
 .task-actions {
     display: flex;
     gap: 10px;
@@ -659,6 +707,8 @@ function editTask(taskId) {
             document.getElementById('edit_description').value = task.description;
             document.getElementById('edit_due_date').value = task.due_date;
             document.getElementById('edit_status').value = task.status;
+
+            toggleBlockerReason(task.status); // <-- Important here!
             
             // Set form action
             document.getElementById('editTaskForm').action = `/tasks/${taskId}`;
@@ -678,4 +728,28 @@ function submitEditForm() {
     document.getElementById('editTaskForm').submit();
 }
 </script>
+
+<script>
+function toggleBlockerReason(status) {
+    const reasonField = document.getElementById('blocker_reason_container');
+    if (status === 'blocked') {
+        reasonField.style.display = 'block';
+    } else {
+        reasonField.style.display = 'none';
+        document.getElementById('edit_blocker_reason').value = '';
+    }
+}
+</script>
+
+<style>
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+.modal-content {
+    margin: auto;
+}
+</style>
+
 @endsection

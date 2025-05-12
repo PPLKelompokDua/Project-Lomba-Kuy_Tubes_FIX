@@ -10,7 +10,7 @@
             <div class="bg-gradient-to-r from-indigo-700 to-purple-600" style="background: linear-gradient(to right, #4f46e5, #6366f1);">
                 <div class="d-flex justify-content-between align-items-center py-4 px-4">
                     <div>
-                        <h2 class="mb-0 fw-bold text-white">Feedback for Teams</h2>
+                        <h2 class="mb-0 font-bold text-white text-4xl">Feedback for Teams</h2>
                         <p class="text-white-50 mb-0">Evaluate team performance and collaboration</p>
                     </div>
                     <a href="{{ route('feedbacks.received') }}" class="btn btn-light d-flex align-items-center gap-2">

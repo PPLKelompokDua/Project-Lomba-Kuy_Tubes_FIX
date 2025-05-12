@@ -9,50 +9,90 @@ use App\Models\Team;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+        $userId = $user->id;
 
-        // Ambil semua tim yang user ikuti atau pimpin
-        $teams = Team::where('leader_id', $user->id)
-                    ->orWhereHas('acceptedMembers', fn ($q) => $q->where('user_id', $user->id))
-                    ->get();
+        $teamId = $request->input('team_id');
+        $team = $teamId ? Team::findOrFail($teamId) : null;
+
+        // Ambil semua tasks yang assigned ke user
+        $assignedTasks = Task::where('assigned_user_id', $userId)->get();
+        $totalAssigned = $assignedTasks->count();
+        $completedAssigned = $assignedTasks->where('status', 'completed')->count();
+        $overallProgress = $totalAssigned > 0 ? round(($completedAssigned / $totalAssigned) * 100) : 0;
+
+        // Ambil semua task tim jika ada team dipilih
+        $teamTasks = $team ? Task::where('team_id', $team->id)->get() : collect();
+        $totalTeamTasks = $teamTasks->count();
+        $completedTeamTasks = $teamTasks->where('status', 'completed')->count();
+        $teamProgress = $totalTeamTasks > 0 ? round(($completedTeamTasks / $totalTeamTasks) * 100) : 0;
+
+        // Default tasks (hanya untuk tim yang dipilih)
+        $tasks = $teamTasks->sortBy('due_date');
 
         // Ambil anggota tim
-        $teamMembers = $teams->flatMap(fn ($team) => $team->acceptedMembers)
-                            ->merge($teams->pluck('leader'))
-                            ->unique('id');
+        if ($team) {
+            $teamMembers = collect([$team->leader])->merge($team->acceptedMembers)->unique('id');
+        } else {
+            $teams = Team::where('leader_id', $user->id)
+                        ->orWhereHas('acceptedMembers', fn($q) => $q->where('user_id', $userId))
+                        ->get();
 
-        // Ambil semua task dari tim-tim tersebut
-        $tasks = Task::where('team_id', $teamId)->orderBy('due_date', 'asc')->get();
+            $teamMembers = $teams->flatMap(fn ($team) => $team->acceptedMembers)
+                                 ->merge($teams->pluck('leader'))
+                                 ->unique('id');
+        }
 
-        return view('task-management.task-management', compact('tasks', 'teamMembers', 'teams', 'user'));
+        return view('task-management.task-management', compact(
+            'tasks',
+            'teamMembers',
+            'teams',
+            'team',
+            'user',
+            'overallProgress',
+            'teamProgress'
+        ));
     }
-
 
     public function forTeam($teamId)
     {
         $team = \App\Models\Team::with('acceptedMembers')->findOrFail($teamId);
-
-        // Cek keanggotaan
         $user = Auth::user();
+
+        // Pastikan user adalah anggota/leader
         $isMember = $team->leader_id === $user->id || $team->acceptedMembers->contains('id', $user->id);
         abort_unless($isMember, 403);
 
-        $tasks = Task::where('team_id', $teamId)
-             ->orderBy('due_date', 'asc')
-             ->get();
+        // Ambil semua task untuk tim ini
+        $tasks = Task::where('team_id', $teamId)->orderBy('due_date')->get();
+
+        // Hitung progress team
+        $teamTaskCount = $tasks->count();
+        $teamCompleted = $tasks->where('status', 'completed')->count();
+        $teamProgress = $teamTaskCount > 0 ? round(($teamCompleted / $teamTaskCount) * 100) : 0;
+
+        // Hitung progress user (hanya di team ini)
+        $userTasks = $tasks->where('assigned_user_id', $user->id);
+        $totalUser = $userTasks->count();
+        $completedUser = $userTasks->where('status', 'completed')->count();
+        $overallProgress = $totalUser > 0 ? round(($completedUser / $totalUser) * 100) : 0;
 
         $teamMembers = collect([$team->leader])->merge($team->acceptedMembers);
-
-        $myTasks = $tasks->filter(fn($task) =>
-            $task->user_id === $user->id || $task->assigned_user_id === $user->id
-            );
-
+        $myTasks = $tasks->filter(fn($task) => $task->user_id === $user->id || $task->assigned_user_id === $user->id);
         $teamTasks = $tasks->diff($myTasks);
 
-        return view('task-management.task-management', compact('tasks', 'team', 'teamMembers', 'myTasks', 'teamTasks', 'user'));
-
+        return view('task-management.task-management', compact(
+            'tasks',
+            'team',
+            'teamMembers',
+            'myTasks',
+            'teamTasks',
+            'user',
+            'overallProgress', // << ADD THIS
+            'teamProgress'     // << ADD THIS
+        ));
     }
 
     public function store(Request $request)
@@ -99,22 +139,20 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'due_date' => 'required|date',
-            'status' => 'required|in:pending,in_progress,completed',
+            'status' => 'required|in:pending,in_progress,completed,blocked',
+            'blocker_reason' => 'nullable|string|max:255',
         ]);
 
-        $task->update($request->only('title', 'description', 'due_date', 'status'));
-
         $data = $request->only('title', 'description', 'due_date', 'status');
-        $data['completed_at'] = $data['status'] === 'completed' ? now() : null;
+
+        $data['completed_at'] = $request->status === 'completed' ? now() : null;
+        $data['blocked_at'] = $request->status === 'blocked' ? now() : null;
+        $data['blocker_reason'] = $request->status === 'blocked' ? $request->blocker_reason : null;
 
         $task->update($data);
 
-        if ($task->team_id) {
-            return redirect()->route('tasks.team', $task->team_id)->with('success', 'Task updated!');
-        }
-
-
-        return redirect()->route('tasks.index')->with('success', 'Task updated successfully!');
+        $redirect = $task->team_id ? route('tasks.team', $task->team_id) : route('tasks.index');
+        return redirect($redirect)->with('success', 'Task updated successfully!');
     }
 
     public function destroy(Task $task)

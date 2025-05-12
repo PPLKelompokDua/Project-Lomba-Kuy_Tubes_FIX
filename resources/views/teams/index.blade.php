@@ -9,7 +9,7 @@
         <div class="bg-gradient-to-r p-4 rounded-lg shadow-lg" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <h2 class="text-white fw-bold mb-1 display-6">My Teams</h2>
+                    <h2 class="mb-0 font-bold text-white text-4xl">My Teams & Competitions Portfolio</h2>
                     <p class="text-blue-100 mb-3 opacity-80">Collaborate, compete, and succeed together</p>
                     <div class="d-flex align-items-center">
                         <div class="bg-white bg-opacity-25 px-3 py-2 rounded-pill d-inline-flex align-items-center">

@@ -80,5 +80,9 @@ class Team extends Model
         return $this->hasMany(\App\Models\TeamMember::class);
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(\App\Models\Task::class);
+    }
     
 }

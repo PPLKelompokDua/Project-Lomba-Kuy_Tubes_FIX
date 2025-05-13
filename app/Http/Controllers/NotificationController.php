@@ -37,6 +37,8 @@ class NotificationController extends Controller
 
         // Redirect sesuai jenis notifikasi
         switch ($notification->type) {
+            case 'reminder':
+                return redirect()->to($notification->link ?? route('competitions.show', $notification->invitation_id));
             case 'message':
                 return redirect()->route('invitations.show', $notification->invitation_id); // ke chat
             case 'invitation':

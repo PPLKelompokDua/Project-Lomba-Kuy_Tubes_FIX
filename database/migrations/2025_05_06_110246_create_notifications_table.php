@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');       // penerima notifikasi
-            $table->unsignedBigInteger('invitation_id'); // undangan terkait
+            $table->unsignedBigInteger('user_id');       
+            $table->unsignedBigInteger('invitation_id')->nullable(); 
             $table->string('type')->default('invitation');
             $table->string('message');
             $table->boolean('is_read')->default(false);

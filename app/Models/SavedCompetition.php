@@ -20,4 +20,6 @@ class SavedCompetition extends Model
     {
         return $this->belongsTo(Competition::class);
     }
+
+    
 }

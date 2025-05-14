@@ -8,7 +8,7 @@
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <h1 class="text-4xl font-bold mb-6 text-indigo-600" data-aos="fade-up">Feedback for Platform</h1>
 
-    <!-- Feedback List -->
+    <!-- Feedback  -->
     <div class="bg-white p-6 rounded-lg shadow hover-rise" data-aos="fade-up" data-aos-delay="100">
         @if ($platformFeedbacks->isEmpty())
             <div class="flex items-center bg-blue-50 text-blue-700 p-4 rounded-lg border-l-4 border-blue-400" data-aos="fade-up" data-aos-delay="150">

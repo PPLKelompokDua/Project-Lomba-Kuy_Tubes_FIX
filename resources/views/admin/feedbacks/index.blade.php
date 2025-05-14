@@ -60,7 +60,7 @@
         box-shadow: 0 10px 20px rgba(79, 70, 229, 0.15);
     }
     
-    /* Scrollbar for feedback list */
+    /* Scrollbar for feedback  */
     .styled-scrollbar::-webkit-scrollbar {
         width: 8px;
     }

@@ -7,7 +7,7 @@
     <h1 class="text-4xl font-bold mb-6 text-indigo-600" data-aos="fade-up">Welcome, Admin!</h1>
 
     <!-- Summary Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10" data-aos="fade-up" data-aos-delay="100">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10" data-aos="fade-up" data-aos-delay="100">
         <div class="bg-white p-6 rounded-lg shadow hover-rise">
             <h2 class="text-lg font-semibold mb-2 text-gray-800">Total Users</h2>
             <p class="text-3xl font-bold text-indigo-700">{{ $totalUsers }}</p>
@@ -19,6 +19,16 @@
         <div class="bg-white p-6 rounded-lg shadow hover-rise">
             <h2 class="text-lg font-semibold mb-2 text-gray-800">Active Organizers</h2>
             <p class="text-3xl font-bold text-indigo-700">{{ $totalOrganizers }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow hover-rise">
+            <h2 class="text-lg font-semibold mb-2 text-gray-800">Learning Videos</h2>
+            <p class="text-3xl font-bold text-indigo-700">{{ $totalLearningVideos }}</p>
+            <a href="{{ route('admin.learning-videos.index') }}" class="text-sm text-indigo-600 hover:text-indigo-800 inline-flex items-center mt-2">
+                <span>Manage Videos</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
         </div>
     </div>
 
@@ -118,7 +128,7 @@
 </div>
 
 <!-- Modal Preview -->
-<div class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50" id="previewModal">
+<div class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" id="previewModal">
     <div class="bg-white rounded-lg max-w-4xl w-full mx-4">
         <div class="p-4 text-center">
             <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">

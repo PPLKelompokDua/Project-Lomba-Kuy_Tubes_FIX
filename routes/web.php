@@ -205,6 +205,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('assessment-questions', \App\Http\Controllers\Admin\AssessmentQuestionController::class);
         Route::resource('assessment-questions', AssessmentQuestionController::class);
+        
+        // Learning Videos
+        Route::resource('learning-videos', \App\Http\Controllers\Admin\LearningVideoController::class);
 });
     
     // Organizer

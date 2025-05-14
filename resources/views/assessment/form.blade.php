@@ -1,6 +1,64 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Assessment Tim</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('assessment.submit') }}">
+                @csrf
+                
+                <div class="mb-3">
+                    <label>Gaya Kerja</label>
+                    <select name="work_style" class="form-control" required>
+                        <option value="individual">Individual</option>
+                        <option value="collaborative">Collaborative</option>
+                        <option value="mixed">Mixed</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Bidang Keahlian</label>
+                    <select name="expertise" class="form-control" required>
+                        <option value="frontend">Frontend Development</option>
+                        <option value="backend">Backend Development</option>
+                        <option value="fullstack">Fullstack Development</option>
+                        <option value="ui_ux">UI/UX Design</option>
+                        <option value="mobile">Mobile Development</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Level Pengalaman (1-5)</label>
+                    <input type="number" name="experience_level" class="form-control" min="1" max="5" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Gaya Komunikasi</label>
+                    <select name="communication_style" class="form-control" required>
+                        <option value="direct">Langsung</option>
+                        <option value="diplomatic">Diplomatis</option>
+                        <option value="casual">Santai</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Ketersediaan Waktu</label>
+                    <select name="availability" class="form-control" required>
+                        <option value="full_time">Full Time</option>
+                        <option value="part_time">Part Time</option>
+                        <option value="flexible">Fleksibel</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Assessment</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
 <div class="flex-grow container mx-auto px-6 py-10">
     <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden" x-data="{ step: 1, totalSteps: {{ count($questions) }} }">
         <!-- Header -->

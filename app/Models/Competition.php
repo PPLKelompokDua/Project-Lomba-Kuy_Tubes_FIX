@@ -64,4 +64,10 @@ class Competition extends Model
     {
         return $this->hasMany(Team::class);
     }
+
+    public function milestones()
+    {
+        return $this->hasMany(Milestone::class);
+    }
+
 }

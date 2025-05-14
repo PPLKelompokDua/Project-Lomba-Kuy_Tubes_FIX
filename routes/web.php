@@ -23,6 +23,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\AssessmentQuestionController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\CompetitionMilestoneController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -217,5 +218,16 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/feedbacks', [FeedbackController::class, 'receivedForOrganizer'])->name('feedbacks.index');
     });
+
+    // Milestone 
+
+
+    Route::prefix('competitions/{competition}/milestones')->group(function () {
+        Route::get('/', [CompetitionMilestoneController::class, 'index'])->name('milestones.index');
+        Route::get('/create', [CompetitionMilestoneController::class, 'create'])->name('milestones.create');
+        Route::post('/', [CompetitionMilestoneController::class, 'store'])->name('milestones.store');
+
+    });
+
 
 });

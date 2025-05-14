@@ -8,9 +8,11 @@ class ExampleTest extends TestCase
 {
     /**
      * A basic test example.
+     *
+     * Modified just to trigger a Git change for Jira commit.
      */
     public function test_that_true_is_true(): void
     {
-        $this->assertTrue(true);
+        $this->assertTrue(true); // Always true
     }
 }

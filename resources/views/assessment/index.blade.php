@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Assessment')
+
 @section('content')
 <div class="flex-grow container mx-auto px-6 py-10">
     <div class="max-w-4xl mx-auto">

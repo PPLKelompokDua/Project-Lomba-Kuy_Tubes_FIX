@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Assessment Test')
+
 @section('content')
 <div class="flex-grow container mx-auto px-6 py-10">
-    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden" x-data="{ step: 1, totalSteps: {{ count($questions) }} }">
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden" x-data="assessmentFormComponent({{ count($questions) }})">
         <!-- Header -->
         <div class="bg-indigo-600 p-6 text-white">
             <h1 class="text-2xl font-bold">Internal Personality Test</h1>
@@ -36,7 +38,7 @@
 
                 @php $stepIndex = 1; @endphp
                 @foreach($questions as $category => $qs)
-                    <div x-show="step === {{ $stepIndex }}" 
+                    <div x-show="step === {{ $stepIndex }}" data-step="{{ $stepIndex }}"
                          x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 transform translate-x-full"
                          x-transition:enter-end="opacity-100 transform translate-x-0"
@@ -98,7 +100,7 @@
                     <!-- Right Side: Next & Submit -->
                     <div>
                         <button type="button"
-                            @click="step = step + 1"
+                            @click="if(validateStep(step)) step++"
                             x-show="step < totalSteps"
                             class="flex items-center justify-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow">
                             Next
@@ -107,7 +109,8 @@
                             </svg>
                         </button>
 
-                        <button type="submit" 
+                        <button type="submit"
+                            @click.prevent="if(validateStep(step)) $el.form.submit()"
                             x-show="step === totalSteps"
                             class="flex items-center justify-center px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition shadow">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -156,3 +159,24 @@
     }
 </style>
 @endsection
+
+<script>
+    function assessmentFormComponent(totalSteps) {
+        return {
+            step: 1,
+            totalSteps: totalSteps,
+            validateStep(step) {
+                const required = document.querySelectorAll(`[data-step="${step}"] [type=radio]`);
+                const names = [...new Set([...required].map(r => r.name))];
+
+                for (let name of names) {
+                    if (![...document.getElementsByName(name)].some(r => r.checked)) {
+                        alert('Please answer all questions before continuing.');
+                        return false;
+                    }
+                }
+                return true;
+            }
+        };
+    }
+</script>

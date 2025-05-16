@@ -130,7 +130,7 @@ class AssessmentController extends Controller
             'preferred_role' => $preferred_role,
         ]);
 
-        return redirect()->route('assessment.index')->with('success', 'Hasil tes berhasil disimpan!');
+        return redirect()->route('assessment.index')->with('success', 'Test Result succesfully saved');
     }
 
 }

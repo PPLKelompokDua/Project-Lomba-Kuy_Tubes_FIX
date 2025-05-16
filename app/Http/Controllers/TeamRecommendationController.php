@@ -10,58 +10,59 @@ use Illuminate\Support\Facades\Log;
 class TeamRecommendationController extends Controller
 {
     public function generateRecommendation()
-{
-    $assessment = Assessment::where('user_id', auth()->id())->latest()->first();
+    {
+        $assessment = Assessment::where('user_id', auth()->id())->latest()->first();
 
-    Log::info('Assessment data:', ['assessment' => $assessment]);
+        Log::info('Assessment data:', ['assessment' => $assessment]);
 
-    if ($assessment) {
-        $recommendation = $this->analyzeAssessment($assessment);
+        if ($assessment) {
+            $recommendation = $this->analyzeAssessment($assessment);
 
-        $teamRecommendation = TeamRecommendation::create([
-            'user_id' => auth()->id(),
-            'role_recommendation' => $recommendation['role'],
-            'strengths' => $recommendation['strengths'],
-            'weaknesses' => $recommendation['weaknesses'],
-            'compatibility_score' => $recommendation['score'],
-        ]);
+            $teamRecommendation = TeamRecommendation::create([
+                'user_id' => auth()->id(),
+                'role_recommendation' => $recommendation['role'],
+                'strengths' => $recommendation['strengths'],
+                'weaknesses' => $recommendation['weaknesses'],
+                'compatibility_score' => $recommendation['score'],
+            ]);
 
-        // 🔥 LOGIKA REKOMENDASI USER BERDASARKAN HASIL ASSESSMENT
-        $user = auth()->user();
+            // 🔥 LOGIKA REKOMENDASI USER BERDASARKAN HASIL ASSESSMENT
+            $user = auth()->user();
 
-        $personalityMatch = match($user->personality_type) {
-            'Conscientiousness' => ['Openness to Experience', 'Agreeableness'],
-            'Openness to Experience' => ['Conscientiousness', 'Extraversion'],
-            'Extraversion' => ['Supporter', 'Planner'],
-            'Neuroticism' => ['Leader', 'Planner'],
-            'Agreeableness' => ['Creative', 'Supporter'],
-            default => [],
-        };
+            $personalityMatch = match($user->personality_type) {
+                'Conscientiousness' => ['Openness to Experience', 'Agreeableness'],
+                'Openness to Experience' => ['Conscientiousness', 'Extraversion'],
+                'Extraversion' => ['Supporter', 'Planner'],
+                'Neuroticism' => ['Leader', 'Planner'],
+                'Agreeableness' => ['Creative', 'Supporter'],
+                default => [],
+            };
 
-        $roleMatch = match($user->preferred_role) {
-            'Leader' => ['Planner', 'Supporter'],
-            'Planner' => ['Leader', 'Supporter'],
-            'Supporter' => ['Leader', 'Creative'],
-            'Creative' => ['Planner', 'Leader'],
-            default => [],
-        };
+            $roleMatch = match($user->preferred_role) {
+                'Leader' => ['Planner', 'Supporter'],
+                'Planner' => ['Leader', 'Supporter'],
+                'Supporter' => ['Leader', 'Creative'],
+                'Creative' => ['Planner', 'Leader'],
+                default => [],
+            };
 
-        $recommendedUsers = \App\Models\User::where('role', 'user')
-            ->where('id', '!=', $user->id)
-            ->whereIn('personality_type', $personalityMatch)
-            ->whereIn('preferred_role', $roleMatch)
-            ->inRandomOrder()
-            ->limit(6)
-            ->get();
+            $recommendedUsers = \App\Models\User::where('role', 'user')
+                ->where('id', '!=', $user->id)
+                ->whereIn('personality_type', $personalityMatch)
+                ->whereIn('preferred_role', $roleMatch)
+                ->inRandomOrder()
+                ->limit(6)
+                ->get();
 
-        return view('team-recommendation.show', [
-            'teamRecommendation' => $teamRecommendation,
-            'recommendedUsers' => $recommendedUsers, // <== kirim ke view
-        ]);
-    }
+            return view('team-recommendation.show', [
+                'teamRecommendation' => $teamRecommendation,
+                'recommendedUsers' => $recommendedUsers, // <== kirim ke view
+            ]);
+        }
 
-    return redirect()->route('assessment.index')->with('error', 'Silakan lengkapi assessment terlebih dahulu.');
-} 
+        return redirect()->route('assessment.index')->with('error', 'Please complete the assessment first.');
+    } 
+    
     private function analyzeAssessment($assessment)
     {
         $scores = json_decode($assessment->results, true);
@@ -103,7 +104,7 @@ class TeamRecommendationController extends Controller
             'score' => min(100, max(0, $compatibilityScore)),
         ];
         if (empty($scores)) {
-                return redirect()->route('assessment.form')->with('error', 'Tidak ada jawaban yang diberikan.');
+                return redirect()->route('assessment.form')->with('error', 'No answer was given.');
             }
     }
 }

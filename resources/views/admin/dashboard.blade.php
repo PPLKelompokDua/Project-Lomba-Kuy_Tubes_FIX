@@ -47,7 +47,7 @@
                                     <button type="button" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm font-semibold transition toggle-details" data-target="details-{{ $competition->id }}">
                                         <i class="fas fa-info-circle mr-1"></i> Detail
                                     </button>
-                                    <form action="{{ route('organizer.competitions.destroy', $competition->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin hapus?')">
+                                    <form action="{{ route('organizer.competitions.destroy', $competition->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete?')">
                                         @csrf @method('DELETE')
                                         <button class="text-red-600 hover:text-red-800 flex items-center text-sm font-semibold transition" type="submit">
                                             <i class="fas fa-trash mr-1"></i> Delete
@@ -60,34 +60,34 @@
                                 <td colspan="4" class="p-4">
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                                         <div>
-                                            <p class="mb-2"><strong class="text-gray-800">Kategori:</strong> {{ $competition->category ?? 'Tidak ada' }}</p>
-                                            <p class="mb-2"><strong class="text-gray-800">Hadiah:</strong> {{ $competition->prize ?? 'Tidak ada' }}</p>
-                                            <p class="mb-2"><strong class="text-gray-800">Lokasi:</strong> {{ $competition->location ?? 'Tidak ada' }}</p>
-                                            <p class="mb-2"><strong class="text-gray-800">Maksimum Peserta:</strong> {{ $competition->max_participants ?? 'Tidak ditentukan' }}</p>
+                                            <p class="mb-2"><strong class="text-gray-800">Category:</strong> {{ $competition->category ?? 'Not available' }}</p>
+                                            <p class="mb-2"><strong class="text-gray-800">Prize:</strong> {{ $competition->prize ?? 'Not available' }}</p>
+                                            <p class="mb-2"><strong class="text-gray-800">Location:</strong> {{ $competition->location ?? 'Not available' }}</p>
+                                            <p class="mb-2"><strong class="text-gray-800">Maximum Participants:</strong> {{ $competition->max_participants ?? 'Not specified' }}</p>
                                         </div>
                                         <div>
-                                            <p class="mb-2"><strong class="text-gray-800">Tanggal Mulai:</strong> {{ \Carbon\Carbon::parse($competition->start_date)->format('d M Y') }}</p>
-                                            <p class="mb-2"><strong class="text-gray-800">Tanggal Selesai:</strong> {{ \Carbon\Carbon::parse($competition->end_date)->format('d M Y') }}</p>
-                                            <p class="mb-2"><strong class="text-gray-800">Link Pendaftaran:</strong> 
+                                            <p class="mb-2"><strong class="text-gray-800">Start Date:</strong> {{ \Carbon\Carbon::parse($competition->start_date)->format('d M Y') }}</p>
+                                            <p class="mb-2"><strong class="text-gray-800">End Date:</strong> {{ \Carbon\Carbon::parse($competition->end_date)->format('d M Y') }}</p>
+                                            <p class="mb-2"><strong class="text-gray-800">Registration Link:</strong> 
                                                 <a href="{{ $competition->registration_link }}" class="text-indigo-600 hover:underline" target="_blank">
                                                     {{ Str::limit($competition->registration_link, 30) }}
                                                 </a>
                                             </p>
-                                            <p class="mb-2"><strong class="text-gray-800">Link Pendaftaran Eksternal:</strong> 
+                                            <p class="mb-2"><strong class="text-gray-800">External Registration Link:</strong> 
                                                 @if ($competition->external_registration_link)
                                                     <a href="{{ $competition->external_registration_link }}" class="text-indigo-600 hover:underline" target="_blank">
                                                         {{ Str::limit($competition->external_registration_link, 30) }}
                                                     </a>
                                                 @else
-                                                    Tidak ada
+                                                    Not available
                                                 @endif
                                             </p>
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <p class="mb-2"><strong class="text-gray-800">Deskripsi:</strong></p>
+                                        <p class="mb-2"><strong class="text-gray-800">Description:</strong></p>
                                         <div class="bg-gray-100 p-4 rounded-lg max-h-48 overflow-y-auto">
-                                            <p class="text-gray-700 leading-relaxed whitespace-pre-wrap">{{ $competition->description ?? 'Tidak ada deskripsi' }}</p>
+                                            <p class="text-gray-700 leading-relaxed whitespace-pre-wrap">{{ $competition->description ?? 'No description available' }}</p>
                                         </div>
                                     </div>
                                     @if ($competition->photo)
@@ -112,7 +112,7 @@
                 </div>
             @endif
         @else
-            <p class="text-gray-600" data-aos="fade-up" data-aos-delay="250">Belum ada kompetisi.</p>
+            <p class="text-gray-600" data-aos="fade-up" data-aos-delay="250">No competitions available.</p>
         @endif
     </div>
 </div>
@@ -124,7 +124,7 @@
             <img id="modalImage" class="rounded mx-auto" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
         </div>
         <div class="p-4 border-t border-gray-200">
-            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Tutup</button>
+            <button type="button" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition" onclick="closePreviewModal()">Close</button>
         </div>
     </div>
 </div>
@@ -257,7 +257,7 @@
                 
                 // Update button text/icon
                 if (isHidden) {
-                    this.innerHTML = '<i class="fas fa-times-circle mr-1"></i> Tutup';
+                    this.innerHTML = '<i class="fas fa-times-circle mr-1"></i> Close';
                 } else {
                     this.innerHTML = '<i class="fas fa-info-circle mr-1"></i> Detail';
                 }

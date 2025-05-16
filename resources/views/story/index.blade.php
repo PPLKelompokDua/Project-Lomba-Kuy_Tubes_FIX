@@ -5,7 +5,7 @@
 @section('content')
 <div class="bg-gray-50 min-h-screen">
     <!-- Hero Header Section -->
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-12 mb-8">
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-12 mb-8 rounded-[10px]">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="text-center">
                 <h1 class="text-4xl font-bold mb-4">Story & Achievements Space</h1>

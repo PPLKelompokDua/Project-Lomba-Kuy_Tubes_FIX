@@ -5,7 +5,7 @@
 @section('content')
 <div class="bg-gray-50 min-h-screen">
     <!-- Hero Section -->
-    <div class="relative bg-indigo-900 overflow-hidden">
+    <div class="relative bg-indigo-900 overflow-hidden rounded-[10px]">
         <div class="container mx-auto px-6 py-16 md:py-24 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
                 <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm mb-4">Competitions Catalog</span>

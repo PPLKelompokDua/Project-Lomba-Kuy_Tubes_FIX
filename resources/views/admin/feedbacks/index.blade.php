@@ -2,8 +2,6 @@
 
 @section('title', 'Platform Feedbacks')
 
-@section('title', 'Platform Feedback')
-
 @section('content')
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <h1 class="text-4xl font-bold mb-6 text-indigo-600" data-aos="fade-up">Feedback for Platform</h1>

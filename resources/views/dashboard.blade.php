@@ -478,22 +478,55 @@
                 </div>
             </div>
             
-            <!-- Success Stories -->
-            <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl shadow-lg text-white p-6">
-                <h3 class="font-bold text-xl mb-4">Success Stories</h3>
-                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4 mb-4">
-                    <p class="italic text-sm mb-3">"Thanks to LombaKuy's team management and timeline features, our team won the national UI/UX design competition!"</p>
-                    <div class="flex items-center">
-                        <img src="/api/placeholder/32/32" class="w-8 h-8 rounded-full mr-2" alt="User avatar">
-                        <div class="text-xs">
-                            <p class="font-semibold">Anita Wijaya</p>
-                            <p class="opacity-80">Visual Communication Design</p>
+            <!-- Latest Articles Section -->
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+                <div class="border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+                    <h3 class="font-bold text-gray-800">Latest Articles</h3>
+                </div>
+                <div class="p-6 space-y-4">
+                    @forelse($latestArticles->take(3) as $article)
+                        <div class="flex border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                            @if($article->thumbnail)
+                                <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 mr-4">
+                                    <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover">
+                                </div>
+                            @else
+                                <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 mr-4 bg-indigo-100 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                    </svg>
+                                </div>
+                            @endif
+                            <div class="flex-1">
+                                <div class="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-2 py-0.5 rounded mb-1">
+                                    {{ $article->category }}
+                                </div>
+                                <h4 class="font-medium text-gray-800 mb-1 line-clamp-2 hover:text-indigo-600 transition">
+                                    <a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a>
+                                </h4>
+                                <div class="flex items-center text-xs text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    {{ $article->created_at->format('M d, Y') }}
+                                </div>
+                            </div>
                         </div>
+                    @empty
+                        <div class="text-center py-6 text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p>No articles published yet</p>
+                        </div>
+                    @endforelse
+                    <div class="mt-6">
+                        <a href="{{ route('articles.index') }}"
+                        class="w-full block text-center bg-indigo-600 text-white font-medium text-sm rounded-lg py-2.5 hover:bg-indigo-700 transition">
+                            Read More Articles
+                        </a>
                     </div>
                 </div>
-                <a href="#" class="text-center block bg-white text-indigo-600 font-medium text-sm rounded-lg py-2 hover:bg-opacity-90 transition">
-                    Read More Stories
-                </a>
             </div>
         </div>
     </div>

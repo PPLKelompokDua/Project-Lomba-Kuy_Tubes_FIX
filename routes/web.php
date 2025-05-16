@@ -23,6 +23,8 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\AssessmentQuestionController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\UserArticleController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -171,6 +173,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tasks', TaskController::class);
     Route::get('/teams/{team}/tasks', [TaskController::class, 'forTeam'])->name('tasks.team');
 
+    //articles
+    Route::get('/articles', [UserArticleController::class, 'index'])->name('articles.index');
+    Route::get('/articles/{slug}', [UserArticleController::class, 'show'])->name('articles.show');
+
 
 
     // Dashboard redirect sesuai role
@@ -205,6 +211,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('assessment-questions', \App\Http\Controllers\Admin\AssessmentQuestionController::class);
         Route::resource('assessment-questions', AssessmentQuestionController::class);
+
+        Route::resource('articles', ArticleController::class);
 });
     
     // Organizer

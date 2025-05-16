@@ -8,6 +8,7 @@ use App\Models\Team;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\Article;
 
 class UserDashboardController extends Controller
 {
@@ -36,14 +37,20 @@ class UserDashboardController extends Controller
         $completed = $assignedTasks->where('status', 'completed')->count();
         $overallProgress = $total > 0 ? round(($completed / $total) * 100) : 0;
 
+        $latestArticles = Article::where('status', 'published')
+                ->latest()
+                ->take(5)
+                ->get();
+
         return view('dashboard', compact(
             'competitions',
             'savedCompetitions',
             'activeCompetitions',
             'completedCompetitions',
             'overallProgress',
-            'assignedTasks', // semua task assigned ke user
-            'user'
+            'assignedTasks', 
+            'user',
+            'latestArticles'
         ));
     }
 }

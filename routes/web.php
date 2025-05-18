@@ -69,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/competitions/{competition}/save', [CompetitionController::class, 'save'])->name('competitions.save');
     Route::delete('/competitions/{competition}/unsave', [CompetitionController::class, 'unsave'])->name('competitions.unsave');
 
-    // 🔥 Tambahkan ini untuk halaman list bookmark
+    // Tambahkan ini untuk halaman list bookmark
     Route::get('/saved-competitions', [CompetitionController::class, 'saved'])->name('competitions.saved');
 
     // Untuk lihat detail kompetisi
@@ -139,6 +139,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
     Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::patch('/teams/{team}/status', [TeamController::class, 'updateStatus'])->name('teams.updateStatus');
+    Route::patch('/teams/{team}/members/{user}/remove', [TeamMemberController::class, 'remove'])->name('team-members.remove');
+
 
 
     // Posts

@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
@@ -639,81 +640,70 @@
         <h2 class="text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
         <p class="text-gray-600">Find answers to common questions about LombaKuy</p>
       </div>
-      
-      <div class="max-w-3xl mx-auto">
+
+      <div class="max-w-3xl mx-auto space-y-6">
         <!-- FAQ Item 1 -->
-        <div data-aos="fade-up" data-aos-delay="100" class="mb-6 border-b border-gray-200 pb-6">
-          <button class="flex justify-between items-center w-full text-left focus:outline-none">
+        <div x-data="{ open: false }" class="border-b border-gray-200 pb-4">
+          <button @click="open = !open" class="flex justify-between items-center w-full text-left focus:outline-none">
             <span class="text-xl font-bold text-gray-800">Is LombaKuy free to use?</span>
-            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg :class="{'rotate-180': open}" class="w-6 h-6 text-indigo-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              Yes, LombaKuy is free to use for all Telkom University students. All core features are available at no cost to support student competition activities.
-            </p>
+          <div x-show="open" x-collapse x-transition.duration.300ms class="mt-3 text-gray-600">
+            Yes, LombaKuy is free to use for all Telkom University students. All core features are available at no cost to support student competition activities.
           </div>
         </div>
-        
+
         <!-- FAQ Item 2 -->
-        <div data-aos="fade-up" data-aos-delay="200" class="mb-6 border-b border-gray-200 pb-6">
-          <button class="flex justify-between items-center w-full text-left focus:outline-none">
+        <div x-data="{ open: false }" class="border-b border-gray-200 pb-4">
+          <button @click="open = !open" class="flex justify-between items-center w-full text-left focus:outline-none">
             <span class="text-xl font-bold text-gray-800">How does the team compatibility test work?</span>
-            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"ɑ
-              stroke-width="2" d="M19 9l-7 7-7-7" />
+            <svg :class="{'rotate-180': open}" class="w-6 h-6 text-indigo-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              The team compatibility test uses psychological algorithms to analyze personality, technical skills, and work preferences to recommend complementary team member combinations.
-            </p>
+          <div x-show="open" x-collapse x-transition.duration.300ms class="mt-3 text-gray-600">
+            The team compatibility test uses psychological algorithms to analyze personality, technical skills, and work preferences to recommend complementary team member combinations.
           </div>
         </div>
-        
+
         <!-- FAQ Item 3 -->
-        <div data-aos="fade-up" data-aos-delay="300" class="mb-6 border-b border-gray-200 pb-6">
-          <button class="flex justify-between items-center w-full text-left focus:outline-none">
+        <div x-data="{ open: false }" class="border-b border-gray-200 pb-4">
+          <button @click="open = !open" class="flex justify-between items-center w-full text-left focus:outline-none">
             <span class="text-xl font-bold text-gray-800">Who can upload competition information?</span>
-            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg :class="{'rotate-180': open}" class="w-6 h-6 text-indigo-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              Competition information can be uploaded by competition organizers and LombaKuy admins. Students can also propose unlisted competitions for admin verification.
-            </p>
+          <div x-show="open" x-collapse x-transition.duration.300ms class="mt-3 text-gray-600">
+            Competition information can be uploaded by competition organizers and LombaKuy admins. Students can also propose unlisted competitions for admin verification.
           </div>
         </div>
-        
+
         <!-- FAQ Item 4 -->
-        <div data-aos="fade-up" data-aos-delay="400" class="mb-6 border-b border-gray-200 pb-6">
-          <button class="flex justify-between items-center w-full text-left focus:outline-none">
+        <div x-data="{ open: false }" class="border-b border-gray-200 pb-4">
+          <button @click="open = !open" class="flex justify-between items-center w-full text-left focus:outline-none">
             <span class="text-xl font-bold text-gray-800">Can I use LombaKuy for off-campus competitions?</span>
-            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg :class="{'rotate-180': open}" class="w-6 h-6 text-indigo-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              Absolutely! LombaKuy supports various types of competitions, including campus, regional, national, and international levels. The platform is designed to help Telkom University students participate in diverse competition events.
-            </p>
+          <div x-show="open" x-collapse x-transition.duration.300ms class="mt-3 text-gray-600">
+            Absolutely! LombaKuy supports various types of competitions, including campus, regional, national, and international levels.
           </div>
         </div>
-        
+
         <!-- FAQ Item 5 -->
-        <div data-aos="fade-up" data-aos-delay="500" class="mb-6">
-          <button class="flex justify-between items-center w-full text-left focus:outline-none">
+        <div x-data="{ open: false }" class="border-b border-gray-200 pb-4">
+          <button @click="open = !open" class="flex justify-between items-center w-full text-left focus:outline-none">
             <span class="text-xl font-bold text-gray-800">How secure is my data on LombaKuy?</span>
-            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg :class="{'rotate-180': open}" class="w-6 h-6 text-indigo-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="mt-3">
-            <p class="text-gray-600">
-              We implement high security standards to protect user data. Personal data and test results are used solely for platform purposes and will not be shared with third parties without consent.
-            </p>
+          <div x-show="open" x-collapse x-transition.duration.300ms class="mt-3 text-gray-600">
+            We implement high security standards to protect user data. Personal data and test results are used solely for platform purposes and will not be shared with third parties without consent.
           </div>
         </div>
       </div>

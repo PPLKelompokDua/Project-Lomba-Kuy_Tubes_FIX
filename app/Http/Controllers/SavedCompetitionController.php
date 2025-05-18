@@ -13,7 +13,7 @@ class SavedCompetitionController extends Controller
         $user = auth()->user();
         $user->savedCompetitions()->syncWithoutDetaching([$id]);
 
-        return back()->with('success', 'Lomba disimpan ke favorit.');
+        return back()->with('success', 'The competition is saved to bookmarks.');
     }
 
     public function destroy($id)
@@ -21,6 +21,6 @@ class SavedCompetitionController extends Controller
         $user = auth()->user();
         $user->savedCompetitions()->detach($id);
 
-        return back()->with('success', 'Lomba dihapus dari favorit.');
+        return back()->with('success', 'The competition is deleted from bookmarks.');
     }
 }

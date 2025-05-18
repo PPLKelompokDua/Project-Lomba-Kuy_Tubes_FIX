@@ -86,12 +86,12 @@ class TeamController extends Controller
             return redirect()->route('invitations.index', [
                 'team_id' => $team->id,
                 'user_id' => $validated['invite_user_id']
-            ])->with('success', 'Team berhasil dibuat!');
+            ])->with('success', 'Team created successfully!');
         }
         
         return redirect()->route('invitations.index', [
             'team_id' => $team->id
-        ])->with('success', 'Team berhasil dibuat!');
+        ])->with('success', 'Team created successfully!');
     }
 
     public function index(Request $request)
@@ -133,7 +133,7 @@ class TeamController extends Controller
         return view('teams.show', [
             'team' => $team,
             'user' => $user,
-            'statuses' => ['ongoing', 'finished'] // ← Tambahkan ini
+            'statuses' => ['ongoing', 'finished'] 
         ]);
     }
 

@@ -87,7 +87,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->route('dashboard')->with('success', 'Profil berhasil diperbarui!');
+        return redirect()->route('dashboard')->with('success', 'Profil successfully updated!');
     
         // Update user
         $updated = $user->update($validated);
@@ -95,7 +95,7 @@ class ProfileController extends Controller
             'user_data' => $user->fresh()->toArray(),
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Profil berhasil diperbarui!');
+        return redirect()->route('dashboard')->with('success', 'Profil successfully updated!');
     }
 
     public function settingsUpdate(Request $request)
@@ -134,14 +134,14 @@ class ProfileController extends Controller
             'user_data' => $user->fresh()->toArray(),
         ]);
 
-        return redirect()->route('settings')->with('success', 'Pengaturan berhasil diperbarui!');
+        return redirect()->route('settings')->with('success', 'settings successfully updated!');
     }
 
     public function delete(Request $request)
     {
         $user = auth()->user();
         if (!in_array($user->role, ['user', 'organizer'])) {
-            abort(403, 'Hanya pengguna atau penyelenggara yang dapat menghapus akun mereka.');
+            abort(403, 'Only users or organizers can delete their accounts.');
         }
 
         \Log::info('Account deletion attempted for user: ' . $user->id);
@@ -157,6 +157,6 @@ class ProfileController extends Controller
         Auth::logout();
         \Log::info('User account deleted: ' . $user->id);
 
-        return redirect()->route('login')->with('success', 'Akun Anda telah dihapus.');
+        return redirect()->route('login')->with('success', 'account successfully deleted');
     }
 }

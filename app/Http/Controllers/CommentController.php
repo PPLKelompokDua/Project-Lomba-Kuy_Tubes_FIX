@@ -19,7 +19,7 @@ class CommentController extends Controller
             'content' => $request->content,
         ]);
 
-        return back()->with('success', 'Komentar berhasil dikirim!');
+        return back()->with('success', 'Comment Successfully sent!');
     }
 
     public function fetch(Post $post)

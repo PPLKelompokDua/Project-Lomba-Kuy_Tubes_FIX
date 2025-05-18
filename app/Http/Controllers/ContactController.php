@@ -21,6 +21,6 @@ class ContactController extends Controller
         Contact::create($validated);
 
         // Redirect dengan pesan sukses
-        return redirect()->to(url()->previous() . '#contact')->with('success', 'Pesan Anda berhasil dikirim!');
+        return redirect()->to(url()->previous() . '#contact')->with('success', 'Your message has been sent successfully!');
     }
 }

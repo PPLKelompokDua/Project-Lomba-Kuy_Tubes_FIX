@@ -40,7 +40,7 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect()->route('posts.index')->with('success', 'Post berhasil dibuat!');
+        return redirect()->route('posts.index')->with('success', 'Post successfully created.');
     }
 
     public function edit(Post $post)
@@ -67,7 +67,7 @@ class PostController extends Controller
 
         $post->update($data);
 
-        return redirect()->route('posts.index')->with('success', 'Post berhasil diperbarui!');
+        return redirect()->route('posts.index')->with('success', 'Post successfully updated!');
     }
 
     public function like(Post $post)
@@ -85,6 +85,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus!');
+        return redirect()->route('posts.index')->with('success', 'Post successfully deleted!');
     }
 }

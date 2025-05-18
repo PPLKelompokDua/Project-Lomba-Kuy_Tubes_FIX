@@ -111,7 +111,7 @@ class CompetitionController extends Controller
             'competition_id' => $competition->id,
         ]);
     
-        return back()->with('success', 'Lomba telah disimpan ke bookmark.');
+        return back()->with('success', 'The competition has been saved to bookmarks.');
     }
 
     public function saved()
@@ -130,7 +130,7 @@ class CompetitionController extends Controller
             ->where('competition_id', $competition->id)
             ->delete();
     
-        return back()->with('success', 'Lomba berhasil dihapus dari bookmark.');
+        return back()->with('success', 'The competition successfully removed from bookmarks.');
     }
 
     public function searchSuggestions(Request $request)
@@ -179,7 +179,7 @@ class CompetitionController extends Controller
             } else {
                 // If no users found with the selected category, still return some users
                 // but mark that no exact matches were found
-                session()->flash('info', "Tidak ada anggota yang pernah berpartisipasi dalam lomba kategori '$category'. Menampilkan anggota acak.");
+                session()->flash('info', "No member has ever participated in '$category'. Showing random members.");
             }
         }
         

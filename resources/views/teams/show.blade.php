@@ -104,10 +104,19 @@
                             <p class="text-sm text-gray-500">{{ $member->email }}</p>
                         </div>
                     </div>
-                    <div class="mt-2 sm:mt-0">
+                    <div class="mt-2 sm:mt-0 flex items-center space-x-2">
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                             Team Member
                         </span>
+                        @if ($team->leader_id === $user->id)
+                        <form method="POST" action="{{ route('team-members.remove', [$team->id, $member->id]) }}" onsubmit="return confirm('Are you sure you want to remove this member?');">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-medium ml-2">
+                                Remove
+                            </button>
+                        </form>
+                        @endif
                     </div>
                 </li>
                 @endif

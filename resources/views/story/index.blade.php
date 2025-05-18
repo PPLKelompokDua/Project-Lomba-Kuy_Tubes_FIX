@@ -49,112 +49,129 @@
             </button>
         </div>
 
-        <!-- 3-Column Post Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($posts as $post)
-                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full">
-                    <!-- User Info -->
-                    <div class="flex items-center p-4 border-b border-gray-50">
-                        <img src="{{ $post->user->profile_image ? asset('storage/images/' . $post->user->profile_image) : 'https://via.placeholder.com/40' }}" 
-                             class="w-10 h-10 rounded-full mr-3 border-2 border-indigo-100 object-cover">
-                        <div>
-                            <p class="font-semibold text-gray-800">{{ $post->user->name }}</p>
-                            <p class="text-xs text-gray-400 flex items-center">
-                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                {{ $post->created_at->diffForHumans() }}
-                            </p>
-                        </div>
-                        
-                        @if(auth()->id() == $post->user_id)
-                        <div class="relative ml-auto">
-                            <button onclick="toggleDropdown({{ $post->id }})" class="text-gray-500 hover:text-indigo-600 p-2 rounded-full hover:bg-gray-100">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
-                                </svg>
-                            </button>
-                            <div id="dropdown-{{ $post->id }}" class="hidden absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg z-10 border border-gray-100 overflow-hidden">
-                                <a href="javascript:void(0)" onclick="openEditModal({{ $post->id }}, '{{ addslashes($post->caption) }}')" 
-                                   class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition flex items-center">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+        <!-- 3-Column Post Grid or No Data Message -->
+        @if($posts->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($posts as $post)
+                    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full">
+                        <!-- User Info -->
+                        <div class="flex items-center p-4 border-b border-gray-50">
+                            <img src="{{ $post->user->profile_image ? asset('storage/images/' . $post->user->profile_image) : 'https://via.placeholder.com/40' }}" 
+                                 class="w-10 h-10 rounded-full mr-3 border-2 border-indigo-100 object-cover">
+                            <div>
+                                <p class="font-semibold text-gray-800">{{ $post->user->name }}</p>
+                                <p class="text-xs text-gray-400 flex items-center">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
-                                    Edit
-                                </a>
-                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="w-full text-left block px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition flex items-center">
+                                    {{ $post->created_at->diffForHumans() }}
+                                </p>
+                            </div>
+                            
+                            @if(auth()->id() == $post->user_id)
+                            <div class="relative ml-auto">
+                                <button onclick="toggleDropdown({{ $post->id }})" class="text-gray-500 hover:text-indigo-600 p-2 rounded-full hover:bg-gray-100">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+                                    </svg>
+                                </button>
+                                <div id="dropdown-{{ $post->id }}" class="hidden absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg z-10 border border-gray-100 overflow-hidden">
+                                    <a href="javascript:void(0)" onclick="openEditModal({{ $post->id }}, '{{ addslashes($post->caption) }}')" 
+                                       class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition flex items-center">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                         </svg>
-                                        Delete
-                                    </button>
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="w-full text-left block px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+
+                        <!-- Image (if exists) -->
+                        @if($post->media)
+                            <div class="relative overflow-hidden" style="max-height: 200px;">
+                                <img src="{{ asset('storage/' . $post->media) }}" class="w-full h-full object-cover hover:opacity-95 transition-opacity duration-300">
+                            </div>
+                        @endif
+
+                        <!-- Caption -->
+                        <div class="p-4 flex-grow">
+                            <p class="text-gray-700 leading-relaxed text-sm line-clamp-3">{{ $post->caption }}</p>
+                            @if(strlen($post->caption) > 150)
+                                <button class="text-indigo-600 hover:text-indigo-800 text-sm mt-2" onclick="openDetailModal({{ $post->id }}, '{{ addslashes($post->caption) }}', '{{ $post->media ? asset('storage/' . $post->media) : '' }}')">
+                                    Read More
+                                </button>
+                            @endif
+                        </div>
+
+                        <!-- Engagement Section -->
+                        <div class="border-t border-gray-50 px-4 py-3 bg-gray-50 rounded-b-xl">
+                            <div class="flex items-center">
+                                <form method="POST" action="{{ $post->isLikedBy(auth()->user()) ? route('posts.unlike', $post->id) : route('posts.like', $post->id) }}" class="flex-grow">
+                                    @csrf
+                                    @if($post->isLikedBy(auth()->user()))
+                                        @method('DELETE')
+                                        <button type="submit" class="flex items-center text-red-500 hover:text-red-700 font-medium transition">
+                                            <svg class="w-5 h-5 mr-1 fill-current" viewBox="0 0 24 24">
+                                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                            </svg>
+                                            <span>{{ $post->likes->count() }}</span>
+                                        </button>
+                                    @else
+                                        <button type="submit" class="flex items-center text-gray-500 hover:text-red-500 font-medium transition">
+                                            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                            </svg>
+                                            <span>{{ $post->likes->count() }}</span>
+                                        </button>
+                                    @endif
                                 </form>
+
+                                <button onclick="openCommentModal({{ $post->id }})" class="flex items-center text-indigo-500 hover:text-indigo-700 font-medium transition">
+                                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                    </svg>
+                                    <span>{{ $post->comments->count() }}</span>
+                                </button>
                             </div>
                         </div>
-                        @endif
                     </div>
-
-                    <!-- Image (if exists) -->
-                    @if($post->media)
-                        <div class="relative overflow-hidden" style="max-height: 200px;">
-                            <img src="{{ asset('storage/' . $post->media) }}" class="w-full h-full object-cover hover:opacity-95 transition-opacity duration-300">
-                        </div>
-                    @endif
-
-                    <!-- Caption -->
-                    <div class="p-4 flex-grow">
-                        <p class="text-gray-700 leading-relaxed text-sm line-clamp-3">{{ $post->caption }}</p>
-                        @if(strlen($post->caption) > 150)
-                            <button class="text-indigo-600 hover:text-indigo-800 text-sm mt-2" onclick="openDetailModal({{ $post->id }}, '{{ addslashes($post->caption) }}', '{{ $post->media ? asset('storage/' . $post->media) : '' }}')">
-                                Read More
-                            </button>
-                        @endif
-                    </div>
-
-                    <!-- Engagement Section -->
-                    <div class="border-t border-gray-50 px-4 py-3 bg-gray-50 rounded-b-xl">
-                        <div class="flex items-center">
-                            <form method="POST" action="{{ $post->isLikedBy(auth()->user()) ? route('posts.unlike', $post->id) : route('posts.like', $post->id) }}" class="flex-grow">
-                                @csrf
-                                @if($post->isLikedBy(auth()->user()))
-                                    @method('DELETE')
-                                    <button type="submit" class="flex items-center text-red-500 hover:text-red-700 font-medium transition">
-                                        <svg class="w-5 h-5 mr-1 fill-current" viewBox="0 0 24 24">
-                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                                        </svg>
-                                        <span>{{ $post->likes->count() }}</span>
-                                    </button>
-                                @else
-                                    <button type="submit" class="flex items-center text-gray-500 hover:text-red-500 font-medium transition">
-                                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                        </svg>
-                                        <span>{{ $post->likes->count() }}</span>
-                                    </button>
-                                @endif
-                            </form>
-
-                            <button onclick="openCommentModal({{ $post->id }})" class="flex items-center text-indigo-500 hover:text-indigo-700 font-medium transition">
-                                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                </svg>
-                                <span>{{ $post->comments->count() }}</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <!-- Pagination with improved styling -->
-        <div class="mt-10">
-            <div class="flex justify-center">
-                {{ $posts->links() }}
+                @endforeach
             </div>
-        </div>
+
+            <!-- Pagination -->
+            <div class="mt-10">
+                <div class="flex justify-center">
+                    {{ $posts->links() }}
+                </div>
+            </div>
+        @else
+            <!-- No Data Message -->
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 p-8 text-center">
+                <svg class="w-16 h-16 mx-auto mb-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6m-9 3h18a2 2 0 002-2V6a2 2 0 00-2-2H3a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">No Stories Yet</h3>
+                <p class="text-gray-600 mb-6">It looks like there are no stories or achievements shared yet. Be the first to share your experience!</p>
+                <button onclick="openCreateModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg shadow-md transition flex items-center mx-auto">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Share Your Story
+                </button>
+            </div>
+        @endif
     </div>
 </div>
 

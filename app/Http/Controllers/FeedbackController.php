@@ -169,7 +169,7 @@ class FeedbackController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback berhasil diperbarui.');
+        return redirect()->route('feedbacks.index')->with('success', 'Feedback successfully updated.');
     }
 
     /**
@@ -184,7 +184,7 @@ class FeedbackController extends Controller
             ->where('sender_id', $senderId)
             ->delete();
 
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback berhasil dihapus.');
+        return redirect()->route('feedbacks.index')->with('success', 'Feedback successfully deleted.');
     }
     
     public function received()

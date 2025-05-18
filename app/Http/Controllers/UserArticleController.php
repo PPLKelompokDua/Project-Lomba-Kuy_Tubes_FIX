@@ -8,9 +8,15 @@ class UserArticleController extends Controller
 {
     public function index()
     {
+        $search = request('search');
+
         $articles = Article::where('status', 'published')
+            ->when($search, function ($query, $search) {
+                $query->where('title', 'like', "%{$search}%");
+            })
             ->latest()
-            ->paginate(6);
+            ->paginate(6)
+            ->appends(['search' => $search]); // agar pagination menyimpan keyword
 
         return view('article.index', compact('articles'));
     }

@@ -335,7 +335,7 @@
 }
 
 .welcome-text {
-    color: #5243AA;
+    color: #4f46e5;
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 10px;
@@ -345,7 +345,7 @@
 }
 
 .icon-gradient {
-    background: linear-gradient(45deg, #5243AA, #8776d5);
+    background: linear-gradient(45deg, #4f46e5, #6366f1);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -376,7 +376,7 @@
 }
 
 .stat-icon {
-    background: linear-gradient(45deg, #5243AA, #8776d5);
+    background: linear-gradient(45deg, #4f46e5, #6366f1);
     color: white;
     width: 60px;
     height: 60px;
@@ -386,7 +386,7 @@
     justify-content: center;
     font-size: 1.5rem;
     margin-right: 20px;
-    box-shadow: 0 5px 15px rgba(82, 67, 170, 0.3);
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
 }
 
 .stat-icon.pending-icon {
@@ -416,7 +416,7 @@
 }
 
 .stat-value {
-    color: #5243AA;
+    color: #4f46e5;
     font-size: 2.2rem;
     font-weight: 700;
     line-height: 1;
@@ -436,7 +436,7 @@
 }
 
 .section-title {
-    color: #5243AA;
+    color: #4f46e5;
     font-size: 1.5rem;
     font-weight: 600;
     display: flex;
@@ -444,7 +444,7 @@
 }
 
 .section-title i {
-    color: #8776d5;
+    color: #6366f1;
 }
 
 /* Form Styling */
@@ -456,8 +456,8 @@
 }
 
 .form-control:focus {
-    border-color: #5243AA;
-    box-shadow: 0 0 0 3px rgba(82, 67, 170, 0.1);
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .form-control::placeholder {
@@ -474,24 +474,23 @@
 }
 
 .form-group label i {
-    color: #8776d5;
-    margin-right: 8px;
+    color: #6366f1;
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #5243AA, #8776d5);
+    background: linear-gradient(45deg, #4f46e5, #6366f1);
     border: none;
     border-radius: 10px;
     padding: 12px 25px;
     font-weight: 600;
-    box-shadow: 0 5px 15px rgba(82, 67, 170, 0.3);
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
     transition: all 0.3s;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(45deg, #4535a0, #7667c6);
+    background: linear-gradient(45deg, #4338ca, #4f46e5);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(82, 67, 170, 0.4);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
 }
 
 /* Task List Styling */
@@ -591,8 +590,8 @@
 }
 
 .btn-outline-primary {
-    color: #5243AA;
-    border-color: #5243AA;
+    color: #4f46e5;
+    border-color: #4f46e5;
     border-width: 2px;
     border-radius: 8px;
     font-weight: 500;
@@ -600,9 +599,9 @@
 }
 
 .btn-outline-primary:hover {
-    background: #5243AA;
+    background: #4f46e5;
     color: white;
-    box-shadow: 0 5px 15px rgba(82, 67, 170, 0.2);
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
 }
 
 .btn-outline-danger {
@@ -654,7 +653,7 @@
 }
 
 .modal-header .modal-title {
-    color: #5243AA;
+    color: #4f46e5;
     font-weight: 600;
 }
 

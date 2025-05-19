@@ -68,10 +68,15 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Current Thumbnail</label>
                     <div class="mt-1 flex items-center">
-                        <div class="flex-shrink-0 w-32 h-20 border rounded overflow-hidden bg-gray-100 flex items-center justify-center">
+                        <div class="flex-shrink-0 w-32 h-20 border rounded overflow-hidden bg-gray-100 flex items-center justify-center" id="thumbnail-container">
                             @if($video->thumbnail_url)
-                                <img src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}" class="w-full h-full object-cover" 
-                                     onerror="this.onerror=null; this.src=''; this.classList.add('hidden'); this.parentElement.innerHTML += '<div class=\'flex items-center justify-center w-full h-full text-gray-500\'><svg xmlns=\'http://www.w3.org/2000/svg\' class=\'h-8 w-8\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'currentColor\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z\' /></svg></div>';">
+                                <img src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}" class="w-full h-full object-cover" id="thumbnail-preview"
+                                     onerror="this.style.display='none'; document.getElementById('thumbnail-placeholder').style.display='flex';">
+                                <div id="thumbnail-placeholder" class="flex items-center justify-center w-full h-full text-gray-500" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
                             @else
                                 <div class="flex items-center justify-center w-full h-full text-gray-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -96,13 +101,10 @@
                         <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category <span class="text-red-500">*</span></label>
                         <select name="category" id="category" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md p-2" required>
                             <option value="" disabled>Select a category</option>
-                            <option value="Programming" {{ old('category', $video->category) == 'Programming' ? 'selected' : '' }}>Programming</option>
-                            <option value="Design" {{ old('category', $video->category) == 'Design' ? 'selected' : '' }}>Design</option>
-                            <option value="Business" {{ old('category', $video->category) == 'Business' ? 'selected' : '' }}>Business</option>
-                            <option value="Marketing" {{ old('category', $video->category) == 'Marketing' ? 'selected' : '' }}>Marketing</option>
-                            <option value="Presentation" {{ old('category', $video->category) == 'Presentation' ? 'selected' : '' }}>Presentation</option>
-                            <option value="Team Building" {{ old('category', $video->category) == 'Team Building' ? 'selected' : '' }}>Team Building</option>
-                            <option value="Other" {{ old('category', $video->category) == 'Other' ? 'selected' : '' }}>Other</option>
+                            <option value="Tips Juara" {{ old('category', $video->category) == 'Tips Juara' ? 'selected' : '' }}>Tips Juara</option>
+                            <option value="Competition" {{ old('category', $video->category) == 'Competition' ? 'selected' : '' }}>Competition</option>
+                            <option value="Tutorial" {{ old('category', $video->category) == 'Tutorial' ? 'selected' : '' }}>Tutorial</option>
+                            <option value="Workshop" {{ old('category', $video->category) == 'Workshop' ? 'selected' : '' }}>Workshop</option>
                         </select>
                     </div>
                     

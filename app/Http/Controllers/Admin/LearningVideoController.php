@@ -119,6 +119,32 @@ class LearningVideoController extends Controller
         $video->delete();
         
         return redirect()->route('admin.learning-videos.index')
-            ->with('success', 'Learning video successfully deleted!');
+            ->with('success', 'Video deleted successfully!');
+    }
+    
+    /**
+     * Publish the specified learning video.
+     */
+    public function publish(string $id)
+    {
+        $video = LearningVideo::findOrFail($id);
+        $video->is_published = true;
+        $video->save();
+        
+        return redirect()->route('admin.learning-videos.show', $video->id)
+            ->with('success', 'Video published successfully!');
+    }
+    
+    /**
+     * Unpublish the specified learning video.
+     */
+    public function unpublish(string $id)
+    {
+        $video = LearningVideo::findOrFail($id);
+        $video->is_published = false;
+        $video->save();
+        
+        return redirect()->route('admin.learning-videos.show', $video->id)
+            ->with('success', 'Video unpublished successfully!');
     }
 }

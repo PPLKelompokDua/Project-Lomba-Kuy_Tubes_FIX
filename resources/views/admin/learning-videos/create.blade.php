@@ -69,13 +69,10 @@
                         <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category <span class="text-red-500">*</span></label>
                         <select name="category" id="category" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md p-2" required>
                             <option value="" disabled selected>Select a category</option>
-                            <option value="Programming" {{ old('category') == 'Programming' ? 'selected' : '' }}>Programming</option>
-                            <option value="Design" {{ old('category') == 'Design' ? 'selected' : '' }}>Design</option>
-                            <option value="Business" {{ old('category') == 'Business' ? 'selected' : '' }}>Business</option>
-                            <option value="Marketing" {{ old('category') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
-                            <option value="Presentation" {{ old('category') == 'Presentation' ? 'selected' : '' }}>Presentation</option>
-                            <option value="Team Building" {{ old('category') == 'Team Building' ? 'selected' : '' }}>Team Building</option>
-                            <option value="Other" {{ old('category') == 'Other' ? 'selected' : '' }}>Other</option>
+                            <option value="Tips Juara" {{ old('category') == 'Tips Juara' ? 'selected' : '' }}>Tips Juara</option>
+                            <option value="Competition" {{ old('category') == 'Competition' ? 'selected' : '' }}>Competition</option>
+                            <option value="Tutorial" {{ old('category') == 'Tutorial' ? 'selected' : '' }}>Tutorial</option>
+                            <option value="Workshop" {{ old('category') == 'Workshop' ? 'selected' : '' }}>Workshop</option>
                         </select>
                     </div>
                     

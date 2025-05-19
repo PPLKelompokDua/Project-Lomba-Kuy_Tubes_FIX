@@ -23,6 +23,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\AssessmentQuestionController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\LearningVideoController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -171,6 +172,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tasks', TaskController::class);
     Route::get('/teams/{team}/tasks', [TaskController::class, 'forTeam'])->name('tasks.team');
 
+    // Learning Videos for Students
+    Route::get('/learning-videos', [LearningVideoController::class, 'index'])->name('learning-videos.index');
+    Route::get('/learning-videos/{video}', [LearningVideoController::class, 'show'])->name('learning-videos.show');
+
 
 
     // Dashboard redirect sesuai role
@@ -208,6 +213,8 @@ Route::middleware(['auth'])->group(function () {
         
         // Learning Videos
         Route::resource('learning-videos', \App\Http\Controllers\Admin\LearningVideoController::class);
+        Route::patch('learning-videos/{learningVideo}/publish', [\App\Http\Controllers\Admin\LearningVideoController::class, 'publish'])->name('learning-videos.publish');
+        Route::patch('learning-videos/{learningVideo}/unpublish', [\App\Http\Controllers\Admin\LearningVideoController::class, 'unpublish'])->name('learning-videos.unpublish');
 });
     
     // Organizer

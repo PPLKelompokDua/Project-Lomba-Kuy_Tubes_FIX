@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Competition;
 use App\Models\Team;
 use App\Models\Task;
+use App\Models\LearningVideo;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -36,6 +37,13 @@ class UserDashboardController extends Controller
         $completed = $assignedTasks->where('status', 'completed')->count();
         $overallProgress = $total > 0 ? round(($completed / $total) * 100) : 0;
 
+        // Get published learning videos, prioritize featured ones first
+        $learningVideos = LearningVideo::where('is_published', true)
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+            
         return view('dashboard', compact(
             'competitions',
             'savedCompetitions',
@@ -43,7 +51,8 @@ class UserDashboardController extends Controller
             'completedCompetitions',
             'overallProgress',
             'assignedTasks', // semua task assigned ke user
-            'user'
+            'user',
+            'learningVideos'
         ));
     }
 }

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CompetitionSeeder::class,
             AssessmentQuestionsSeeder::class,
             ArticleSeeder::class,
+            LearningVideoSeeder::class,
         ]);
     }
 }

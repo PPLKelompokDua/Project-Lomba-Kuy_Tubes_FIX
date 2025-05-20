@@ -48,7 +48,6 @@ class TaskController extends Controller
         return view('task-management.task-management', compact(
             'tasks',
             'teamMembers',
-            'teams',
             'team',
             'user',
             'overallProgress',

@@ -9,6 +9,7 @@ use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Article;
+use App\Models\LearningVideo;
 
 class UserDashboardController extends Controller
 {
@@ -42,6 +43,13 @@ class UserDashboardController extends Controller
                 ->take(5)
                 ->get();
 
+        $learningVideos = LearningVideo::where('is_published', true)
+                ->orderBy('is_featured', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->take(4)
+                ->get();
+            
+
         return view('dashboard', compact(
             'competitions',
             'savedCompetitions',
@@ -50,7 +58,8 @@ class UserDashboardController extends Controller
             'overallProgress',
             'assignedTasks', 
             'user',
-            'latestArticles'
+            'latestArticles',
+            'learningVideos'
         ));
     }
 }

@@ -46,7 +46,7 @@ class UserDashboardController extends Controller
         $learningVideos = LearningVideo::where('is_published', true)
                 ->orderBy('is_featured', 'desc')
                 ->orderBy('created_at', 'desc')
-                ->take(4)
+                ->take(3)
                 ->get();
             
 

@@ -51,7 +51,7 @@ class LearningVideoController extends Controller
             ->where('category', $video->category)
             ->orderBy('is_featured', 'desc')
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(3)
             ->get();
             
         return view('learning-videos.show', compact('video', 'relatedVideos'));

@@ -472,11 +472,17 @@
                     @forelse($learningVideos as $video)
                         <a href="{{ route('learning-videos.show', $video->id) }}" class="block group hover:bg-indigo-50 transition-colors duration-300">
                             <div class="p-4 flex space-x-3">
-                                <div class="flex-shrink-0 relative w-24 h-16 bg-gray-100 rounded-lg overflow-hidden shadow-sm">
+                                <div class="flex-shrink-0 relative w-32 h-20 bg-gray-100 rounded-lg overflow-hidden shadow-sm">
                                     @if($video->thumbnail_url)
-                                        <img src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                        <img 
+                                            src="{{ $video->thumbnail_url }}" 
+                                            alt="{{ $video->title }}" 
+                                            class="w-full h-full object-cover z-10 relative group-hover:scale-105 transition-transform duration-500"
+                                            loading="lazy"
+                                            referrerpolicy="no-referrer"
+                                        >
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50 text-indigo-400">
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50 text-indigo-400 z-10 relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                             </svg>
@@ -484,23 +490,23 @@
                                     @endif
                                     
                                     <!-- Category badge -->
-                                    <div class="absolute top-1 left-1">
+                                    <div class="absolute top-1 left-1 z-20">
                                         <span class="inline-block bg-black bg-opacity-60 text-white text-[10px] px-1.5 py-0.5 rounded">
                                             {{ $video->category }}
                                         </span>
                                     </div>
-                                    
+
                                     <!-- Play Overlay -->
-                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                                    <div class="absolute inset-0 z-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                                         <div class="w-8 h-8 rounded-full bg-indigo-600 bg-opacity-0 group-hover:bg-opacity-90 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                             </svg>
                                         </div>
                                     </div>
-                                    
+
                                     @if($video->duration)
-                                        <div class="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-[10px] px-1 py-0.5 rounded">
+                                        <div class="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-[10px] px-1 py-0.5 rounded z-20">
                                             {{ $video->duration }}
                                         </div>
                                     @endif
@@ -527,8 +533,18 @@
             
             <!-- Latest Articles Section -->
             <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-                <div class="border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-                    <h3 class="font-bold text-gray-800">Latest Articles</h3>
+                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-4 relative overflow-hidden">
+                    <div class="absolute -right-8 -top-8 w-16 h-16 bg-white bg-opacity-10 rounded-full"></div>
+                    <div class="absolute -left-4 bottom-0 w-24 h-24 bg-purple-500 bg-opacity-20 rounded-full filter blur-xl"></div>
+
+                    <div class="w-full flex justify-start">
+                        <h3 class="text-lg font-bold text-white flex items-center relative z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Latest Articles
+                        </h3>
+                    </div>
                 </div>
                 <div class="p-6 space-y-4">
                     @forelse($latestArticles->take(3) as $article)

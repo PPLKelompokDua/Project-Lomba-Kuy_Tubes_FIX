@@ -108,13 +108,16 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse($videos as $video)
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-1 group">
-                    <a href="{{ route('learning-videos.show', $video->id) }}" class="block relative aspect-video bg-gray-200 overflow-hidden">
+                    <a href="{{ route('learning-videos.show', $video->id) }}" class="block relative overflow-hidden rounded-t-xl">
                         @if($video->thumbnail_url)
-                            <img src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <img src="{{ $video->thumbnail_url }}"
+                                alt="{{ $video->title }}"
+                                class="w-full h-48 object-cover group-hover:scale-105 transition duration-300 z-0 relative">
                         @else
-                            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            <div class="w-full h-48 flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50 text-indigo-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                 </svg>
                             </div>
                         @endif
@@ -126,10 +129,10 @@
                             </span>
                         </div>
                         
-                        <!-- Play Button -->
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                            <div class="w-16 h-16 rounded-full bg-indigo-600 bg-opacity-0 group-hover:bg-opacity-90 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <!-- Overlay play (opacity 10%) -->
+                        <div class="absolute inset-0 bg-black bg-opacity-10 transition duration-300 flex items-center justify-center z-10 pointer-events-none">
+                            <div class="w-12 h-12 rounded-full bg-indigo-600 bg-opacity-90 flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                 </svg>
                             </div>
@@ -182,7 +185,7 @@
         
         <!-- Pagination -->
         <div class="mt-10 flex justify-center">
-            {{ $videos->links() }}
+            {{ $videos->links('vendor.pagination.custom') }}
         </div>
     </div>
 </div>

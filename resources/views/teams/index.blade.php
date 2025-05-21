@@ -35,19 +35,34 @@
     <!-- Quick Filters -->
     <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
         <div class="d-flex gap-2 mb-3 mb-md-0 flex-wrap">
-            <button class="btn btn-sm px-3 py-2 active" style="background-color: #4f46e5; color: white; border-radius: 20px;">
+            <a href="{{ route('teams.index') }}" class="btn btn-sm px-3 py-2 {{ request('status') === null ? 'active' : '' }}" 
+                style="{{ request('status') === null ? 'background-color: #4f46e5; color: white;' : 'background-color: #f3f4f6; color: #4b5563;' }} border-radius: 20px;">
                 All Teams
-            </button>
-            <button class="btn btn-sm px-3 py-2" style="background-color: #f3f4f6; color: #4b5563; border-radius: 20px;">
+            </a>
+            <a href="{{ route('teams.index', ['status' => 'ongoing']) }}" class="btn btn-sm px-3 py-2 {{ request('status') === 'ongoing' ? 'active' : '' }}" 
+                style="{{ request('status') === 'ongoing' ? 'background-color: #4f46e5; color: white;' : 'background-color: #f3f4f6; color: #4b5563;' }} border-radius: 20px;">
                 Active
-            </button>
-            <button class="btn btn-sm px-3 py-2" style="background-color: #f3f4f6; color: #4b5563; border-radius: 20px;">
+            </a>
+            <a href="{{ route('teams.index', ['status' => 'finished']) }}" class="btn btn-sm px-3 py-2 {{ request('status') === 'finished' ? 'active' : '' }}" 
+                style="{{ request('status') === 'finished' ? 'background-color: #4f46e5; color: white;' : 'background-color: #f3f4f6; color: #4b5563;' }} border-radius: 20px;">
                 Finished
-            </button>
+            </a>
         </div>
         <div class="position-relative">
-            <input type="text" class="form-control ps-4" placeholder="Search teams..." style="border-radius: 20px; padding-right: 40px;">
-            <i class="fas fa-search position-absolute" style="top: 50%; right: 15px; transform: translateY(-50%); color: #9ca3af;"></i>
+            <form method="GET" action="{{ route('teams.index') }}" class="position-relative">
+                <input 
+                    type="text" 
+                    name="search" 
+                    value="{{ request('search') }}" 
+                    class="form-control ps-4" 
+                    placeholder="Search teams..." 
+                    style="border-radius: 20px; padding-right: 40px;">
+                
+                @if(request('status'))
+                    <input type="hidden" name="status" value="{{ request('status') }}">
+                @endif
+                <i class="fas fa-search position-absolute" style="top: 50%; right: 15px; transform: translateY(-50%); color: #9ca3af;"></i>
+            </form>
         </div>
     </div>
 

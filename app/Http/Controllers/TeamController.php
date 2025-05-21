@@ -109,11 +109,20 @@ class TeamController extends Controller
 
         $completedCompetitions = Team::where('status_team', 'finished')->count();
 
+        $query = Team::whereIn('id', $allTeamIds)
+                    ->with(['leader', 'acceptedMembers']);
+
+        // ✅ Filter berdasarkan status_team (ongoing/finished)
+        if ($request->filled('status') && in_array($request->status, ['ongoing', 'finished'])) {
+            $query->where('status_team', $request->status);
+        }
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
         // Ambil data tim untuk halaman ini (paginated)
-        $teams = Team::whereIn('id', $allTeamIds)
-            ->with(['leader', 'acceptedMembers'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(4);
+        $teams = $query->orderBy('created_at', 'desc')->paginate(4);
 
         return view('teams.index', compact('teams', 'user', 'totalTeams', 'completedCompetitions'));
     }

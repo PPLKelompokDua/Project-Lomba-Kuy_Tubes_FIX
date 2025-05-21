@@ -46,6 +46,61 @@
         </div>
     </div>
 
+    <!-- Competition Preview Card -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-8 border border-gray-100">
+        <h2 class="text-xl font-semibold text-gray-800 mb-5">Competition Preview</h2>
+        <div class="space-y-4 text-gray-700">
+
+            <!-- Competition Name -->
+            <div class="flex items-start gap-4">
+                <div class="text-indigo-600">
+                    <i class="fas fa-trophy fa-lg"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Competition Name</p>
+                    <p class="text-base font-semibold text-gray-900">{{ $team->competition->title ?? $team->competition_name }}</p>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="flex items-start gap-4">
+                <div class="text-indigo-600">
+                    <i class="fas fa-tag fa-lg"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Category</p>
+                    <p class="text-base font-semibold text-gray-900">{{ $team->category ?? '-' }}</p>
+                </div>
+            </div>
+
+            <!-- Deadline -->
+            <div class="flex items-start gap-4">
+                <div class="text-indigo-600">
+                    <i class="fas fa-calendar-alt fa-lg"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Deadline</p>
+                    <p class="text-base font-semibold text-gray-900">
+                        {{ $team->deadline ? \Carbon\Carbon::parse($team->deadline)->format('d F Y') : '-' }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="flex items-start gap-4">
+                <div class="text-indigo-600">
+                    <i class="fas fa-map-marker-alt fa-lg"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Location</p>
+                    <p class="text-base font-semibold text-gray-900">{{ $team->location ?? '-' }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
     <!-- Team Members List -->
     <div class="bg-white rounded-xl shadow-md overflow-hidden">
         <div class="px-6 py-4 bg-indigo-50 border-b border-indigo-100">

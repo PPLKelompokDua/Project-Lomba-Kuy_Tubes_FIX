@@ -2,9 +2,13 @@
 
 @section('content')
 <div class="container">
-
     <a href="{{ route('milestones.create', $competition->id) }}" class="btn btn-primary mb-4">➕ Tambah Milestone</a>
 
+     <!-- Tombol Review Tugas -->
+    <a href="{{ url('/reviewtugas') }}" class="btn btn-secondary mb-4">📋 Review Tugas</a>
+
+
+    <!-- Filter Status -->
     <div class="mb-4">
         <label for="filterStatus" class="form-label">Filter Status:</label>
         <select id="filterStatus" class="form-select" onchange="filterMilestones()">
@@ -54,6 +58,7 @@
     </div>
 </div>
 
+<!-- Script filter & animasi -->
 @push('scripts')
 <script>
     function filterMilestones() {
@@ -72,6 +77,7 @@
 </script>
 @endpush
 
+<!-- Optional: Animasi hover style -->
 <style>
     .milestone-hover {
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;

@@ -1,96 +1,104 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-indigo-700">
-            <i class="fas fa-flag-checkered"></i>
-            Tambah Milestone untuk Kompetisi
-        </h2>
+<div class="container">
+    <h3 class="mb-4 fw-bold text-primary">📝 Tambah Milestone</h3>
 
-        @if(session('success'))
-            <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-                {{ session('success') }}
+    <form action="{{ route('milestones.store', $competition->id) }}" method="POST">
+        @csrf
+
+        <!-- Judul -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Judul</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-type"></i></span>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Judul Milestone" required>
             </div>
-        @endif
+        </div>
 
-        <form action="{{ route('milestones.store', $competition->id ?? $competitionId) }}" method="POST" class="space-y-6">
-            @csrf
+        <!-- Deskripsi -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Deskripsi</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-chat-left-text"></i></span>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Deskripsi milestone..." required></textarea>
+            </div>
+        </div>
 
-            <!-- Judul -->
-            <div>
-                <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
-                <div class="mt-1 relative">
-                    <input type="text" name="title" id="title" required
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10"
-                        placeholder="Contoh: Finalisasi Proposal">
-                    <div class="absolute left-3 top-0 text-gray-300">
-                        <i class="fas fa-heading"></i>
-                    </div>
+        <!-- Tanggal & Waktu Mulai -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="start_date" class="form-label">Tanggal Mulai</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                    <input type="date" class="form-control" id="start_date" name="start_date" required>
                 </div>
             </div>
-
-            <!-- Deskripsi -->
-            <div>
-                <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                <div class="mt-1 relative">
-                    <textarea name="description" id="description" rows="4"
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10"
-                        placeholder="Deskripsi milestone (opsional)"></textarea>
-                    <div class="absolute left-3 top-0 text-gray-400">
-                        <i class="fas fa-align-left"></i>
-                    </div>
+            <div class="col-md-6">
+                <label for="start_time" class="form-label">Waktu Mulai</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                    <input type="time" class="form-control" id="start_time" name="start_time" required>
                 </div>
             </div>
+        </div>
 
-            <!-- Tanggal Mulai -->
-            <div>
-                <label for="start_date" class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
-                <div class="mt-1 relative">
-                    <input type="date" name="start_date" id="start_date" required
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10">
-                    <div class="absolute left-3 top-0 text-gray-400">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
+        <!-- Tanggal & Waktu Selesai -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="end_date" class="form-label">Tanggal Selesai</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+                    <input type="date" class="form-control" id="end_date" name="end_date" required>
                 </div>
             </div>
-
-            <!-- Tanggal Selesai -->
-            <div>
-                <label for="end_date" class="block text-sm font-medium text-gray-700">Tanggal Selesai</label>
-                <div class="mt-1 relative">
-                    <input type="date" name="end_date" id="end_date" required
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10">
-                    <div class="absolute left-3 top-0 text-gray-400">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
+            <div class="col-md-6">
+                <label for="end_time" class="form-label">Waktu Selesai</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-clock-history"></i></span>
+                    <input type="time" class="form-control" id="end_time" name="end_time" required>
                 </div>
             </div>
+        </div>
 
-            <!-- Status -->
-            <div>
-                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                <div class="mt-1 relative">
-                    <select name="status" id="status" required
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10">
-                        <option value="Not Started">Belum Dimulai</option>
-                        <option value="In Progress">Sedang Berlangsung</option>
-                        <option value="Completed">Selesai</option>
-                    </select>
-                    <div class="absolute left-3 top-0 text-gray-400">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                </div>
+        <!-- Status -->
+        <div class="mb-4">
+            <label for="status" class="form-label">Status</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-flag"></i></span>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="Not Started">Belum Dimulai</option>
+                    <option value="In Progress">Sedang Berlangsung</option>
+                    <option value="Completed">Selesai</option>
+                </select>
             </div>
+        </div>
 
-            <!-- Tombol Simpan -->
-            <div class="flex justify-end">
-                <button type="submit"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow">
-                    <i class="fas fa-save mr-2"></i> Simpan
-                </button>
-            </div>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-success shadow-sm px-4 py-2">💾 Simpan</button>
+    </form>
 </div>
 @endsection
+
+@push('styles')
+<!-- Tambahkan Bootstrap Icons jika belum -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+<style>
+    input:focus, textarea:focus, select:focus {
+        box-shadow: 0 0 0 0.2rem rgba(108, 99, 255, 0.25);
+        border-color: #6c63ff;
+        transition: all 0.3s ease;
+    }
+
+    .input-group-text {
+        background-color: #6c63ff;
+        color: white;
+    }
+
+    label {
+        font-weight: 500;
+    }
+</style>
+@endpush

@@ -11,13 +11,17 @@ class CompetitionMilestoneController extends Controller
     public function index($competitionId)
     {
         $competition = Competition::with('milestones')->findOrFail($competitionId);
-        return view('milestones.index', compact('competition'));
+        $milestones = $competition->milestones;
+
+        return view('milestones.index', compact('competition', 'milestones'));
     }
 
-    public function create($competitionId)
+        public function create($competitionId)
     {
-        return view('milestones.create', ['competitionId' => $competitionId]);
+        $competition = Competition::findOrFail($competitionId);
+        return view('milestones.create', compact('competition'));
     }
+
 
     public function store(Request $request, $competitionId)
     {
@@ -35,6 +39,7 @@ class CompetitionMilestoneController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'status' => $request->status,
+            // 'is_done' => $request->has('is_done'), // Checkbox handling
         ]);
 
         return redirect()->route('milestones.index', $competitionId)->with('success', 'Milestone berhasil ditambahkan.');
@@ -62,6 +67,7 @@ class CompetitionMilestoneController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'status' => $request->status,
+            // 'is_done' => $request->has('is_done'), // Checkbox handling
         ]);
 
         return redirect()->route('milestones.index', $competitionId)->with('success', 'Milestone berhasil diperbarui.');
@@ -73,5 +79,26 @@ class CompetitionMilestoneController extends Controller
         $milestone->delete();
 
         return redirect()->route('milestones.index', $competitionId)->with('success', 'Milestone berhasil dihapus.');
+    }
+
+    public function chart($competitionId)
+    {
+        $competition = Competition::with('milestones')->findOrFail($competitionId);
+        return view('milestones.chart', compact('competition'));
+    }
+
+    public function showChart($competitionId)
+    {
+        $competition = Competition::with('milestones')->findOrFail($competitionId);
+        return view('competitions.milestones.chart', compact('competition'));
+    }
+
+    public function toggleDone($id)
+    {
+        $milestone = Milestone::findOrFail($id);
+        // $milestone->is_done = !$milestone->is_done;
+        $milestone->save();
+
+        return response()->json(['success' => true, 'is_done' => $milestone->is_done]);
     }
 }

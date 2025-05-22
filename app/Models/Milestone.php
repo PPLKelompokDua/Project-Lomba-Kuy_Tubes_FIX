@@ -16,7 +16,9 @@ class Milestone extends Model
         'start_date',
         'end_date',
         'status',
+        'is_done'
     ];
+
 
     protected $casts = [
         'start_date' => 'datetime',
@@ -30,4 +32,8 @@ class Milestone extends Model
     {
         return $this->belongsTo(Competition::class);
     }
+
+    public function milestones() {
+    return $this->hasMany(CompetitionMilestone::class);
+}
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\AssessmentQuestionController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CompetitionMilestoneController;
+use App\Http\Controllers\ReviewTugasController; 
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -231,7 +232,13 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/{milestone}', [CompetitionMilestoneController::class, 'update'])->name('milestones.update');
         Route::delete('/{milestone}', [CompetitionMilestoneController::class, 'destroy'])->name('milestones.destroy');
 
+        Route::get('/chart', [CompetitionMilestoneController::class, 'chart'])->name('milestones.chart');
+        Route::post('/milestones/{id}/toggle-done', [CompetitionMilestoneController::class, 'toggleDone'])->name('milestones.toggleDone');
+
+        
+
     });
 
-
+    Route::get('/reviewtugas', [ReviewTugasController::class, 'index']);
+Route::patch('/reviewtugas/{tugas}', [ReviewTugasController::class, 'update']);
 });

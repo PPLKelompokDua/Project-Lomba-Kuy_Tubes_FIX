@@ -17,17 +17,17 @@
     @endif
     
     <!-- Top navigation and header section -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
-        <div class="border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-white p-6">
+    <div class="bg-white rounded-xl overflow-hidden">
+        <div class="border-b border-gray-100 bg-gradient-to-r from-[#4f46e5] to-[#4f46e5] p-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <a href="{{ route('admin.learning-videos.index') }}" class="inline-flex items-center text-sm text-indigo-600 hover:text-indigo-800 mb-3">
+                    <a href="{{ route('admin.learning-videos.index') }}" class="inline-flex items-center text-sm text-white hover:text-gray-200 mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Back to All Videos
                     </a>
-                    <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ $video->title }}</h1>
+                    <h1 class="text-3xl font-bold text-white mb-2">{{ $video->title }}</h1>
                     <div class="flex flex-wrap items-center gap-2 mt-3">
                     <span class="px-3 py-1 text-xs inline-flex items-center font-medium rounded-full bg-indigo-50 text-indigo-800 border border-indigo-100">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,11 +73,11 @@
     </div>
 
     <!-- Main content area with video and details -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white border border-gray-100 rounded-xl shadow-lg mt-6">
         <!-- Left Column: Video Player -->
         <div class="lg:col-span-8 space-y-6">
             <!-- Video Player with enhanced visuals -->
-            <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-6 py-4">
                     <h2 class="text-lg font-medium text-gray-900 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -163,7 +163,7 @@
             </div>
             
             <!-- Description and Action Buttons Side by Side -->
-            <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-6 py-4">
                     <h2 class="text-lg font-medium text-gray-900 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -210,7 +210,7 @@
         <!-- Right Column: Video Information & Metadata -->
         <div class="lg:col-span-4 space-y-6">
             <!-- Video Details -->
-            <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-6 py-4">
                     <h2 class="text-lg font-medium text-gray-900 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -291,7 +291,7 @@
             </div>
             
             <!-- Action Buttons -->
-            <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div class="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-6 py-4">
                     <h2 class="text-lg font-medium text-gray-900 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

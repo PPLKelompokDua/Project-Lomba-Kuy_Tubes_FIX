@@ -77,7 +77,7 @@
             <i class="fas fa-question-circle mr-3"></i> Assessment Question Management
           </a>
           <a href="{{ route('admin.articles.index') }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition">
-            <i class="fas fa-newspaper mr-3"></i> Artikel Management
+            <i class="fas fa-newspaper mr-3"></i> Article Management
           </a>
           <a href="{{ route('admin.learning-videos.index') }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition">
             <i class="fas fa-video mr-3"></i> Learning Videos Management

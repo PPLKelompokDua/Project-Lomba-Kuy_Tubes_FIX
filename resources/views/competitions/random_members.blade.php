@@ -247,7 +247,7 @@
             <a href="{{ route('competitions.random-members', $competition->id) }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:-translate-y-1">
                 <i class="bi bi-shuffle mr-2"></i> Find More Team Members
             </a>
-            <a href="{{ route('assessment.index', $competition->id) }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transform transition-all duration-200 hover:-translate-y-1">
+            <a href="{{ route('assessment.index', ['competition_id' => $competition->id]) }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transform transition-all duration-200 hover:-translate-y-1">
                 <i class="bi bi-clipboard-check mr-2"></i> Find by Assessment
             </a>
         </div>

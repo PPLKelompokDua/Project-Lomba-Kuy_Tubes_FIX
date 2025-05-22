@@ -39,6 +39,9 @@
                     </div>
                 @endforeach
             </div>
+            <div class="mt-6">
+                {{ $platformFeedbacks->links('vendor.pagination.custom') }}
+            </div>
         @endif
     </div>
 </div>

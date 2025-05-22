@@ -334,38 +334,55 @@
                 </div>
 
                 @if($assignedTasks->count())
-                <div class="divide-y divide-indigo-100/50">
-                    @foreach($assignedTasks as $task)
-                    <div class="px-6 py-5 hover:bg-indigo-50/50 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                        <div class="flex justify-between items-start gap-4 relative">
-                            <!-- Task Details -->
+                <div class="relative p-6">
+                    <!-- Slider Container -->
+                    <div class="flex items-start gap-6 overflow-x-auto scrollbar-hide snap-x" id="taskSlider">
+                        @foreach($assignedTasks as $task)
+                        <div class="min-w-[300px] min-h-[220px] bg-white p-5 rounded-lg shadow-md hover:bg-indigo-50/50 transition-all duration-300 snap-center border border-indigo-200 flex flex-col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                             <div class="flex-1">
-                                <h3 class="font-semibold text-gray-800 text-lg group-hover:text-indigo-600 transition-colors">
-                                    {{ $task->title }}
-                                </h3>
-                                <div class="text-sm text-gray-600 space-y-1 mt-2">
-                                    <p>Competition: {{ $task->team->competition_name ?? '-' }}</p>
-                                    <p>Deadline: {{ \Carbon\Carbon::parse($task->due_date)->format('d M Y') ?? '-' }}</p>
-                                    <p>Team: {{ $task->team->name ?? '-' }}</p>
+                                <!-- Task Details -->
+                                <div class="flex justify-between items-start gap-4 relative">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-800 text-lg group-hover:text-indigo-600 transition-colors line-clamp-2">
+                                            {{ $task->title }}
+                                        </h3>
+                                        <div class="text-sm text-gray-600 space-y-1 mt-2">
+                                            <p class="line-clamp-1">Comp: {{ $task->team->competition_name ?? '-' }}</p>
+                                            <p class="line-clamp-1">DL: {{ \Carbon\Carbon::parse($task->due_date)->format('d M Y') ?? '-' }}</p>
+                                            <p class="line-clamp-1">Team: {{ $task->team->name ?? '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <!-- Status Badge with Animation -->
+                                    <span class="status-badge {{ str_replace('_', '-', $task->status) }} text-xs font-medium px-3 py-1.5 rounded-full shadow-sm transform transition-all group-hover:scale-105 whitespace-nowrap">
+                                        {{ ucfirst(str_replace('_', ' ', $task->status)) }}
+                                        <span class="ml-1 inline-block w-2 h-2 rounded-full animate-pulse" style="background-color: inherit;"></span>
+                                    </span>
                                 </div>
                             </div>
-                            <!-- Status Badge with Animation -->
-                            <span class="status-badge {{ str_replace('_', '-', $task->status) }} text-xs font-medium px-3 py-1.5 rounded-full shadow-sm transform transition-all group-hover:scale-105">
-                                {{ ucfirst(str_replace('_', ' ', $task->status)) }}
-                                <span class="ml-1 inline-block w-2 h-2 rounded-full animate-pulse" style="background-color: inherit;"></span>
-                            </span>
+                            <div class="mt-4 flex justify-end">
+                                <a href="{{ route('tasks.index', ['team_id' => $task->team_id]) }}" 
+                                class="text-xs text-indigo-600 hover:text-indigo-700 font-medium flex items-center group/link transition-all">
+                                    View Team Tasks →
+                                    <svg class="w-3 h-3 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                        <div class="mt-4 flex justify-end">
-                            <a href="{{ route('tasks.index', ['team_id' => $task->team_id]) }}" 
-                            class="text-xs text-indigo-600 hover:text-indigo-700 font-medium flex items-center group/link transition-all">
-                                View Team Tasks →
-                                <svg class="w-3 h-3 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
+
+                    <!-- Navigation Arrows -->
+                    <button id="prevTask" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#4f46e5] hover:bg-[#4338ca] rounded-full p-2 shadow-md transition-all z-10">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="nextTask" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#4f46e5] hover:bg-[#4338ca] rounded-full p-2 shadow-md transition-all z-10">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
                 </div>
                 @else
                 <div class="p-10 text-center bg-indigo-50/50 rounded-b-xl relative overflow-hidden">
@@ -828,6 +845,48 @@
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
+// Slider Navigation for Tasks
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('taskSlider');
+    const prevButton = document.getElementById('prevTask');
+    const nextButton = document.getElementById('nextTask');
+
+    if (slider && prevButton && nextButton) {
+        const scrollAmount = 320; // Adjust based on min-width of task cards (e.g., 300px + padding)
+
+        prevButton.addEventListener('click', () => {
+            slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+
+        nextButton.addEventListener('click', () => {
+            slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        // Optional: Hide arrows when at start/end
+        slider.addEventListener('scroll', () => {
+            if (slider.scrollLeft === 0) {
+                prevButton.style.opacity = '0.5';
+                prevButton.disabled = true;
+            } else {
+                prevButton.style.opacity = '1';
+                prevButton.disabled = false;
+            }
+
+            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
+                nextButton.style.opacity = '0.5';
+                nextButton.disabled = true;
+            } else {
+                nextButton.style.opacity = '1';
+                nextButton.disabled = false;
+            }
+        });
+
+        // Initial check
+        slider.dispatchEvent(new Event('scroll'));
+    }
+});
+</script>
+<script>
     // Initialize AOS
     AOS.init({
         duration: 800,
@@ -1024,69 +1083,312 @@
 </script>
 
 <style>
-/* Status Badge Styles */
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
+/* Custom Animations for Elements */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes spin-slow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    .animate-spin-slow {
+        animation: spin-slow 8s linear infinite;
+    }
+    
+    @keyframes bounce-slow {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    .animate-bounce-slow {
+        animation: bounce-slow 4s infinite;
+    }
+    
+    .hover\:scale-102:hover {
+        transform: scale(1.02);
+    }
 
-.status-badge.pending {
-    background: #fef3c7; /* Warm yellow */
-    color: #d97706; /* Amber text */
-}
+    /* Custom Scrollbar for Lists */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c7d2fe;
+        border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #818cf8;
+    }
+    
+    /* Card hover effects */
+    .hover-rise {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-rise:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.15);
+    }
+    
+    /* Glowing effect for achievement badges */
+    .achievement-badge {
+        position: relative;
+    }
+    
+    .achievement-badge::after {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        background: linear-gradient(45deg, #4f46e5, #818cf8, #c7d2fe);
+        z-index: -1;
+        border-radius: 12px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .achievement-badge:hover::after {
+        opacity: 0.7;
+        animation: rotate-gradient 3s linear infinite;
+    }
+    
+    @keyframes rotate-gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    /* Pulse notification dot */
+    .notification-dot {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 8px;
+        height: 8px;
+        background-color: #ef4444;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    
+    /* Progress bar animation */
+    .progress-bar-animate {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .progress-bar-animate::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: progress-shine 2s infinite;
+    }
+    
+    @keyframes progress-shine {
+        100% { left: 100%; }
+    }
+    
+    /* Timeline connector animation */
+    .timeline-connector {
+        position: relative;
+    }
+    
+    .timeline-connector::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(180deg, #4f46e5 0%, #c7d2fe 100%);
+        opacity: 0.6;
+    }
+    
+    /* Confetti animation for achievements */
+    .confetti-animation {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .confetti-animation::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 0;
+        right: 0;
+        height: 10px;
+        background-image: 
+            radial-gradient(circle, #ff0000 2px, transparent 2px),
+            radial-gradient(circle, #00ff00 2px, transparent 2px),
+            radial-gradient(circle, #0000ff 2px, transparent 2px),
+            radial-gradient(circle, #ffff00 2px, transparent 2px);
+        background-size: 10px 10px;
+        animation: confetti-fall 3s linear infinite;
+    }
+    
+    @keyframes confetti-fall {
+        0% { transform: translateY(-10px); }
+        100% { transform: translateY(300px); }
+    }
+    
+    /* Responsive adjustments for mobile */
+    @media (max-width: 640px) {
+        .dashboard-grid {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-container {
+            width: 100%;
+            position: static;
+        }
+        
+        .content-container {
+            margin-left: 0;
+        }
+    }
 
-.status-badge.pending .animate-pulse {
-    background: #d97706 !important; /* Match amber text */
-}
+    /* Status Badge Styles */
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        font-weight: 500;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
-.status-badge.in-progress {
-    background: #dbeafe; /* Light blue */
-    color: #1e40af; /* Dark blue text */
-}
+    .status-badge.pending {
+        background: #fef3c7; /* Warm yellow */
+        color: #d97706; /* Amber text */
+    }
 
-.status-badge.in-progress .animate-pulse {
-    background: #1e40af !important; /* Match dark blue text */
-}
+    .status-badge.pending .animate-pulse {
+        background: #d97706 !important; /* Match amber text */
+    }
 
-.status-badge.completed {
-    background: #d1fae5; /* Light green */
-    color: #047857; /* Green text */
-}
+    .status-badge.in-progress {
+        background: #dbeafe; /* Light blue */
+        color: #1e40af; /* Dark blue text */
+    }
 
-.status-badge.completed .animate-pulse {
-    background: #047857 !important; /* Match green text */
-}
+    .status-badge.in-progress .animate-pulse {
+        background: #1e40af !important; /* Match dark blue text */
+    }
 
-.status-badge.blocked {
-    background: #fee2e2; /* Light red */
-    color: #dc2626; /* Red text */
-}
+    .status-badge.completed {
+        background: #d1fae5; /* Light green */
+        color: #047857; /* Green text */
+    }
 
-.status-badge.blocked .animate-pulse {
-    background: #dc2626 !important; /* Match red text */
-}
+    .status-badge.completed .animate-pulse {
+        background: #047857 !important; /* Match green text */
+    }
 
-/* Progress Bar Animation */
-.progress-bar {
-    position: relative;
-    overflow: hidden;
-}
+    .status-badge.blocked {
+        background: #fee2e2; /* Light red */
+        color history: #dc2626; /* Red text */
+    }
 
-.progress-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.2), transparent);
-    animation: progress-shine 2s infinite;
-}
+    .status-badge.blocked .animate-pulse {
+        background: #dc2626 !important; /* Match red text */
+    }
 
-@keyframes progress-shine {
-    100% { left: 100%; }
-}
+    /* Progress Bar Animation */
+    .progress-bar {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .progress-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.2), transparent);
+        animation: progress-shine 2s infinite;
+    }
+
+    @keyframes progress-shine {
+        100% { left: 100%; }
+    }
+
+    /* Hide default scrollbar and customize slider */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    /* Ensure smooth scrolling */
+    #taskSlider {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Position and style navigation arrows */
+    #prevTask, #nextTask {
+        display: none; /* Hidden by default, shown with JavaScript */
+    }
+
+    @media (min-width: 640px) {
+        #prevTask, #nextTask {
+            display: block;
+        }
+    }
+
+    /* Override opacity for disabled state */
+    #prevTask:disabled, #nextTask:disabled {
+        background-color: #4f46e5 !important;
+        opacity: 0.5;
+    }
+
+    /* Ensure SVG stroke color remains white even when disabled */
+    #prevTask svg, #nextTask svg {
+        stroke: white;
+    }
+
+    /* Optional: Add spacing and snap points for better alignment */
+    .snap-center {
+        scroll-snap-align: center;
+    }
 </style>
 @endpush

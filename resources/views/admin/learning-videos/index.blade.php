@@ -123,7 +123,7 @@
     </div>
 
     <div class="mt-6 flex justify-center">
-        {{ $videos->links() }}
+        {{ $videos->links('vendor.pagination.custom') }}
     </div>
 </div>
 @endsection

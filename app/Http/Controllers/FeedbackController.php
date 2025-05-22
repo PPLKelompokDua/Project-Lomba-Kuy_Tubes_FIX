@@ -316,9 +316,9 @@ class FeedbackController extends Controller
         }
 
         $platformFeedbacks = Feedback::where('type', 'platform')
-            ->with(['sender', 'team'])
-            ->latest()
-            ->get();
+                ->with(['sender', 'team'])
+                ->latest()
+                ->paginate(6); // atau berapa pun jumlah per halaman yang kamu inginkan
 
         return view('admin.feedbacks.index', compact('platformFeedbacks'));
     }

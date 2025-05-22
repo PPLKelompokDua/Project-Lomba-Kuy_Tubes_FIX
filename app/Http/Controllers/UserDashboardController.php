@@ -27,16 +27,17 @@ class UserDashboardController extends Controller
         $completedCompetitions = Team::whereIn('id', $allTeamIds)->where('status_team', 'finished')->count();
         $activeCompetitions = Team::whereIn('id', $allTeamIds)->where('status_team', 'ongoing')->count();
 
-        $assignedTasks = Task::with('team')
-            ->where('assigned_user_id', auth()->id())
+        // Untuk progress bar (semua task dengan due_date, termasuk completed)
+        $allAssignedTasks = Task::where('assigned_user_id', auth()->id())
             ->whereNotNull('due_date')
-            ->orderBy('due_date')
-            ->take(3)
             ->get();
 
-        $total = $assignedTasks->count();
-        $completed = $assignedTasks->where('status', 'completed')->count();
+        $total = $allAssignedTasks->count();
+        $completed = $allAssignedTasks->where('status', 'completed')->count();
         $overallProgress = $total > 0 ? round(($completed / $total) * 100) : 0;
+
+        // Untuk tampilan task (exclude completed)
+        $assignedTasks = $allAssignedTasks->where('status', '!=', 'completed')->take(6);
 
         $latestArticles = Article::where('status', 'published')
                 ->latest()

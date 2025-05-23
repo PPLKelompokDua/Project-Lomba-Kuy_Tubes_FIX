@@ -20,36 +20,17 @@ class CompetitionMilestoneController extends Controller
         $milestones = Milestone::where('team_id', $teamId)->get();
 
         // Ambil tasks dari tabel tasks, exclude status 'blocked'
-        $tasks = Task::where('team_id', $teamId)
-                    ->where('status', '!=', 'blocked')
-                    ->get();
+        $tasks = Task::with('assignedUser')
+                ->where('team_id', $teamId)
+                ->get();
 
         // Mapping status task ke format seperti milestone (untuk keseragaman jika ingin dipakai bareng)
-        $mappedTasks = $tasks->map(function ($task) {
-            $statusMap = [
-                'pending' => 'Not Started',
-                'in_progress' => 'In Progress',
-                'completed' => 'Completed'
-            ];
-
-            $dueDate = $task->due_date 
-                ? \Carbon\Carbon::parse($task->due_date)->format('Y-m-d') 
-                : $task->created_at->copy()->addDays(5)->format('Y-m-d');
-
-            return (object)[
-                'id' => $task->id,
-                'title' => $task->title,
-                'start_date' => $task->created_at->format('Y-m-d'),
-                'end_date' => $dueDate,
-                'due_date' => $dueDate, // <--- Tambahkan ini
-                'status' => $statusMap[$task->status] ?? 'Not Started'
-            ];
-        });
+        $groupedTasks = $tasks->groupBy('status');
 
         return view('milestones.index', [
             'team' => $team,
             'milestones' => $milestones,
-            'tasks' => $mappedTasks
+            'tasks' => $groupedTasks
         ]);
     }
 
@@ -81,10 +62,11 @@ class CompetitionMilestoneController extends Controller
         return redirect()->route('milestones.index', $teamId)->with('success', 'Milestone successfully added.');
     }
 
-    public function edit($competitionId, $milestoneId)
+    public function edit($teamId, $milestoneId)
     {
+        $team = Team::findOrFail($teamId); // ✅ Tambahkan ini
         $milestone = Milestone::where('team_id', $teamId)->findOrFail($milestoneId);
-        return view('milestones.edit', compact('milestone', 'competitionId'));
+        return view('milestones.edit', compact('milestone', 'team'));
     }
 
     public function update(Request $request, $teamId, $milestoneId)

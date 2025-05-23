@@ -5,19 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\ReviewTugas;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\Team;
 
 class ReviewTugasController extends Controller
 {
     public function index(Request $request)
     {
-        $teamId = $request->query('team_id'); // optional, bisa difilter tim tertentu
+        $teamId = $request->query('team_id'); // contoh: ?team_id=1
+
+        $team = $teamId ? Team::findOrFail($teamId) : null;
 
         $tasks = Task::query()
             ->when($teamId, fn($q) => $q->where('team_id', $teamId))
+            ->with('assignedUser') // supaya bisa akses nama assigned
             ->get()
-            ->groupBy('status'); // group by: pending, in_progress, completed, blocked
+            ->groupBy('status'); // group by: pending, in_progress, etc
 
-        return view('task.board', compact('tasks', 'teamId'));
+        return view('task.board', compact('tasks', 'team', 'teamId'));
     }
 
     public function store(Request $request)

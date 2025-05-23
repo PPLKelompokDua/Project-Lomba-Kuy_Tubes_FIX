@@ -18,6 +18,13 @@
         </div>
         @endif
 
+        <div class="mb-4">
+            <a href="{{ route('teams.index') }}" class="btn btn-sm text-white"
+            style="background-color: #4f46e5; border-radius: 8px; padding: 8px 16px; font-weight: 500; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);">
+                ← Back to My Teams
+            </a>
+        </div>
+
         <!-- Stats Cards -->
         <div class="stats-row mb-5">
             <div class="stat-box">
@@ -145,6 +152,15 @@
                 <h2 class="section-title mb-0 text-lg font-bold text-gray-800 flex items-center">
                     <i class="fas fa-users me-2 text-indigo-600"></i>All Team Tasks
                 </h2>
+
+                @if(isset($team))
+                <a href="{{ route('reviewtugas.index', ['team_id' => $team->id]) }}"
+                class="btn btn-sm text-white"
+                style="background-color: #4f46e5; border-radius: 8px; padding: 6px 14px; position: relative; z-index: 10;">
+                    📋 Review Tugas
+                </a>
+                @endif
+
                 <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-transparent opacity-50 blur-md"></div>
             </div>
             <div class="card-body p-5">
@@ -210,6 +226,8 @@
                                             <i class="fas fa-hourglass-half me-1"></i>
                                         @elseif($task->status == 'in_progress')
                                             <i class="fas fa-spinner me-1"></i>
+                                        @elseif($task->status == 'in_review')
+                                            <i class="fas fa-search me-1"></i>
                                         @elseif($task->status == 'blocked')
                                             <i class="fas fa-ban me-1"></i>
                                         @else
@@ -583,6 +601,11 @@
 .status-badge.blocked {
     background: #fee2e2; /* Light red background */
     color: #dc2626; /* Red text to match the icon */
+}
+
+.status-badge.in_review {
+    background: #e0f7fa;
+    color: #006064;
 }
 
 .task-actions {

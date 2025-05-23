@@ -138,7 +138,7 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'due_date' => 'required|date',
-            'status' => 'required|in:pending,in_progress,completed,blocked',
+            'status' => 'required|in:pending,in_progress,in_review,completed,blocked',
             'blocker_reason' => 'nullable|string|max:255',
         ]);
 

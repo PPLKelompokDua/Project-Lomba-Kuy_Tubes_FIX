@@ -192,6 +192,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/create', [CompetitionMilestoneController::class, 'create'])->name('milestones.create');
         Route::post('/', [CompetitionMilestoneController::class, 'store'])->name('milestones.store');
         Route::get('/{milestone}/edit', [CompetitionMilestoneController::class, 'edit'])->name('milestones.edit');
+        Route::put('milestones/{milestone}', [CompetitionMilestoneController::class, 'update'])->name('milestones.update');
         Route::delete('/{milestone}', [CompetitionMilestoneController::class, 'destroy'])->name('milestones.destroy');
     });
 

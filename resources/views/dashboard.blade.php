@@ -317,7 +317,7 @@
             <!-- Active Competition Tasks -->
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transform transition-all hover:shadow-xl hover:-translate-y-1">
                 <div class="border-b border-gray-100 px-6 py-4 bg-gradient-to-r from-indigo-50 to-white flex justify-between items-center relative">
-                    <h2 class="text-lg font-bold text-gray-800 z-10">Upcoming Tasks (Nearest Deadlines)</h2>
+                    <h2 class="text-lg font-bold text-gray-800 z-10">Your Upcoming Tasks (Nearest Deadlines)</h2>
                     <div class="flex items-center space-x-3 z-10">
                         <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width: {{ $overallProgress }}%;"></div>

@@ -297,6 +297,7 @@
                                 <select name="status" id="edit_status" class="form-control" required onchange="toggleBlockerReason(this.value)">
                                     <option value="pending">Pending</option>
                                     <option value="in_progress">In Progress</option>
+                                    <option value="in_review">In Reviews</option>
                                     <option value="completed">Completed</option>
                                     <option value="blocked">Blocked</option>
                                 </select>

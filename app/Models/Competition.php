@@ -69,4 +69,9 @@ class Competition extends Model
     {
         return $this->belongsToMany(\App\Models\User::class, 'saved_competitions', 'competition_id', 'user_id');
     }
+
+    public function milestones()
+    {
+        return $this->hasMany(Milestone::class);
+    }
 }

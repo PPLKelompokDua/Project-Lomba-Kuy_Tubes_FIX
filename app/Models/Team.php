@@ -84,5 +84,10 @@ class Team extends Model
     {
         return $this->hasMany(\App\Models\Task::class);
     }
+
+    public function milestones()
+    {
+        return $this->hasMany(Milestone::class);
+    }
     
 }

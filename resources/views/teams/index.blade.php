@@ -244,6 +244,13 @@
                                                 <i class="fas fa-comment-alt me-1"></i> Feedback
                                             </a>
                                         @endif
+                                        @if($team->status_team !== 'finished')
+                                            <a href="{{ route('milestones.index', ['team' => $team->id]) }}"
+                                            class="btn btn-sm px-3 py-2"
+                                            style="background-color: #4f46e5; color: white; border-radius: 8px;">
+                                                <i class="fas fa-stream me-1"></i> Timeline
+                                            </a>
+                                        @endif
                                     </div>
                                     
                                     @if($team->leader_id === $user->id)

@@ -26,6 +26,8 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\LearningVideoController;
+use App\Http\Controllers\CompetitionMilestoneController;
+use App\Http\Controllers\ReviewTugasController; 
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -183,6 +185,18 @@ Route::middleware(['auth'])->group(function () {
     // Learning Videos for Students
     Route::get('/learning-videos', [LearningVideoController::class, 'index'])->name('learning-videos.index');
     Route::get('/learning-videos/{video}', [LearningVideoController::class, 'show'])->name('learning-videos.show');
+
+    // Milestone 
+    Route::prefix('teams/{team}/milestones')->group(function () {
+        Route::get('/', [CompetitionMilestoneController::class, 'index'])->name('milestones.index');
+        Route::get('/create', [CompetitionMilestoneController::class, 'create'])->name('milestones.create');
+        Route::post('/', [CompetitionMilestoneController::class, 'store'])->name('milestones.store');
+        Route::get('/{milestone}/edit', [CompetitionMilestoneController::class, 'edit'])->name('milestones.edit');
+        Route::delete('/{milestone}', [CompetitionMilestoneController::class, 'destroy'])->name('milestones.destroy');
+    });
+
+    Route::get('/reviewtugas', [ReviewTugasController::class, 'index'])->name('reviewtugas.index');
+    Route::put('/reviewtugas/{id}', [ReviewTugasController::class, 'update']);
 
     // Dashboard redirect sesuai role
     Route::get('/dashboard', function () {

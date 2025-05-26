@@ -6,7 +6,7 @@
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center mb-6" data-aos="fade-up">
         <h1 class="text-3xl font-bold text-indigo-600">Articles</h1>
-        <a href="{{ route('admin.articles.create') }}" class="inline-flex items-center bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+        <a href="{{ route('admin.articles.create') }}" dusk="add-article" class="inline-flex items-center bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v5H4a1 1 0 100 2h5v5a1 1 0 102 0v-5h5a1 1 0 100-2h-5V4a1 1 0 00-1-1z" clip-rule="evenodd" />
             </svg>
@@ -69,7 +69,7 @@
                             <div class="flex space-x-2">
                                 <!-- Detail Button -->
                                 <button type="button"
-                                    class="text-blue-600 hover:text-blue-900 toggle-details"
+                                    class="text-blue-600 hover:text-blue-900 toggle-details" dusk="view-article-{{ $article->id }}"
                                     data-target="details-{{ $article->id }}"
                                     title="View Details">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -79,7 +79,7 @@
                                 </button>
                                 <!-- Edit Button -->
                                 <a href="{{ route('admin.articles.edit', $article) }}"
-                                   class="text-indigo-600 hover:text-indigo-900"
+                                   class="text-indigo-600 hover:text-indigo-900" dusk="edit-article-{{ $article->id }}"
                                    title="Edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
@@ -89,7 +89,8 @@
                                 <form action="{{ route('admin.articles.destroy', $article) }}"
                                       method="POST"
                                       class="inline-block"
-                                      onsubmit="return confirm('Are you sure you want to delete this article?')">
+                                      onsubmit="return confirm('Are you sure you want to delete this article?')"
+                                      dusk="delete-article-{{ $article->id }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"

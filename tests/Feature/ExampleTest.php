@@ -1,19 +1,21 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Browser;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
-class ExampleTest extends TestCase
+class ExampleTest extends DuskTestCase
 {
     /**
-     * A basic test example.
+     * @group example
      */
-    public function test_the_application_returns_a_successful_response(): void
+    public function testBasicExample(): void
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                    ->assertSee('LombaKuy');
+        });
     }
 }

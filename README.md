@@ -1,3 +1,93 @@
+# LombaKuy - Quick Start Guide
+
+## Before You Start
+Make sure you have these installed on your computer:
+1. XAMPP (includes PHP, MySQL, and Apache)
+2. Composer (PHP package manager)
+3. Node.js and npm
+
+## Step-by-Step Guide to Run the Project
+
+### 1. Extract the ZIP File
+- Extract the ZIP file to a folder of your choice
+- For example: `C:\xampp\htdocs\lombakuy`
+
+### 2. Set Up the Database
+1. Open XAMPP Control Panel
+2. Start Apache and MySQL
+3. Click "Admin" next to MySQL (opens phpMyAdmin)
+4. Create a new database named `lombakuy`
+
+### 3. Configure Environment
+1. In the project folder, find `.env.example`
+2. Copy it and rename the copy to `.env`
+3. Open `.env` and update these lines:
+   ```
+   DB_DATABASE=lombakuy
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+### 4. Install Dependencies
+1. Open Command Prompt (cmd) in your project folder
+2. Run these commands one by one:
+   ```bash
+   composer install
+   npm install
+   php artisan key:generate
+   php artisan migrate
+   php artisan storage:link
+   ```
+
+### 5. Start the Project
+1. Keep your Command Prompt open
+2. Run this command:
+   ```bash
+   php artisan serve
+   ```
+3. Open another Command Prompt in the same folder
+4. Run this command:
+   ```bash
+   npm run dev
+   ```
+
+### 6. Access the Website
+- Open your web browser
+- Go to: `http://localhost:8000`
+
+## If You Get Errors
+
+### Database Connection Error
+- Make sure MySQL is running in XAMPP
+- Check if database name in `.env` matches what you created
+- Default username is `root` with no password
+
+### Composer Error
+Try these commands:
+```bash
+composer clear-cache
+composer install
+```
+
+### Node.js Error
+Try these commands:
+```bash
+npm cache clean --force
+npm install
+```
+
+### Permission Error
+Make sure you're running Command Prompt as Administrator
+
+## Need Help?
+If you get stuck:
+1. Check if all services are running (Apache, MySQL)
+2. Make sure all commands completed without errors
+3. Check if you can access `http://localhost:8000`
+4. Contact the project maintainer for help
+
+Good luck! 🚀
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

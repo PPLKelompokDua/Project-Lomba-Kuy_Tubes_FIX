@@ -23,6 +23,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\AssessmentQuestionController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProductivityController;
 
 // 🌐 Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -171,8 +172,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tasks', TaskController::class);
     Route::get('/teams/{team}/tasks', [TaskController::class, 'forTeam'])->name('tasks.team');
 
-
-
     // Dashboard redirect sesuai role
     Route::get('/dashboard', function () {
         $role = auth()->user()->role;
@@ -217,5 +216,14 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/feedbacks', [FeedbackController::class, 'receivedForOrganizer'])->name('feedbacks.index');
     });
+
+    // Productivity Dashboard & Analytics
+    Route::get('/productivity/team/{team}', [\App\Http\Controllers\ProductivityController::class, 'index'])->name('productivity.team');
+    Route::get('/productivity/team/{team}/data', [\App\Http\Controllers\ProductivityController::class, 'getProductivityData'])->name('productivity.team.data');
+    Route::get('/productivity/team/{team}/report', [\App\Http\Controllers\ProductivityController::class, 'exportReport'])->name('productivity.team.report');
+    Route::post('/productivity/team/{team}/share', [\App\Http\Controllers\ProductivityController::class, 'shareReport'])->name('productivity.team.share');
+
+    // Productivity PDF with charts
+    Route::post('/productivity/team/{team}/report-with-charts', [ProductivityController::class, 'exportReportWithCharts'])->name('productivity.reportWithCharts');
 
 });

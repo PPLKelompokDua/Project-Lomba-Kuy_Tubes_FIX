@@ -48,6 +48,13 @@
                     <div class="stat-value">{{ $tasks->where('status', 'completed')->count() }}</div>
                 </div>
             </div>
+            <div class="stat-box">
+                <div class="stat-icon blocked-icon"><i class="fas fa-ban"></i></div>
+                <div class="stat-info">
+                    <div class="stat-title">Blocked</div>
+                    <div class="stat-value">{{ $tasks->where('status', 'blocked')->count() }}</div>
+                </div>
+            </div>
         </div>
 
         <!-- Task Creation Section -->
@@ -115,6 +122,8 @@
                             required>
                             <option value="pending">Pending</option>
                             <option value="in_progress">In Progress</option>
+                            <option value="blocked">Blocked</option>
+                            <option value="completed">Completed</option>
                         </select>
                     </div>
                 </div>
@@ -212,7 +221,7 @@
                                             <i class="fas fa-spinner me-1"></i>
                                         @elseif($task->status == 'blocked')
                                             <i class="fas fa-ban me-1"></i>
-                                        @else
+                                        @elseif($task->status == 'completed')
                                             <i class="fas fa-check-circle me-1"></i>
                                         @endif
                                         {{ ucfirst(str_replace('_', ' ', $task->status)) }}
@@ -402,6 +411,12 @@
 .stat-icon.completed-icon {
     background: linear-gradient(45deg, #43a047, #81c784);
     box-shadow: 0 5px 15px rgba(67, 160, 71, 0.3);
+}
+
+.stat-icon.blocked-icon {
+    background: linear-gradient(45deg, #dc2626, #fee2e2);
+    color: white;
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
 }
 
 .stat-info {

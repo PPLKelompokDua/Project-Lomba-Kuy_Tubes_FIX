@@ -216,7 +216,12 @@
                                              <i class="fas fa-tasks me-1"></i> Manage Tasks
                                         </a>
                                         @endif
-                                        
+
+                                        <!-- Productivity Dashboard Button -->
+                                        <a href="/productivity/team/{{ $team->id }}" class="btn btn-sm px-3 py-2" style="background-color: #6366f1; color: white; border-radius: 8px;">
+                                            <i class="fas fa-chart-line me-1"></i> Productivity
+                                        </a>
+
                                         @if($team->leader_id === $user->id && $team->status_team !== 'finished')
                                             <a href="{{ route('invitations.index', ['team_id' => $team->id]) }}" class="btn btn-sm px-3 py-2" 
                                                style="background-color: #047857; color: white; border-radius: 8px;">

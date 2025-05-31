@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Article;
 use App\Models\LearningVideo;
+use App\Models\Milestone;
 
 class UserDashboardController extends Controller
 {
@@ -50,6 +51,17 @@ class UserDashboardController extends Controller
                 ->take(3)
                 ->get();
             
+        $upcomingMilestones = Milestone::whereIn('team_id', $allTeamIds)
+            ->where('status', '!=', 'completed')
+            ->whereDate('end_date', '>=', Carbon::today())
+            ->orderBy('end_date')
+            ->take(5)
+            ->get();
+
+        $totalUpcomingMilestones = Milestone::whereIn('team_id', $allTeamIds)
+            ->where('status', '!=', 'completed')
+            ->whereDate('end_date', '>=', Carbon::today())
+            ->count();
 
         return view('dashboard', compact(
             'competitions',
@@ -60,6 +72,8 @@ class UserDashboardController extends Controller
             'assignedTasks', 
             'user',
             'latestArticles',
+            'upcomingMilestones',
+            'totalUpcomingMilestones',
             'learningVideos'
         ));
     }

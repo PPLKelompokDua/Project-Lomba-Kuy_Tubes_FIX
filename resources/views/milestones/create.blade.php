@@ -89,15 +89,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-4">
-                                        <label for="start_time" class="form-label fw-medium mb-2">Start Time <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light border-end-0" style="color: #6b7280;">
-                                                <i class="bi bi-clock"></i>
-                                            </span>
-                                            <input type="time" class="form-control border-start-0 ps-0 custom-input" id="start_time" name="start_time" style="border-color: #d1d5db;" required>
-                                        </div>
-                                    </div>
 
                                     <div class="mb-4">
                                         <label for="end_date" class="form-label fw-medium mb-2">End Date <span class="text-danger">*</span></label>
@@ -109,15 +100,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-0">
-                                        <label for="end_time" class="form-label fw-medium mb-2">End Time <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light border-end-0" style="color: #6b7280;">
-                                                <i class="bi bi-clock-history"></i>
-                                            </span>
-                                            <input type="time" class="form-control border-start-0 ps-0 custom-input" id="end_time" name="end_time" style="border-color: #d1d5db;" required>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
 
                                 <!-- Status Section -->

@@ -143,37 +143,36 @@
                                     </svg>
                                     Upcoming Schedule
                                 </h3>
-                                <span class="text-xs px-2 py-1 bg-indigo-700 bg-opacity-50 rounded-full text-white">3 Events</span>
+                                <span class="text-xs px-2 py-1 bg-indigo-700 bg-opacity-50 rounded-full text-white">
+                                    {{ $totalUpcomingMilestones }} Events
+                                </span>
                             </div>
-                            
+
                             <!-- Timeline -->
                             <div class="space-y-3">
-                                <!-- Timeline Item 1 -->
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-3 h-3 bg-green-400 rounded-full"></div>
-                                    <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
-                                        <span>May 3</span>
-                                        <span class="font-medium">Submit Proposal</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Timeline Item 2 -->
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                                    <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
-                                        <span>May 10</span>
-                                        <span class="font-medium">Final Presentation</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Timeline Item 3 -->
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-3 h-3 bg-red-400 rounded-full"></div>
-                                    <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between">
-                                        <span>May 15</span>
-                                        <span class="font-medium">UI/UX Challenge Deadline</span>
-                                    </div>
-                                </div>
+                                @forelse($upcomingMilestones as $milestone)
+                                    <a href="{{ route('milestones.index', ['team' => $milestone->team_id]) }}" class="block group">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-3 h-3 rounded-full 
+                                                {{ $milestone->status === 'Completed' ? 'bg-green-400' : ($milestone->status === 'In Progress' ? 'bg-yellow-400' : 'bg-red-400') }}">
+                                            </div>
+                                            <div class="text-xs bg-white bg-opacity-10 px-3 py-1 rounded-md text-gray-800 flex-grow flex justify-between group-hover:bg-opacity-20 transition">
+                                                <span>{{ \Carbon\Carbon::parse($milestone->end_date)->format('M d') }}</span>
+                                                <span class="font-medium">
+                                                    {{ $milestone->title }}
+                                                    <span class="text-gray-500 text-[10px]">({{ $milestone->team->name }})</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @empty
+                                    <div class="text-xs text-gray-500">No upcoming milestones found.</div>
+                                @endforelse
+                            </div>
+
+                            <!-- See More button -->
+                            <div class="mt-4 text-right">
+                                <a href="{{ route('teams.index') }}" class="text-sm text-indigo-700 hover:underline">See More →</a>
                             </div>
                         </div>
                     </div>
@@ -373,16 +372,18 @@
                     </div>
 
                     <!-- Navigation Arrows -->
-                    <button id="prevTask" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#4f46e5] hover:bg-[#4338ca] rounded-full p-2 shadow-md transition-all z-10">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <button id="nextTask" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#4f46e5] hover:bg-[#4338ca] rounded-full p-2 shadow-md transition-all z-10">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
+                    @if($assignedTasks->count() >= 3)
+                        <button id="prevTask" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#4f46e5] hover:bg-[#4338ca] rounded-full p-2 shadow-md transition-all z-10">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <button id="nextTask" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#4f46e5] hover:bg-[#4338ca] rounded-full p-2 shadow-md transition-all z-10">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    @endif
                 </div>
                 @else
                 <div class="p-10 text-center bg-indigo-50/50 rounded-b-xl relative overflow-hidden">

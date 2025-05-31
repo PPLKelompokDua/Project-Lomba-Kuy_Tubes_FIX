@@ -89,8 +89,8 @@ class TaskController extends Controller
             'myTasks',
             'teamTasks',
             'user',
-            'overallProgress', // << ADD THIS
-            'teamProgress'     // << ADD THIS
+            'overallProgress', 
+            'teamProgress'     
         ));
     }
 
@@ -100,7 +100,7 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'due_date' => 'required|date|after_or_equal:today',
-            'status' => 'required|in:pending,in_progress,completed',
+            'status' => 'required|in:pending,in_progress,blocked, completed',
             'team_id' => 'nullable|exists:teams,id',
             'assigned_user_id' => 'nullable|exists:users,id',
         ]);

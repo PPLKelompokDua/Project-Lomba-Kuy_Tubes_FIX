@@ -68,23 +68,29 @@
 
     @if($teams->isEmpty())
         <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-            <div class="card-body p-0">
-                <div class="row g-0">
-                    <div class="col-md-5 bg-gradient-to-br p-5 d-flex align-items-center justify-content-center" style="background: linear-gradient(145deg, #eef2ff 0%, #e0e7ff 100%);">
-                        <img src="https://via.placeholder.com/400x300" alt="Teams illustration" class="img-fluid" style="max-width: 250px;">
+            <div class="row g-0 h-100 align-items-stretch">
+                <!-- KIRI: Gambar -->
+                <div class="col-md-5 d-flex">
+                    <div class="w-100 h-100" style="background: linear-gradient(145deg, #eef2ff 0%, #e0e7ff 100%);">
+                        <img src="{{ asset('storage/' . ($competition->photo ?? 'images/team_ilus.jpg')) }}"
+                            class="img-fluid w-100 h-100"
+                            style="object-fit: cover;"
+                            alt="Teams illustration">
                     </div>
-                    <div class="col-md-7 p-5 d-flex flex-column justify-content-center">
-                        <div class="bg-light d-inline-block px-3 py-1 rounded-pill mb-3" style="color: #4f46e5;">
-                            <i class="fas fa-info-circle me-1"></i> No Teams
-                        </div>
-                        <h3 class="fw-bold mb-3">You haven't created any teams yet</h3>
-                        <p class="text-muted mb-4">Create your first team to start collaborating with others on competitions and projects.</p>
-                        <div>
-                            <a href="{{ route('teams.create') }}" class="btn px-4 py-2 shadow-sm" style="background-color: #4f46e5; color: white; border-radius: 8px;">
-                                <i class="fas fa-plus-circle me-2"></i>Create Your First Team
-                            </a>
-                            <a href="{{ route('explore') }}" class="btn btn-link ms-2" style="color: #4f46e5;">Looking An Competitions? Explore Catalog</a>
-                        </div>
+                </div>
+
+                <!-- KANAN: Konten -->
+                <div class="col-md-7 d-flex flex-column justify-content-center p-5">
+                    <div class="bg-light d-inline-block px-3 py-1 rounded-pill mb-3" style="color: #4f46e5;">
+                        <i class="fas fa-info-circle me-1"></i> No Teams
+                    </div>
+                    <h3 class="fw-bold mb-3">You haven't created any teams yet</h3>
+                    <p class="text-muted mb-4">Create your first team to start collaborating with others on competitions and projects.</p>
+                    <div>
+                        <a href="{{ route('teams.create') }}" class="btn px-4 py-2 shadow-sm" style="background-color: #4f46e5; color: white; border-radius: 8px;">
+                            <i class="fas fa-plus-circle me-2"></i>Create Your First Team
+                        </a>
+                        <a href="{{ route('explore') }}" class="btn btn-link ms-2" style="color: #4f46e5;">Looking An Competitions? Explore Catalog</a>
                     </div>
                 </div>
             </div>
@@ -231,6 +237,10 @@
                                              <i class="fas fa-tasks me-1"></i> Manage Tasks
                                         </a>
                                         @endif
+
+                                        <a href="/productivity/team/{{ $team->id }}" class="btn btn-sm px-3 py-2" style="background-color: #6366f1; color: white; border-radius: 8px;">
+                                            <i class="fas fa-chart-line me-1"></i> Productivity
+                                        </a>
                                         
                                         @if($team->leader_id === $user->id && $team->status_team !== 'finished')
                                             <a href="{{ route('invitations.index', ['team_id' => $team->id]) }}" class="btn btn-sm px-3 py-2" 

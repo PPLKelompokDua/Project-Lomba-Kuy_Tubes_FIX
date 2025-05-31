@@ -28,12 +28,13 @@ use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\LearningVideoController;
 use App\Http\Controllers\CompetitionMilestoneController;
 use App\Http\Controllers\ReviewTugasController; 
+use App\Http\Controllers\ProductivityController;
 
-// 🌐 Landing Page
+//  Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// 🔐 Auth
+//  Auth
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
@@ -42,11 +43,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/search-suggestions', [CompetitionController::class, 'searchSuggestions']);
 
-// 🔍 Public Explore (tanpa login)
+//  Public Explore (tanpa login)
 Route::get('/explore', [CompetitionController::class, 'explore'])->name('explore');
 Route::get('/competitions/explore', [CompetitionController::class, 'explore'])->name('competitions.explore');
 
-// 🔐 Protected Routes (role-based dashboard)
+//  Protected Routes (role-based dashboard)
 Route::middleware(['auth'])->group(function () {
     
     // Feedback Routes
@@ -198,6 +199,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/reviewtugas', [ReviewTugasController::class, 'index'])->name('reviewtugas.index');
     Route::put('/reviewtugas/{id}', [ReviewTugasController::class, 'update']);
+
+    // Productivity Dashboard & Analytics
+    Route::get('/productivity/team/{team}', [\App\Http\Controllers\ProductivityController::class, 'index'])->name('productivity.team');
+    Route::get('/productivity/team/{team}/data', [\App\Http\Controllers\ProductivityController::class, 'getProductivityData'])->name('productivity.team.data');
+    Route::get('/productivity/team/{team}/report', [\App\Http\Controllers\ProductivityController::class, 'exportReport'])->name('productivity.team.report');
+    Route::post('/productivity/team/{team}/share', [\App\Http\Controllers\ProductivityController::class, 'shareReport'])->name('productivity.team.share');
+
+    // Productivity PDF with charts
+    Route::post('/productivity/team/{team}/report-with-charts', [ProductivityController::class, 'exportReportWithCharts'])->name('productivity.reportWithCharts');
 
     // Dashboard redirect sesuai role
     Route::get('/dashboard', function () {

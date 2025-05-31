@@ -94,7 +94,7 @@
             Organize, Compete, <span class="text-indigo-200">Succeed</span>
           </h1>
           <p class="mt-6 text-lg font-light text-white">
-            Discover competitions, form the best teams, and track your progress in real-time with LombaKuy. The most comprehensive competition platform for Telkom University students.
+            Discover competitions, form the best teams, and track your progress in real-time with LombaKuy. The most comprehensive competition platform all students in Indonesia.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
             <a href="/register">

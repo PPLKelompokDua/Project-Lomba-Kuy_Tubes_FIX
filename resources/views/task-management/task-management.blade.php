@@ -49,10 +49,24 @@
                 </div>
             </div>
             <div class="stat-box">
+                <div class="stat-icon review-icon"><i class="fas fa-search"></i></div>
+                <div class="stat-info">
+                    <div class="stat-title">In Review</div>
+                    <div class="stat-value">{{ $tasks->where('status', 'in_review')->count() }}</div>
+                </div>
+            </div>
+            <div class="stat-box">
                 <div class="stat-icon completed-icon"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-info">
                     <div class="stat-title">Completed</div>
                     <div class="stat-value">{{ $tasks->where('status', 'completed')->count() }}</div>
+                </div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon blocked-icon"><i class="fas fa-ban"></i></div>
+                <div class="stat-info">
+                    <div class="stat-title">Blocked</div>
+                    <div class="stat-value">{{ $tasks->where('status', 'blocked')->count() }}</div>
                 </div>
             </div>
         </div>
@@ -230,7 +244,7 @@
                                             <i class="fas fa-search me-1"></i>
                                         @elseif($task->status == 'blocked')
                                             <i class="fas fa-ban me-1"></i>
-                                        @else
+                                        @elseif($task->status == 'completed')
                                             <i class="fas fa-check-circle me-1"></i>
                                         @endif
                                         {{ ucfirst(str_replace('_', ' ', $task->status)) }}
@@ -421,6 +435,16 @@
 .stat-icon.completed-icon {
     background: linear-gradient(45deg, #43a047, #81c784);
     box-shadow: 0 5px 15px rgba(67, 160, 71, 0.3);
+}
+
+.stat-icon.blocked-icon {
+    background: linear-gradient(45deg, #dc2626, #fee2e2);
+    color: white;
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+}
+
+.review-icon {
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
 }
 
 .stat-info {

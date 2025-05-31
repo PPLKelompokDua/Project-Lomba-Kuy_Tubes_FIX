@@ -153,7 +153,7 @@
             <!-- Pagination -->
             <div class="mt-10">
                 <div class="flex justify-center">
-                    {{ $posts->links() }}
+                    {{ $posts->links('vendor.pagination.custom') }}
                 </div>
             </div>
         @else

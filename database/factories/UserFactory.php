@@ -27,8 +27,18 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'profile_image' => 'default.jpg',
+            'role' => 'user',
+            'notification_preferences' => ['email', 'in_app'],
+            'personality_type' => fake()->randomElement(['INTJ', 'ENFP', 'ISTJ', 'ENFJ']),
+            'preferred_role' => fake()->randomElement(['Leader', 'Member', 'Specialist', 'Coordinator']),
+            'experience' => [
+                'competitions' => fake()->numberBetween(0, 10),
+                'wins' => fake()->numberBetween(0, 5),
+                'skills' => fake()->randomElements(['Programming', 'Design', 'Management', 'Research', 'Writing'], 2)
+            ],
         ];
     }
 

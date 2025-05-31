@@ -420,8 +420,8 @@
                         <p class="text-xs text-gray-600">Completed Competitions</p>
                     </div>
                     <div class="bg-indigo-50 rounded-lg p-3">
-                        <h4 class="text-xl font-bold text-indigo-600">{{ $achievements ?? 0 }}</h4>
-                        <p class="text-xs text-gray-600">Achievements</p>
+                        <h4 class="text-xl font-bold text-indigo-600">{{ $activeCompetitions ?? 0 }}</h4>
+                        <p class="text-xs text-gray-600">Ongoing Competitions</p>
                     </div>
                 </div>
                 <div class="mt-6">

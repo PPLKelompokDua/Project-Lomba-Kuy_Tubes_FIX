@@ -69,12 +69,6 @@
                                 </svg>
                                 Find Competitions
                             </a>
-                            <a href="#" class="bg-indigo-500 bg-opacity-30 hover:bg-opacity-40 text-white font-semibold rounded-lg px-5 py-3 transition flex items-center border border-indigo-300 border-opacity-40 group">
-                                <svg class="w-5 h-5 mr-2 transform group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                </svg>
-                                Find Competition Teammates
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -454,11 +448,11 @@
                         </svg>
                         <span class="text-xs font-medium text-gray-700">Invitations</span>
                     </a>
-                    <a href="#" class="flex flex-col items-center justify-center bg-indigo-50 hover:bg-indigo-100 rounded-lg p-4 transition">
+                    <a href="{{ route('posts.index') }}" class="flex flex-col items-center justify-center bg-indigo-50 hover:bg-indigo-100 rounded-lg p-4 transition">
                         <svg class="w-6 h-6 text-indigo-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                         </svg>
-                        <span class="text-xs font-medium text-gray-700">Notifications</span>
+                        <span class="text-xs font-medium text-gray-700">Story & Achivements Space</span>
                     </a>
                 </div>
             </div>
@@ -477,7 +471,7 @@
                             </svg>
                             Competition Videos & Tips
                         </h3>
-                        <a href="{{ route('learning-videos.index') }}" class="text-white hover:underline text-xs font-medium transition-all flex items-center">
+                        <a href="{{ route('learning-videos.index') }}" class="text-white hover:underline text-xs font-medium transition-all flex items-center" dusk="lihat-semua-video">
                             See All
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

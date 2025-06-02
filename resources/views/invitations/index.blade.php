@@ -3,40 +3,12 @@
 @section('title', 'Manage Invitations')
 
 @push('styles')
-<!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <style>
-    /* Select2 Styling */
-    .select2-container .select2-dropdown {
-        background-color: white;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        z-index: 9999;
-    }
-    .select2-results__option--highlighted {
-        background-color: #4f46e5 !important;
-        color: white !important;
-    }
-    .select2-selection {
-        background-color: white !important;
-        border-radius: 8px !important;
-        border: 1px solid #d1d5db !important;
-        height: 42px !important;
-        display: flex !important;
-        align-items: center !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 42px !important;
-    }
-
     /* Card Styling */
     .card-header-white {
-        background-color:rgb(182, 0, 0);
+        background-color: rgb(182, 0, 0);
         border-bottom: 0;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         position: relative;
@@ -220,21 +192,193 @@
         background-color: #e5e7eb;
         color: #4f46e5;
     }
+
+    /* Custom Search Input Styling */
+    .search-container {
+        position: relative;
+    }
+
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #e5e7eb; /* Warna abu-abu */
+        border: 1px solid #d1d5db;
+        border-top: none; /* Menghapus border atas agar menyatu */
+        border-radius: 0 0 8px 8px; /* Hanya sudut bawah membulat */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+        padding: 0;
+        margin-top: -1px; /* Menghilangkan celah dengan input */
+    }
+
+    .search-results.show {
+        display: block;
+    }
+
+    .search-result-item {
+        background-color: transparent;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border-bottom: 1px solid #d1d5db;
+    }
+
+    .search-result-item:last-child {
+        border-bottom: none;
+    }
+
+    .search-result-item:hover {
+        background-color: #d1d5db;
+    }
+
+    .search-result-item .user-info {
+        font-weight: 500;
+        color: #1f2937;
+        flex-grow: 1;
+        white-space: nowrap; /* Mencegah teks ke bawah */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .form-control.search-input {
+        padding-left: 2.5rem;
+        height: 42px;
+        border-radius: 8px 8px 0 0; /* Membulatkan sudut atas */
+        border: 1px solid #d1d5db;
+        border-bottom: none; /* Menghapus border bawah agar menyatu */
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #4f46e5;
+        font-size: 1.1rem;
+    }
+
+    .no-results {
+        padding: 12px;
+        color: #6b7280;
+        font-style: italic;
+        text-align: center;
+    }
 </style>
 @endpush
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tabButtons = document.querySelectorAll('#invitationTabs button');
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        tabButtons.forEach(button => {
-            button.addEventListener('shown.bs.tab', function () {
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-            });
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Tab navigation
+    const tabButtons = document.querySelectorAll('#invitationTabs button');
+    tabButtons.forEach(button => {
+        button.addEventListener('shown.bs.tab', function () {
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
         });
     });
+
+    // Search functionality
+    const searchInput = document.querySelector('#user_search');
+    const searchResults = document.querySelector('#search_results');
+    const userIdInput = document.querySelector('#user_id');
+    let debounceTimeout;
+
+    function fetchUsers(params) {
+        return fetch('{{ route("users.search") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify(params),
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Error fetching users:', error);
+            return [];
+        });
+    }
+
+    function displayUsers(users) {
+        searchResults.innerHTML = '';
+        if (users.length === 0) {
+            searchResults.innerHTML += '<div class="no-results">No users found</div>';
+            searchResults.classList.add('show');
+            userIdInput.value = '';
+            return;
+        }
+
+        users.forEach(user => {
+            const item = document.createElement('div');
+            item.classList.add('search-result-item');
+            item.innerHTML = `
+                <div class="user-info">${user.name} (${user.email})</div>
+            `;
+            item.addEventListener('click', () => {
+                searchInput.value = `${user.name} (${user.email})`;
+                userIdInput.value = user.id;
+                searchResults.classList.remove('show');
+            });
+            searchResults.appendChild(item);
+        });
+        searchResults.classList.add('show');
+    }
+
+    searchInput.addEventListener('input', function () {
+        const query = this.value.trim();
+        clearTimeout(debounceTimeout);
+
+        if (query.length < 2) {
+            userIdInput.value = '';
+            searchResults.classList.remove('show');
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        debounceTimeout = setTimeout(() => {
+            fetchUsers({
+                query: query,
+                team_id: document.querySelector('#team_id')?.value || '{{ $teams->first()->id ?? "" }}',
+            }).then(users => {
+                if (query.length >= 2) {
+                    displayUsers(users);
+                }
+            });
+        }, 300);
+    });
+
+    // Hide search results when clicking outside
+    document.addEventListener('click', function (e) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.classList.remove('show');
+        }
+    });
+
+    // Preselect user if defaultUserId is provided
+    @if (isset($defaultUserId) && $defaultUserId)
+        fetchUsers({
+            user_id: '{{ $defaultUserId }}',
+            team_id: document.querySelector('#team_id')?.value || '{{ $teams->first()->id ?? "" }}',
+        }).then(data => {
+            if (data.length > 0) {
+                const user = data[0];
+                searchInput.value = `${user.name} (${user.email})`;
+                userIdInput.value = user.id;
+            }
+        }).catch(error => console.error('Error preselecting user:', error));
+    @endif
+});
 </script>
 @endpush
 
@@ -264,21 +408,18 @@
             <!-- Main Content Card -->
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-5">
                 <!-- Header -->
-                <!-- Team Header with Gradient Background -->
-                                <div class="p-4 pb-3" style="background-color: #4f46e5;">
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                                style="width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.15); border: 2px solid white;">
-                                                <i class="fas fa-paper-plane" style="color: #ffffff;"></i>
-                                            </div>
-                                        <div>
-                                            <div>
-                                                <h4 class="mb-0 fw-bold" style="color:rgb(255, 255, 255);">Invite Member for Your Team</h4>
-                                                <p class="text-white-50 mb-0" >Set up your team to start collaborating</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="p-4 pb-3" style="background-color: #4f46e5;">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3" 
+                             style="width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.15); border: 2px solid white;">
+                            <i class="fas fa-paper-plane" style="color: #ffffff;"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 fw-bold" style="color: rgb(255, 255, 255);">Invite Member for Your Team</h4>
+                            <p class="text-white-50 mb-0">Set up your team to start collaborating</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card-body p-lg-5 p-4">
                     <!-- Alerts -->
@@ -355,17 +496,18 @@
                             <form method="POST" action="{{ route('invitations.store') }}" class="row g-3">
                                 @csrf
                                 <div class="col-md-6">
-                                    <label for="user_id" class="form-label fw-medium mb-2">
-                                        <i class="fas fa-user me-2" style="color: #4f46e5;"></i>Select User
+                                    <label for="user_search" class="form-label fw-medium mb-2">
+                                        <i class="fas fa-user me-2" style="color: #4f46e5;"></i>Search User
                                     </label>
-                                    <select name="user_id" id="user_id" class="form-select">
-                                        <option value="">-- Select User --</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}" {{ old('user_id', $defaultUserId ?? '') == $user->id ? 'selected' : '' }}>
-                                                {{ $user->name }} ({{ $user->email }})
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <div class="search-container">
+                                        <input type="text" id="user_search" class="form-control search-input" placeholder="Search by name or email..." autocomplete="off">
+                                        <i class="fas fa-search search-icon"></i>
+                                        <div id="search_results" class="search-results"></div>
+                                        <input type="hidden" name="user_id" id="user_id" value="{{ $defaultUserId ?? '' }}" required>
+                                    </div>
+                                    @error('user_id')
+                                        <span class="text-danger small">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     @if ($teams->count() === 1)
@@ -378,7 +520,7 @@
                                         <label for="team_id" class="form-label fw-medium mb-2">
                                             <i class="fas fa-users me-2" style="color: #4f46e5;"></i>Select Team
                                         </label>
-                                        <select name="team_id" id="team_id" class="form-select">
+                                        <select name="team_id" id="team_id" class="form-select" required>
                                             <option value="">-- Select Team --</option>
                                             @foreach ($teams as $team)
                                                 <option value="{{ $team->id }}" {{ old('team_id', $defaultTeamId) == $team->id ? 'selected' : '' }}>
@@ -386,6 +528,9 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        @error('team_id')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
                                     @endif
                                 </div>
                                 <div class="col-12 d-flex gap-2 mt-4">
@@ -597,4 +742,3 @@
     </div>
 </div>
 @endsection
-

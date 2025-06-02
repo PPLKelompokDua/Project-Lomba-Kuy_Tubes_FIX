@@ -32,7 +32,7 @@
       <nav class="hidden md:flex space-x-6 items-center">
         <form action="{{ route('logout') }}" method="POST" class="inline">
           @csrf
-          <button class="bg-red-600 text-white hover:bg-red-700 transition px-4 py-2 rounded-lg font-medium">Logout</button>
+          <button dusk="logout-button" class="bg-red-600 text-white hover:bg-red-700 transition px-4 py-2 rounded-lg font-medium">Logout</button>
         </form>
       </nav>
       
@@ -51,7 +51,7 @@
       <nav class="flex flex-col space-y-3">
         <form action="{{ route('logout') }}" method="POST" class="inline py-2">
           @csrf
-          <button class="text-white hover:text-gray-300 transition">Logout</button>
+          <button dusk="logout-button" class="text-white hover:text-gray-300 transition">Logout</button>
         </form>
       </nav>
     </div>

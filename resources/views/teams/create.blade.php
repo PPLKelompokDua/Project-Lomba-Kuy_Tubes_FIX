@@ -225,6 +225,7 @@
                                             <li class="mb-2">Provide enough details about your competition</li>
                                             <li>You can invite team members after creation</li>
                                         </ul>
+                                        <a href="{{ route('explore') }}" class="btn btn-link ms-2" style="color: #4f46e5;">Looking An Competitions? Explore Catalog</a>
                                     </div>
                                 </div>
                                 

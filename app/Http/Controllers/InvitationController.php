@@ -21,7 +21,6 @@ class InvitationController extends Controller
     {
         $authUser = Auth::user();
 
-        $users = User::where('id', '!=', $authUser->id)->get();
         $teams = $authUser->ledTeams;
 
         $receivedInvitations = $authUser->receivedInvitations()
@@ -36,19 +35,72 @@ class InvitationController extends Controller
 
         $defaultUserId = request('user_id');
         $defaultTeamId = request('team_id');
-        $defaultCompetitionId = request('competition_id'); // <= tambahan ini
+        $defaultCompetitionId = request('competition_id');
 
         return view('invitations.index', [
-            'users' => $users,
             'receivedInvitations' => $receivedInvitations,
             'sentInvitations' => $sentInvitations,
             'teams' => $teams,
             'defaultUserId' => $defaultUserId,
             'defaultTeamId' => $defaultTeamId,
-            'defaultCompetitionId' => $defaultCompetitionId, // <= dan ini
+            'defaultCompetitionId' => $defaultCompetitionId,
         ]);
     }
 
+    /**
+     * Search users for invitation (AJAX).
+     */
+    public function searchUsers(Request $request)
+    {
+        // Handle both GET and POST requests
+        if ($request->isMethod('post')) {
+            $data = $request->json()->all();
+            $query = $data['query'] ?? '';
+            $teamId = $data['team_id'] ?? null;
+            $userId = $data['user_id'] ?? null;
+            $random = $data['random'] ?? false;
+        } else {
+            $query = $request->input('query');
+            $teamId = $request->input('team_id');
+            $userId = $request->input('user_id');
+            $random = $request->input('random', false);
+        }
+
+        $usersQuery = User::where('id', '!=', Auth::id());
+
+        if ($query) {
+            $usersQuery->where(function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                  ->orWhere('email', 'like', "%{$query}%");
+            });
+        }
+
+        // If team_id is provided, exclude users who are already in the team
+        if ($teamId) {
+            $usersQuery->whereNotIn('id', function ($subQuery) use ($teamId) {
+                $subQuery->select('user_id')
+                    ->from('team_members')
+                    ->where('team_id', $teamId)
+                    ->where('status', 'accepted');
+            });
+        }
+
+        // If user_id is provided (for preselecting), fetch that specific user
+        if ($userId) {
+            $usersQuery->where('id', $userId);
+        }
+
+        // If random is true, get random users
+        if ($random) {
+            $usersQuery->inRandomOrder()->limit(3); // Limit to 3 random users
+        } else {
+            $usersQuery->limit(10); // Limit results for performance
+        }
+
+        $users = $usersQuery->get(['id', 'name', 'email', 'profile_image']);
+
+        return response()->json($users);
+    }
 
     /**
      * Show the form for creating a new invitation.
@@ -126,7 +178,7 @@ class InvitationController extends Controller
             return back()->with('error', 'Cannot send invitations to a finished team.');
         }
 
-        // bikin notifikasi manual:
+        // Bikin notifikasi manual:
         Notification::create([
             'user_id'       => $request->user_id,
             'invitation_id' => $invitation->id,
@@ -141,7 +193,6 @@ class InvitationController extends Controller
             'is_read'       => false,
         ]);
         
-                    
         return redirect()->route('invitations.index')->with('success', 'Invitation sent!');
     }
 
@@ -230,6 +281,7 @@ class InvitationController extends Controller
 
         return redirect()->route('invitations.index')->with('info', 'Invitation declined.');
     }
+
     /**
      * Cancel an invitation (for team leaders).
      */

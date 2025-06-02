@@ -29,7 +29,7 @@ class CompetitionSeeder extends Seeder
                 'deadline' => $registrationDeadline,
                 'registration_link' => $faker->url,
                 'photo' => "images/lomba" . rand(1, 10) . ".png",
-                'organizer_id' => 2, // Sesuaikan ID organizer kamu
+                'organizer_id' => 15, // Sesuaikan ID organizer kamu
                 'max_participants' => rand(50, 500),
                 'location' => $faker->randomElement($cities),
                 'start_date' => $start,

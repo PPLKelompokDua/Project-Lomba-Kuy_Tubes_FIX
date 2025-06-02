@@ -116,6 +116,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/invitations/{invitation}', [InvitationController::class, 'show'])->name('invitations.show');
     Route::get('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
 
+    Route::match(['get', 'post'], '/users/search', [InvitationController::class, 'searchUsers'])->name('users.search');
     });
 
     Route::resource('invitations', \App\Http\Controllers\invitationController::class);

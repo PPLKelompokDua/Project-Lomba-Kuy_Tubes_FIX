@@ -66,12 +66,13 @@ class InvitationController extends Controller
             $random = $request->input('random', false);
         }
 
-        $usersQuery = User::where('id', '!=', Auth::id());
+        $usersQuery = User::where('id', '!=', Auth::id())
+            ->where('role', 'user'); // Filter hanya role 'user'
 
         if ($query) {
             $usersQuery->where(function ($q) use ($query) {
                 $q->where('name', 'like', "%{$query}%")
-                  ->orWhere('email', 'like', "%{$query}%");
+                ->orWhere('email', 'like', "%{$query}%");
             });
         }
 
@@ -94,7 +95,7 @@ class InvitationController extends Controller
         if ($random) {
             $usersQuery->inRandomOrder()->limit(3); // Limit to 3 random users
         } else {
-            $usersQuery->limit(10); // Limit results for performance
+            $usersQuery->limit(5); // Limit results for performance
         }
 
         $users = $usersQuery->get(['id', 'name', 'email', 'profile_image']);

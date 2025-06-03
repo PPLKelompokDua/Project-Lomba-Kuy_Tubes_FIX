@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Review Task Board')
+
 @section('content')
 <style>
     :root {

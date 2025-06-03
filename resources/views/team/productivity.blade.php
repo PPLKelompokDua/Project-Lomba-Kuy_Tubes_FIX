@@ -35,6 +35,11 @@
                 <button onclick="downloadReportWithCharts()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                     Download Report
                 </button>
+                @if(auth()->user()->id === $team->leader_id)
+                <button onclick="openFeedbackModal()" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+                    Send Feedback
+                </button>
+                @endif
             </div>
         </div>
 
@@ -136,7 +141,9 @@
             </div>
             <div class="flex justify-end gap-2 mt-4">
                 <button type="button" onclick="closeFeedbackModal()" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
-                <button type="button" onclick="submitPersonalFeedback()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Send</button>
+                <button onclick="openFeedbackModal()" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+                    Send Feedback
+                </button>
             </div>
         </form>
     </div>

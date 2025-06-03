@@ -9,7 +9,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
             </svg>
-            Kembali ke Feedback
+            Back to Feedback
         </a>
     </div>
 
@@ -18,7 +18,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
-            Feedback yang Kamu Terima
+            Feedback You Have Received
         </h2>
 
         @if ($feedbacksForMe->isEmpty())
@@ -26,7 +26,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span>Belum ada feedback yang kamu terima.</span>
+                <span>You haven't received any feedback yet.</span>
             </div>
         @else
             <div class="grid grid-cols-1 gap-4 md:gap-6">
@@ -39,18 +39,18 @@
                                     <span class="font-bold">{{ substr($feedback->sender?->name ?? 'User', 0, 1) }}</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-gray-800">{{ $feedback->sender?->name ?? 'Pengguna Tidak Dikenal' }}</h3>
-                                    <p class="text-gray-500 text-sm">Pengirim Feedback</p>
+                                    <h3 class="font-bold text-gray-800">{{ $feedback->sender?->name ?? 'Unknown User' }}</h3>
+                                    <p class="text-gray-500 text-sm">Feedback Sender</p>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm">
                             <div class="mb-1 text-sm text-gray-600">
-                                <span class="font-medium text-indigo-700">Tim:</span> 
+                                <span class="font-medium text-indigo-700">Team:</span> 
                                 {{ $feedback->team->name ?? '-' }}
                             </div>
                             <div class="text-sm text-gray-600">
-                                <span class="font-medium text-indigo-700">Lomba:</span> 
+                                <span class="font-medium text-indigo-700">Competition:</span> 
                                 {{ $feedback->team->competition_name ?? '-' }}
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                             </svg>
-                            Isi Feedback:
+                            Feedback Content:
                         </h4>
                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-inner whitespace-pre-line text-gray-700">
                             {{ $feedback->content }}

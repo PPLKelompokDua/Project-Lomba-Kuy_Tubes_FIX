@@ -188,37 +188,6 @@
                 </div>
             </div>
 
-            <!-- Password -->
-            <div class="mb-6" data-aos="fade-up" data-aos-delay="250">
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-lock mr-2"></i> New Password (Optional)
-                </label>
-                <div class="relative">
-                    <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="password" name="password" id="password"
-                           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
-                </div>
-                <p class="text-sm text-gray-500 mt-1">Leave blank if you don't want to change your password.</p>
-                @error('password')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Password Confirmation -->
-            <div class="mb-6" data-aos="fade-up" data-aos-delay="300">
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">
-                    <i class="fas fa-lock mr-2"></i> Password Conformation
-                </label>
-                <div class="relative">
-                    <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="password" name="password_confirmation" id="password_confirmation"
-                           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
-                </div>
-                @error('password_confirmation')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
             <!-- Form Buttons -->
             <div class="flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="350">
                 <button type="submit"

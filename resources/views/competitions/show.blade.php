@@ -219,9 +219,9 @@
                             <h3 class="text-xl font-bold mb-2">Team Management</h3>
                             <p class="text-green-100 text-sm">Already have a team? Invite specific members to join your team for this competition</p>
                         </div>
-                        <a href="{{ route('teams.create', ['competition_id' => $competition->id]) }}" class="inline-flex items-center px-5 py-3 bg-white text-green-600 font-medium rounded-lg hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-150 ease-in-out">
-                            <i class="bi bi-person-plus-fill mr-2 text-lg"></i> Invite Team
-                        </a>
+                        <button onclick="showInviteTeamModal()" class="inline-flex items-center px-5 py-3 bg-white text-green-600 font-medium rounded-lg hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-150 ease-in-out">
+                            <i class="bi bi-people-fill mr-2 text-lg"></i> Invite Team
+                        </button>
                     </div>
                 </div>
             </div>
@@ -340,6 +340,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Invite Team Modal -->
+    <div id="inviteTeamModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 shadow-xl p-6 border-t-4 border-green-600">
+            <h2 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+                <i class="bi bi-people-fill text-green-600 mr-2"></i> Invite as a Team
+            </h2>
+            <p class="text-gray-600 mb-6 pl-8">Do you already have a team for this competition?</p>
+            <div class="flex flex-col sm:flex-row justify-end gap-3">
+                <button onclick="closeInviteTeamModal()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors">
+                    Cancel
+                </button>
+                <a href="{{ route('teams.create', ['competition_id' => $competition->id]) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+                    <i class="bi bi-plus-circle mr-1"></i> Not Yet, Create Team
+                </a>
+                <a href="{{ route('invitations.index', ['competition_id' => $competition->id]) }}" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center">
+                    <i class="bi bi-send-check mr-1"></i> Already Have, Invite
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
 @endsection
 
@@ -379,5 +401,18 @@
             closePreviewModal();
         }
     });
+</script>
+<script>
+    function showInviteTeamModal() {
+        const modal = document.getElementById('inviteTeamModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeInviteTeamModal() {
+        const modal = document.getElementById('inviteTeamModal');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
 </script>
 @endpush

@@ -35,11 +35,6 @@
                 <button onclick="downloadReportWithCharts()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                     Download Report
                 </button>
-                @if(auth()->user()->id === $team->leader_id)
-                <button onclick="openFeedbackModal()" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
-                    Send Feedback
-                </button>
-                @endif
             </div>
         </div>
 
@@ -368,11 +363,18 @@ function fetchAndUpdate() {
     showLoading(true);
     const period = document.getElementById('timePeriod').value;
     const member = document.getElementById('memberFilter').value;
-    const role = document.getElementById('roleFilter').value;
+
+    const roleInput = document.getElementById('roleFilter');
+    const role = roleInput ? roleInput.value : 'all';
+
     fetch(`/productivity/team/${@json($team->id)}/data?period=${period}&member=${member}&role=${role}`)
         .then(response => response.json())
         .then(data => { initCharts(data); showLoading(false); })
-        .catch(error => { showToast('error', 'Failed to load data'); showLoading(false); });
+        .catch(error => {
+            showToast('error', 'Failed to load data');
+            console.error(error); // optional: debug
+            showLoading(false);
+        });
 }
 
 function downloadReportWithCharts() {

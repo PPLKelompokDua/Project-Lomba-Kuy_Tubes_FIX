@@ -19,7 +19,7 @@
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 </head>
-
+<link rel="icon" type="image/png" href="{{ asset('storage/images/icon.png') }}">
 @stack('scripts')
 
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">

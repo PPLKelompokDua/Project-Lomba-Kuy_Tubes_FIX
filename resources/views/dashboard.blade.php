@@ -331,12 +331,12 @@
                     <!-- Slider Container -->
                     <div class="flex items-start gap-6 overflow-x-auto scrollbar-hide snap-x" id="taskSlider">
                         @foreach($assignedTasks as $task)
-                        <div class="min-w-[300px] min-h-[220px] bg-white p-5 rounded-lg shadow-md hover:bg-indigo-50/50 transition-all duration-300 snap-center border border-indigo-200 flex flex-col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                        <div class="min-w-[440px] min-h-[130px] bg-white p-3 rounded-lg shadow-md hover:bg-indigo-50/50 transition-all duration-300 snap-center border border-indigo-200 flex flex-col" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                             <div class="flex-1">
                                 <!-- Task Details -->
                                 <div class="flex justify-between items-start gap-4 relative">
                                     <div class="flex-1">
-                                        <h3 class="font-semibold text-gray-800 text-lg group-hover:text-indigo-600 transition-colors line-clamp-2">
+                                        <h3 class="font-semibold text-gray-800 text-base group-hover:text-indigo-600 transition-colors line-clamp-2">
                                             {{ $task->title }}
                                         </h3>
                                         <div class="text-sm text-gray-600 space-y-1 mt-2">

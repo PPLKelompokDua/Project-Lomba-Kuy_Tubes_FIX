@@ -11,8 +11,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
+<link rel="icon" type="image/png" href="{{ asset('storage/images/icon.png') }}">
 <body class="bg-gray-50 text-gray-800 font-sans">
-
   <!-- Header -->
   <header class="bg-indigo-600 sticky top-0 z-50 shadow-md">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">

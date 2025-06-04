@@ -4,7 +4,19 @@
 
 @section('content')
 <div class="container py-5">
-    <!-- Header Section with Gradient Background -->
+    @if(session('success'))
+        <div dusk="success-message" class="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg relative" role="alert">
+            <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2"></i>
+                <span class="font-semibold">{{ session('success') }}</span>
+            </div>
+            <button class="absolute top-2 right-2 text-green-500 hover:text-green-700" onclick="this.parentElement.style.display='none'">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    @endif
+    {{-- End Success Message Section --}}
+
     <div class="card border-0 shadow-lg rounded-lg overflow-hidden mb-5">
         <div class="card-header p-0">
             <div class="bg-gradient-to-r from-indigo-700 to-purple-600" style="background: linear-gradient(to right, #4f46e5, #6366f1);">
@@ -13,7 +25,8 @@
                         <h2 class="mb-0 font-bold text-white text-4xl">Feedback for Teams</h2>
                         <p class="text-white-50 mb-0">Evaluate team performance and collaboration</p>
                     </div>
-                    <a href="{{ route('feedbacks.received') }}" class="btn btn-light d-flex align-items-center gap-2">
+                    {{-- TOMBOL: View Feedback I Received --}}
+                    <a href="{{ route('feedbacks.received') }}" dusk="view-received-feedback-button" class="btn btn-light d-flex align-items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#4f46e5" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
                             <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
                         </svg>
@@ -50,7 +63,6 @@
                         <tbody>
                             @foreach($allTeams as $team)
                                 <tr class="border-bottom" style="border-color: #f3f4f6;">
-                                    <!-- Team Column -->
                                     <td class="py-3 px-4">
                                         <div class="d-flex align-items-center">
                                             <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 42px; height: 42px; background-color: #4f46e5; color: white; font-weight: 600;">
@@ -71,7 +83,6 @@
                                         </div>
                                     </td>
                                     
-                                    <!-- Competition Column -->
                                     <td class="py-3 px-4">
                                         @if($team->competition_name)
                                             <div class="d-flex align-items-center">
@@ -85,7 +96,6 @@
                                         @endif
                                     </td>
                                     
-                                    <!-- Feedback Status Column -->
                                     <td class="py-3 px-4">
                                         @if($team->status_team !== 'finished')
                                             <div class="d-flex align-items-center">
@@ -119,7 +129,6 @@
                                         @endif
                                     </td>
                                     
-                                    <!-- Action Column -->
                                     <td class="py-3 px-4 text-end">
                                         @if($team->status_team !== 'finished')
                                             <button disabled class="btn btn-sm px-3" style="background-color: #f3f4f6; color: #9ca3af;">
@@ -149,7 +158,8 @@
                                                 </form>
                                             </div>
                                         @else
-                                            <a href="{{ route('feedbacks.create', ['team_id' => $team->id]) }}" class="btn btn-sm px-3" style="background-color: #4f46e5; color: white;">
+                                            {{-- TOMBOL: Give Feedback --}}
+                                            <a href="{{ route('feedbacks.create', ['team_id' => $team->id]) }}" dusk="give-feedback-{{ $team->id }}" class="btn btn-sm px-3" style="background-color: #4f46e5; color: white;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text-fill me-1" viewBox="0 0 16 16">
                                                     <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
                                                 </svg>

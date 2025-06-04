@@ -4,14 +4,13 @@
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">
-    <!-- Hero Header Section -->
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-12 mb-8">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="text-center">
                 <h1 class="text-4xl font-bold mb-4">Story & Achievements Space</h1>
                 <p class="text-xl text-indigo-100 max-w-2xl mx-auto">Share your competition experiences and inspiring achievements with the community</p>
                 <div class="mt-8">
-                    <button onclick="openCreateModal()" class="bg-white text-indigo-700 hover:bg-indigo-50 font-bold py-3 px-8 rounded-full shadow-lg transform transition duration-200 hover:scale-105 flex items-center mx-auto">
+                    <button onclick="openCreateModal()" dusk="share-story-button" class="bg-white text-indigo-700 hover:bg-indigo-50 font-bold py-3 px-8 rounded-full shadow-lg transform transition duration-200 hover:scale-105 flex items-center mx-auto">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
@@ -23,9 +22,8 @@
     </div>
 
     <div class="container mx-auto px-4 max-w-6xl">
-        <!-- Flash Message with animation -->
         @if(session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded shadow mb-6 animate-pulse">
+            <div dusk="success-message" class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded shadow mb-6 animate-pulse">
                 <div class="flex">
                     <div class="py-1">
                         <svg class="h-6 w-6 text-green-500 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,9 +37,8 @@
             </div>
         @endif
 
-        <!-- Mobile Create Button (visible on small screens) -->
         <div class="md:hidden flex justify-end mb-6">
-            <button onclick="openCreateModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow-md flex items-center">
+            <button onclick="openCreateModal()" dusk="mobile-create-post-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow-md flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
@@ -49,11 +46,9 @@
             </button>
         </div>
 
-        <!-- 3-Column Post Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($posts as $post)
                 <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full">
-                    <!-- User Info -->
                     <div class="flex items-center p-4 border-b border-gray-50">
                         <img src="{{ $post->user->profile_image ? asset('storage/images/' . $post->user->profile_image) : 'https://via.placeholder.com/40' }}" 
                              class="w-10 h-10 rounded-full mr-3 border-2 border-indigo-100 object-cover">
@@ -97,14 +92,12 @@
                         @endif
                     </div>
 
-                    <!-- Image (if exists) -->
                     @if($post->media)
                         <div class="relative overflow-hidden" style="max-height: 200px;">
                             <img src="{{ asset('storage/' . $post->media) }}" class="w-full h-full object-cover hover:opacity-95 transition-opacity duration-300">
                         </div>
                     @endif
 
-                    <!-- Caption -->
                     <div class="p-4 flex-grow">
                         <p class="text-gray-700 leading-relaxed text-sm line-clamp-3">{{ $post->caption }}</p>
                         @if(strlen($post->caption) > 150)
@@ -114,7 +107,6 @@
                         @endif
                     </div>
 
-                    <!-- Engagement Section -->
                     <div class="border-t border-gray-50 px-4 py-3 bg-gray-50 rounded-b-xl">
                         <div class="flex items-center">
                             <form method="POST" action="{{ $post->isLikedBy(auth()->user()) ? route('posts.unlike', $post->id) : route('posts.like', $post->id) }}" class="flex-grow">
@@ -149,7 +141,6 @@
             @endforeach
         </div>
 
-        <!-- Pagination with improved styling -->
         <div class="mt-10">
             <div class="flex justify-center">
                 {{ $posts->links() }}
@@ -158,7 +149,6 @@
     </div>
 </div>
 
-<!-- Post Detail Modal -->
 <div id="detailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
     <div class="bg-white rounded-xl w-full max-w-3xl mx-4 relative animate__animated animate__fadeInUp">
         <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10">
@@ -179,7 +169,6 @@
     </div>
 </div>
 
-<!-- Create Post Modal -->
 <div id="createModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
     <div class="bg-white p-8 rounded-xl w-full max-w-lg mx-4 relative animate__animated animate__fadeInUp">
         <h2 class="text-2xl font-bold mb-6 text-indigo-800 flex items-center">
@@ -189,7 +178,7 @@
             Create New Post
         </h2>
         
-        <button onclick="closeCreateModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <button onclick="closeCreateModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600" dusk="close-create-modal-button">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -199,14 +188,17 @@
             @csrf
             <div class="mb-6">
                 <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">Share Your Experience</label>
-                <textarea name="caption" rows="5" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                       placeholder="Share your achievement story or experience..." required></textarea>
+                <textarea name="caption" dusk="story-caption-input" rows="5" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                    placeholder="Share your achievement story or experience..."></textarea>
+                @error('caption')
+                    <p class="text-red-500 text-xs mt-1" dusk="caption-error-message">{{ $message }}</p>
+                @enderror
             </div>
             
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Add Media</label>
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-400 transition cursor-pointer">
-                    <input type="file" name="media" accept="image/*,video/*" class="hidden" id="mediaInput">
+                    <input type="file" name="media" dusk="story-media-input" accept="image/*,video/*" class="hidden" id="mediaInput">
                     <label for="mediaInput" class="cursor-pointer">
                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -216,16 +208,19 @@
                         <p class="mt-1 text-xs text-gray-400">Supported formats: JPG, PNG, MP4</p>
                     </label>
                 </div>
+                @error('media')
+                    <p class="text-red-500 text-xs mt-1" dusk="media-error-message">{{ $message }}</p>
+                @enderror
                 <div id="mediaPreview" class="mt-3 hidden">
                     <img id="imagePreview" class="rounded-lg max-h-40 mx-auto" src="" alt="Preview">
                 </div>
             </div>
             
             <div class="flex justify-end space-x-3">
-                <button type="button" onclick="closeCreateModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                <button type="button" onclick="closeCreateModal()" dusk="cancel-story-button" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                     Cancel
                 </button>
-                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg shadow-sm transition flex items-center">
+                <button type="submit" dusk="post-story-submit-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg shadow-sm transition flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                     </svg>
@@ -236,7 +231,6 @@
     </div>
 </div>
 
-<!-- Edit Post Modal -->
 <div id="editModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
     <div class="bg-white p-8 rounded-xl w-full max-w-lg mx-4 relative animate__animated animate__fadeInUp">
         <h2 class="text-2xl font-bold mb-6 text-indigo-800 flex items-center">
@@ -246,7 +240,7 @@
             Edit Post
         </h2>
         
-        <button onclick="closeEditModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <button onclick="closeEditModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600" dusk="close-edit-modal-button">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -257,13 +251,16 @@
             @method('PUT')
             <div class="mb-6">
                 <label for="editCaption" class="block text-sm font-medium text-gray-700 mb-2">Edit Your Story</label>
-                <textarea name="caption" id="editCaption" rows="5" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required></textarea>
+                <textarea name="caption" id="editCaption" dusk="edit-story-caption-input" rows="5" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required></textarea>
+                @error('caption')
+                    <p class="text-red-500 text-xs mt-1" dusk="edit-caption-error-message">{{ $message }}</p>
+                @enderror
             </div>
             
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Change Media (optional)</label>
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-400 transition cursor-pointer">
-                    <input type="file" name="media" accept="image/*,video/*" class="hidden" id="editMediaInput">
+                    <input type="file" name="media" accept="image/*,video/*" class="hidden" id="editMediaInput" dusk="edit-story-media-input">
                     <label for="editMediaInput" class="cursor-pointer">
                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -273,13 +270,16 @@
                         <p class="mt-1 text-xs text-gray-400">Leave empty if you don't want to change</p>
                     </label>
                 </div>
+                @error('media')
+                    <p class="text-red-500 text-xs mt-1" dusk="edit-media-error-message">{{ $message }}</p>
+                @enderror
             </div>
             
             <div class="flex justify-end space-x-3">
-                <button type="button" onclick="closeEditModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                <button type="button" onclick="closeEditModal()" dusk="cancel-edit-button" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                     Cancel
                 </button>
-                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg shadow-sm transition flex items-center">
+                <button type="submit" dusk="save-changes-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg shadow-sm transition flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
@@ -290,7 +290,6 @@
     </div>
 </div>
 
-<!-- Comment Modal -->
 <div id="commentModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
     <div class="bg-white p-6 rounded-xl w-full max-w-lg mx-4 relative animate__animated animate__fadeInUp">
         <h2 class="text-2xl font-bold mb-4 text-indigo-800 flex items-center">
@@ -300,7 +299,7 @@
             Comments
         </h2>
         
-        <button onclick="closeCommentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <button onclick="closeCommentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600" dusk="close-comment-modal-button">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -308,7 +307,6 @@
         
         <div id="commentListContainer" class="max-h-80 overflow-y-auto mb-4 pr-2">
             <div id="commentList" class="space-y-3">
-                <!-- Comments loaded via AJAX -->
                 <div class="flex items-center justify-center py-6 text-gray-400">
                     <svg class="animate-spin h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -321,13 +319,16 @@
         <form id="commentForm" method="POST" class="border-t border-gray-100 pt-4">
             @csrf
             <div class="flex items-center">
-                <input type="text" name="content" id="commentContent" class="w-full border border-gray-300 rounded-l-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Write your comment..." required>
-                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-r-lg transition">
+                <input type="text" name="content" id="commentContent" dusk="comment-content-input" class="w-full border border-gray-300 rounded-l-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Write your comment..." required>
+                <button type="submit" dusk="submit-comment-button" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-r-lg transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                     </svg>
                 </button>
             </div>
+             @error('content')
+                <p class="text-red-500 text-xs mt-1" dusk="comment-content-error-message">{{ $message }}</p>
+            @enderror
         </form>
     </div>
 </div>

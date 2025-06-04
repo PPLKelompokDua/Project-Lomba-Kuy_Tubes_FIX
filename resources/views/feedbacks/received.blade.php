@@ -22,16 +22,16 @@
         </h2>
 
         @if ($feedbacksForMe->isEmpty())
-            <div class="bg-blue-50 text-blue-700 p-4 rounded-lg border border-blue-200 flex items-center">
+            <div class="bg-blue-50 text-blue-700 p-4 rounded-lg border border-blue-200 flex items-center" dusk="no-feedback-message">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Belum ada feedback yang kamu terima.</span>
             </div>
         @else
-            <div class="grid grid-cols-1 gap-4 md:gap-6">
+            <div class="grid grid-cols-1 gap-4 md:gap-6" dusk="received-feedback-list">
                 @foreach ($feedbacksForMe as $feedback)
-                <div class="bg-gray-50 hover:bg-indigo-50 transition-colors duration-200 rounded-lg shadow-sm hover:shadow p-5 border border-gray-200">
+                <div class="bg-gray-50 hover:bg-indigo-50 transition-colors duration-200 rounded-lg shadow-sm hover:shadow p-5 border border-gray-200" dusk="received-feedback-item-{{ $feedback->id }}">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-3">
                         <div class="flex-grow">
                             <div class="flex items-center mb-2">
@@ -59,11 +59,11 @@
                     <div class="mt-3">
                         <h4 class="font-medium text-indigo-600 mb-2 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                             </svg>
                             Isi Feedback:
                         </h4>
-                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-inner whitespace-pre-line text-gray-700">
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-inner whitespace-pre-line text-gray-700" dusk="received-feedback-content-{{ $feedback->id }}">
                             {{ $feedback->content }}
                         </div>
                     </div>

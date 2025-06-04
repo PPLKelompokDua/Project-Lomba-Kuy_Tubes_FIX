@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Feedback;
+use App\Models\User;
+use App\Models\Competition; // Pastikan ini diimpor
 
 class Team extends Model
 {
@@ -11,78 +14,47 @@ class Team extends Model
 
     protected $fillable = [
         'name',
-        'competition_id',
         'leader_id',
-        'competition_name',
-        'category',
-        'deadline',
-        'location',
-        'description',
+        'competition_id',
         'status_team',
+        // HAPUS BARIS-BARIS DI BAWAH INI JIKA MEREKA BUKAN KOLOM DI TABEL 'teams' KAMU!
+        // Mereka umumnya adalah properti dari model Competition, bukan Team.
+        // 'competition_name', 
+        // 'category', 
+        // 'deadline', 
+        // 'location', 
+        // 'description', 
     ];
 
-    /**
-     * Get the competition that the team is participating in.
-     */
-    public function competition()
-    {
-        return $this->belongsTo(Competition::class);
-    }
-
-    /**
-     * Get the user who leads the team.
-     */
+    // Relasi ke User (Leader)
     public function leader()
     {
         return $this->belongsTo(User::class, 'leader_id');
     }
 
-    /**
-     * Get all members of the team.
-     */
+    // Relasi ke Competition
+    public function competition()
+    {
+        return $this->belongsTo(Competition::class);
+    }
+
+    // Relasi ke TeamMember (jika ada) - untuk semua anggota
     public function members()
     {
-        return $this->belongsToMany(User::class, 'team_members')
-            ->withPivot('status')
-            ->withTimestamps();
+        return $this->belongsToMany(User::class, 'team_members', 'team_id', 'user_id')->withPivot('status');
     }
 
-    /**
-     * Get invitations sent for this team.
-     */
-    public function invitations()
-    {
-        return $this->hasMany(Invitation::class);
-    }
-
-    /**
-     * Check if a user is a member of this team.
-     */
-    public function hasMember($userId)
-    {
-        return $this->members()
-            ->wherePivot('user_id', $userId)
-            ->wherePivot('status', 'accepted')
-            ->exists();
-    }
-
-    /**
-     * Get accepted members of the team.
-     */
+    // Relasi untuk anggota yang diterima
     public function acceptedMembers()
     {
-        return $this->belongsToMany(\App\Models\User::class, 'team_members')
-                    ->where('status', 'accepted');
+        return $this->belongsToMany(User::class, 'team_members', 'team_id', 'user_id')
+                    ->wherePivot('status', 'accepted')
+                    ->withPivot('status');
     }
 
-    public function teamMembers()
+    // Relasi ke Feedbacks
+    public function feedbacks()
     {
-        return $this->hasMany(\App\Models\TeamMember::class);
+        return $this->hasMany(Feedback::class);
     }
-
-    public function tasks()
-    {
-        return $this->hasMany(\App\Models\Task::class);
-    }
-    
 }

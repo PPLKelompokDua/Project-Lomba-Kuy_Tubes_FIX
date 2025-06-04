@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Assessment extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'personality_type',
@@ -15,13 +18,7 @@ class Assessment extends Model
         'recommended_role',
         'strengths',
         'weaknesses',
-        'compatibility_score',
-        'work_style',
-        'expertise',
-        'experience_level',
-        'communication_style',
-        'availability',
-        'last_completed_at'
+        'compatibility_score'
     ];
 
     protected $casts = [

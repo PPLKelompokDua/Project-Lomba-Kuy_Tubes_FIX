@@ -29,6 +29,7 @@ use App\Http\Controllers\LearningVideoController;
 use App\Http\Controllers\CompetitionMilestoneController;
 use App\Http\Controllers\ReviewTugasController; 
 use App\Http\Controllers\ProductivityController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 //  Landing Page
 Route::get('/', fn() => view('welcome'))->name('welcome');
@@ -40,6 +41,15 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendCode'])->name('password.email');
+
+Route::get('/verify-code', [ForgotPasswordController::class, 'showVerifyForm'])->name('password.verify');
+Route::post('/verify-code', [ForgotPasswordController::class, 'verifyCode'])->name('password.verify.post');
+
+Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 
 Route::get('/search-suggestions', [CompetitionController::class, 'searchSuggestions']);
 

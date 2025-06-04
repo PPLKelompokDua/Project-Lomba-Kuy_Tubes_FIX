@@ -454,7 +454,7 @@
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">1</div>
           <div class="flex-1 w-full md:w-1/2 md:pl-16 hidden md:block">
-            <img src="/api/placeholder/400/240" alt="Find Competition" class="rounded-lg shadow-lg mx-auto md:ml-0 w-full max-w-sm">
+            <img class="rounded-lg shadow-lg mx-auto md:ml-0 w-full max-w-sm">
           </div>
         </div>
         
@@ -469,7 +469,7 @@
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">2</div>
           <div class="flex-1 w-full md:w-1/2 md:pr-16 hidden md:block">
-            <img src="/api/placeholder/400/240" alt="Build Team" class="rounded-lg shadow-lg mx-auto md:mr-0 w-full max-w-sm">
+            <img class="rounded-lg shadow-lg mx-auto md:mr-0 w-full max-w-sm">
           </div>
         </div>
         
@@ -484,7 +484,7 @@
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">3</div>
           <div class="flex-1 w-full md:w-1/2 md:pl-16 hidden md:block">
-            <img src="/api/placeholder/400/240" alt="Track Progress" class="rounded-lg shadow-lg mx-auto md:ml-0 w-full max-w-sm">
+            <img class="rounded-lg shadow-lg mx-auto md:ml-0 w-full max-w-sm">
           </div>
         </div>
         
@@ -499,7 +499,7 @@
           </div>
           <div class="mx-auto md:mx-0 z-10 flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full text-white text-2xl font-bold">4</div>
           <div class="flex-1 w-full md:w-1/2 md:pr-16 hidden md:block">
-            <img src="/api/placeholder/400/240" alt="Evaluate and Share" class="rounded-lg shadow-lg mx-auto md:mr-0 w-full max-w-sm">
+            <img class="rounded-lg shadow-lg mx-auto md:mr-0 w-full max-w-sm">
           </div>
         </div>
       </div>
@@ -721,7 +721,7 @@
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <div data-aos="fade-right">
-          <img src="/api/placeholder/550/400" alt="Team LombaKuy" class="rounded-xl shadow-xl w-full">
+          <img src="{{ asset('storage/images/lombakuyteam.jpg') }}" alt="Team LombaKuy" class="rounded-xl shadow-xl w-full">
         </div>
         
         <div data-aos="fade-left">
@@ -798,7 +798,7 @@
         <!-- Team Member 2 -->
         <div data-aos="fade-up" data-aos-delay="200" class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition transform hover:-translate-y-2">
           <div class="mb-4">
-            <img src="/api/placeholder/150/150" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
+            <img src="{{ asset('storage/images/Avrisad.jpg') }}" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Muhammad Avrisad Garin Rahaguna</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
@@ -820,7 +820,7 @@
         <!-- Team Member 3 -->
         <div data-aos="fade-up" data-aos-delay="300" class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition transform hover:-translate-y-2">
           <div class="mb-4">
-            <img src="/api/placeholder/150/150" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
+            <img src="{{ asset('storage/images/Faza.jpg') }}" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Dhimas Faza Wicaksana</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
@@ -842,7 +842,7 @@
         <!-- Team Member 4 -->
         <div data-aos="fade-up" data-aos-delay="400" class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition transform hover:-translate-y-2">
           <div class="mb-4">
-            <img src="/api/placeholder/150/150" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
+            <img src="{{ asset('storage/images/Angel.jpg') }}" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Angelyca Ruth Dhebora Samosir</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
@@ -864,7 +864,7 @@
         <!-- Team Member 5 -->
         <div data-aos="fade-up" data-aos-delay="500" class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition transform hover:-translate-y-2">
           <div class="mb-4">
-            <img src="/api/placeholder/150/150" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
+            <img src="{{ asset('storage/images/Aurel.jpg') }}" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Revalina Aurellia Indrawan</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>
@@ -881,7 +881,7 @@
         <!-- Team Member 6 -->
         <div data-aos="fade-up" data-aos-delay="600" class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition transform hover:-translate-y-2">
           <div class="mb-4">
-            <img src="/api/placeholder/150/150" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
+            <img src="{{ asset('storage/images/Susanti.jpg') }}" alt="Team Member" class="rounded-full mx-auto w-32 h-32 object-cover border-4 border-indigo-100">
           </div>
           <h4 class="font-bold text-xl text-gray-800 mb-1">Susanti Afrilia</h4>
           <p class="text-indigo-600 font-medium mb-3">Fullstack</p>

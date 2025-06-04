@@ -163,6 +163,7 @@
                 </div>
               </div>
               
+              <!-- Password -->
               <div>
                 <label class="block text-gray-700 font-medium mb-2" for="password">Password</label>
                 <div class="relative">
@@ -171,13 +172,20 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
+
+                  <!-- EYE ICON BUTTON -->
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" onclick="toggleRegisterPassword()">
+                    <i id="registerEyeIcon" class="fas fa-eye text-gray-400"></i>
+                  </div>
+
                   <input type="password" id="password" name="password" required
-                         class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                         placeholder="••••••••">
+                        class="pl-10 pr-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                        placeholder="••••••••">
                 </div>
                 <p class="text-xs text-gray-500 mt-1">Minimum 8 characters, use letters & numbers</p>
               </div>
               
+              <!-- Confirm Password -->
               <div>
                 <label class="block text-gray-700 font-medium mb-2" for="password_confirmation">Confirm Password</label>
                 <div class="relative">
@@ -186,9 +194,15 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
+
+                  <!-- EYE ICON BUTTON -->
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" onclick="toggleConfirmPassword()">
+                    <i id="confirmEyeIcon" class="fas fa-eye text-gray-400"></i>
+                  </div>
+
                   <input type="password" id="password_confirmation" name="password_confirmation" required
-                         class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                         placeholder="••••••••">
+                        class="pl-10 pr-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                        placeholder="••••••••">
                 </div>
               </div>
               
@@ -268,4 +282,36 @@
     });
   </script>
 </body>
+<script>
+  function toggleRegisterPassword() {
+    const passInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('registerEyeIcon');
+
+    if (passInput.type === 'password') {
+      passInput.type = 'text';
+      eyeIcon.classList.remove('fa-eye');
+      eyeIcon.classList.add('fa-eye-slash');
+    } else {
+      passInput.type = 'password';
+      eyeIcon.classList.remove('fa-eye-slash');
+      eyeIcon.classList.add('fa-eye');
+    }
+  }
+
+  function toggleConfirmPassword() {
+    const passConfirm = document.getElementById('password_confirmation');
+    const eyeIcon = document.getElementById('confirmEyeIcon');
+
+    if (passConfirm.type === 'password') {
+      passConfirm.type = 'text';
+      eyeIcon.classList.remove('fa-eye');
+      eyeIcon.classList.add('fa-eye-slash');
+    } else {
+      passConfirm.type = 'password';
+      eyeIcon.classList.remove('fa-eye-slash');
+      eyeIcon.classList.add('fa-eye');
+    }
+  }
+</script>
+
 </html>

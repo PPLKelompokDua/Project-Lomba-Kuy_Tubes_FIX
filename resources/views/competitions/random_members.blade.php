@@ -230,7 +230,7 @@
                     </div>
 
                     <div class="space-y-3">
-                            <button
+                            <button dusk="invite-Gong"
                                 onclick="showInviteModal({{ $user->id }})"
                                 class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none">
                                 <i class="bi bi-person-plus-fill mr-2"></i> Invite {{ $firstName }}
@@ -319,7 +319,7 @@
                 <button onclick="closeInviteModal()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors">
                     Cancel
                 </button>
-                <a id="createTeamLink" href="#" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+                <a dusk="create-team" id="createTeamLink" href="#" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>

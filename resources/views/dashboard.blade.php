@@ -293,7 +293,7 @@
                                 
                                 <!-- Action Buttons -->
                                 <div class="flex space-x-2 mt-auto">
-                                    <a href="{{ route('competitions.show', $competition->id) }}" dusk="lihat-detail-{{ $competition->id }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
+                                    <a href="{{ route('competitions.show', $competition->id) }}" dusk="view-details-{{ $competition->id }}" class="block w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center transform hover:scale-105">
                                         <i class="fas fa-eye mr-2"></i> View Details
                                     </a>
                                 </div>

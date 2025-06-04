@@ -12,7 +12,7 @@
         
         <!-- Display success message if any -->
         @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert" dusk="success-message">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -65,7 +65,7 @@
                 <input type="hidden" name="team_id" value="{{ $team->id }}">
             @endif
 
-            <div class="form-group mb-4">
+            <div dusk="task-title" class="form-group mb-4">
                 <label dusk="label-title"><i class="fas fa-heading me-2"></i>Title</label>
                 <input
                     dusk="input-title"
@@ -81,6 +81,7 @@
                 <label dusk="label-description"><i class="fas fa-align-left me-2"></i>Description</label>
                 <textarea
                     dusk="input-description"
+                    
                     name="description"
                     class="form-control"
                     rows="4"
@@ -122,7 +123,7 @@
 
             <div class="form-group mb-4">
                 <label><i class="fas fa-user me-2"></i>Assign To</label>
-                <select name="assigned_user_id" class="form-control">
+                <select dusk="select-user" name="assigned_user_id" class="form-control">
                     <option value="">-- Unassigned --</option>
                     @foreach($teamMembers as $member)
                         <option value="{{ $member->id }}">{{ $member->name }}</option>
@@ -218,11 +219,11 @@
                                         {{ ucfirst(str_replace('_', ' ', $task->status)) }}
                                     </span>
                                     @if($task->assignedUser)
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 text-white hover:bg-opacity-80 transition-all duration-200">
-                                            <i class="fas fa-user-tag me-1"></i> Assigned to: {{ $task->assignedUser->name }}
+                                        <span dusk="assigned-user-name" class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 text-white hover:bg-opacity-80 transition-all duration-200">
+                                            <i class="fas fa-user-tag me-1"></i> Assigned to: {{ $task->assignedUser->name ?? 'None'}}
                                         </span>
                                     @else
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-200 text-gray-800 hover:bg-opacity-80 transition-all duration-200">
+                                        <span dusk="assigned-user-name" class="inline-flex items-center px-3 py-1 rounded-full bg-gray-200 text-gray-800 hover:bg-opacity-80 transition-all duration-200">
                                             <i class="fas fa-user-slash me-1"></i> Unassigned
                                         </span>
                                     @endif

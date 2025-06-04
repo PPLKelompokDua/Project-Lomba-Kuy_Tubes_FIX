@@ -358,7 +358,7 @@
                                     <label for="user_id" class="form-label fw-medium mb-2">
                                         <i class="fas fa-user me-2" style="color: #4f46e5;"></i>Select User
                                     </label>
-                                    <select name="user_id" id="user_id" class="form-select">
+                                    <select dusk="select-user" name="user_id" id="user_id" class="form-select">
                                         <option value="">-- Select User --</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" {{ old('user_id', $defaultUserId ?? '') == $user->id ? 'selected' : '' }}>
@@ -378,7 +378,7 @@
                                         <label for="team_id" class="form-label fw-medium mb-2">
                                             <i class="fas fa-users me-2" style="color: #4f46e5;"></i>Select Team
                                         </label>
-                                        <select name="team_id" id="team_id" class="form-select">
+                                        <select dusk="select-team" name="team_id" id="team_id" class="form-select">
                                             <option value="">-- Select Team --</option>
                                             @foreach ($teams as $team)
                                                 <option value="{{ $team->id }}" {{ old('team_id', $defaultTeamId) == $team->id ? 'selected' : '' }}>
@@ -389,7 +389,7 @@
                                     @endif
                                 </div>
                                 <div class="col-12 d-flex gap-2 mt-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button dusk="send-invitation" type="submit" class="btn btn-primary">
                                         <i class="fas fa-paper-plane me-2"></i>Send Invitation
                                     </button>
                                     <a href="{{ route('teams.create') }}" class="btn btn-outline-primary">
@@ -411,7 +411,7 @@
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="received-tab" data-bs-toggle="tab" data-bs-target="#received-content" type="button" role="tab" aria-controls="received-content" aria-selected="false">
+                                    <button dusk="tab-received" class="nav-link" id="received-tab" data-bs-toggle="tab" data-bs-target="#received-content" type="button" role="tab" aria-controls="received-content" aria-selected="false">
                                         <i class="fas fa-inbox me-2"></i> Received Invitations
                                     </button>
                                 </li>
@@ -473,7 +473,7 @@
                                                             <td>{{ $invitation->team->competition_name ?? '-' }}</td>
                                                             <td>{{ $invitation->team->name ?? '-' }}</td>
                                                             <td class="text-end pe-4">
-                                                                <a href="{{ route('invitations.show', $invitation->id) }}" class="btn btn-sm btn-outline-primary" style="color: #4f46e5; border-color: #4f46e5;">
+                                                                <a href="{{ route('invitations.show', $invitation->id) }}"dusk="message-button-{{ $invitation->id }}" class="btn btn-sm btn-outline-primary" style="color: #4f46e5; border-color: #4f46e5;">
                                                                     <i class="fas fa-comments me-1" style="color: #4f46e5;"></i>Messages
                                                                 </a>
                                                             </td>
@@ -551,7 +551,7 @@
                                                                     @if($invitation->status === 'pending')
                                                                         <form action="{{ route('invitations.accept', $invitation->id) }}" method="POST" class="d-inline">
                                                                             @csrf
-                                                                            <button type="submit" class="btn btn-sm btn-success">
+                                                                            <button  dusk="accept-button-{{ $invitation->id }}" type="submit" class="btn btn-sm btn-success">
                                                                                 <i class="fas fa-check me-1"></i>Accept
                                                                             </button>
                                                                         </form>

@@ -121,7 +121,7 @@
                                             <span class="input-group-text bg-light border-end-0" style="color: #6b7280;">
                                                 <i class="fas fa-users"></i>
                                             </span>
-                                            <input type="text" name="name" id="name" class="form-control border-start-0 ps-0" 
+                                            <input dusk="team-name" type="text" name="name" id="name" class="form-control border-start-0 ps-0" 
                                                    style="border-color: #d1d5db;" placeholder="Enter your team name" required>
                                         </div>
                                         <div class="form-text">Choose a unique and memorable name for your team</div>
@@ -288,7 +288,7 @@
                                         <p class="text-muted small mb-4">
                                             By creating a team, you'll become the team leader with access to manage members and settings.
                                         </p>
-                                        <button type="submit" class="btn w-100 py-3 fw-medium position-relative overflow-hidden" 
+                                        <button dusk="submit-team" type="submit" class="btn w-100 py-3 fw-medium position-relative overflow-hidden" 
                                                 style="background-color: #4f46e5; color: white; border-radius: 8px;">
                                             <div class="position-absolute top-0 start-0 w-100 h-100 opacity-0 hover-shine" 
                                                  style="background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: translateX(-100%);"></div>

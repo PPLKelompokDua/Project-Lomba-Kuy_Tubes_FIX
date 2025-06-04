@@ -30,7 +30,7 @@
         <a href="#contact" class="hover:text-indigo-200 transition">Contact Us</a>
       </nav>
       <div class="hidden md:flex space-x-4">
-        <a href="/login">
+        <a href="/login" dusk="login-link">
           <button class="bg-white text-indigo-600 font-bold py-2 px-5 rounded-lg hover:bg-indigo-200 transition transform hover:scale-105">
             Log In
           </button>

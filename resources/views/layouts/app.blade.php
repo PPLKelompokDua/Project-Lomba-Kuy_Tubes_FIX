@@ -55,7 +55,7 @@
           @endphp
 
           <div class="relative" x-data="{ open: false }">
-            <button @click="open = !open" class="relative text-white">
+            <button @click="open = !open" dusk="notification-button" class="relative text-white">
               <i class="fas fa-bell"></i>
               @if($notif->count())
                 <span class="absolute top-0 right-0 bg-red-600 text-xs text-white rounded-full px-1">
@@ -67,7 +67,7 @@
                 class="absolute right-0 mt-2 w-64 bg-white text-black shadow-lg rounded">
               @forelse($notif as $notification)
                 <form method="POST" action="{{ route('notifications.markAsRead', $notification->id) }}">
-                <a href="{{ route('notifications.read', $notification->id) }}" class="block px-4 py-2 hover:bg-gray-100">
+                <a href="{{ route('notifications.read', $notification->id) }}" dusk="notification-item" class="block px-4 py-2 hover:bg-gray-100">
                   📩 {{ $notification->message }}
                 </a>
                 </form>

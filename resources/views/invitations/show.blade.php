@@ -65,11 +65,13 @@
 
         <textarea name="content"
                   class="flex-grow bg-gray-50 border-none rounded-xl p-3 resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none placeholder-gray-400 text-sm"
+                  dusk="message-input"
                   placeholder="Type your message here..."
                   rows="1"
                   required></textarea>
 
         <button type="submit"
+                dusk="send-message-button"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-xl flex items-center justify-center h-12 w-12 transition-all duration-200 hover:scale-105 shadow-md">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     fill="none" 

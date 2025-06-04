@@ -23,10 +23,10 @@ class LoginTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->visit('/')
-                    ->clickLink('Log In')
+                    ->click('@login-link')
                     ->assertPathIs('/login')
                     ->type('email', $user->email)
-                    ->type('password', '12345678')
+                    ->type('password', 'admin123')
                     ->press('Log In');
         });
     }

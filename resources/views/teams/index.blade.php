@@ -40,11 +40,11 @@
                 All Teams
                 </a>
 
-            <a href="{{ route('teams.index', ['status' => 'ongoing']) }}" class="btn btn-sm px-3 py-2 {{ request('status') === 'ongoing' ? 'active' : '' }}" 
+            <a  dusk="filter-active" href="{{ route('teams.index', ['status' => 'ongoing']) }}" class="btn btn-sm px-3 py-2 {{ request('status') === 'ongoing' ? 'active' : '' }}" 
                 style="{{ request('status') === 'ongoing' ? 'background-color: #4f46e5; color: white;' : 'background-color: #f3f4f6; color: #4b5563;' }} border-radius: 20px;">
                 Active
                 </a>
-            <a href="{{ route('teams.index', ['status' => 'finished']) }}" class="btn btn-sm px-3 py-2 {{ request('status') === 'finished' ? 'active' : '' }}" 
+            <a dusk="filter-finished" href="{{ route('teams.index', ['status' => 'finished']) }}" class="btn btn-sm px-3 py-2 {{ request('status') === 'finished' ? 'active' : '' }}" 
                 style="{{ request('status') === 'finished' ? 'background-color: #4f46e5; color: white;' : 'background-color: #f3f4f6; color: #4b5563;' }} border-radius: 20px;">
                 Finished
                 </a>
@@ -222,7 +222,7 @@
                                 <hr class="my-3">
                                 <div class="d-flex flex-wrap gap-2 justify-content-between">
                                     <div class="d-flex gap-2">
-                                        <a href="{{ route('teams.show', $team->id) }}" class="btn btn-sm px-3 py-2" 
+                                        <a dusk="view-details-{{ $team->id }}" href="{{ route('teams.show', $team->id) }}" class="btn btn-sm px-3 py-2" 
                                            style="background-color: #4f46e5; color: white; border-radius: 8px;">
                                             <i class="fas fa-eye me-1"></i> View Details
                                         </a>

@@ -745,6 +745,7 @@
 
 .task-overdue {
     border-color: #ef4444;
+    color: #ef4444;
     animation: pulse 2s infinite;
 }
 
@@ -806,6 +807,11 @@
     border-radius: 50%;
     border: 2px solid white;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.legend-dot.task-overdue {
+    border-color: #ef4444 !important;
+    border-width: 3px;
 }
 
 .legend-dot.milestone-dot {

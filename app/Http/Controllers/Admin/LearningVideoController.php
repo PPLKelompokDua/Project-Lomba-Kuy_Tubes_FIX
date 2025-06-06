@@ -34,7 +34,15 @@ class LearningVideoController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'url' => 'required|url',
+            'url' => [
+                'required',
+                'url',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//', $value)) {
+                        $fail('The URL must be a valid YouTube link.');
+                    }
+                },
+            ],
             'thumbnail_url' => 'nullable|url',
             'category' => 'required|string|max:50',
             'duration' => 'nullable|string|max:20',

@@ -118,7 +118,10 @@ class TeamController extends Controller
         }
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('competition_name', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Ambil data tim untuk halaman ini (paginated)

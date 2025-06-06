@@ -60,11 +60,11 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6" data-aos="fade-up" data-aos-delay="300">
                 <div>
-                    <label for="url" class="block text-sm font-medium text-gray-700 mb-1">Video URL <span class="text-red-500">*</span></label>
+                    <label for="url" class="block text-sm font-medium text-gray-700 mb-1">Youtube Video URL <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i class="fas fa-video absolute left-3 top-2.5 text-gray-400"></i>
                         <input type="url" name="url" id="url" value="{{ old('url') }}" placeholder="https://www.youtube.com/watch?v=..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg input-dynamic-border focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
-                        <p class="mt-1 text-xs text-gray-500">YouTube or Vimeo URL</p>
+                        <p class="mt-1 text-xs text-gray-500">Video must with Youtube URL</p>
                         @error('url')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
